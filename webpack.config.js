@@ -59,7 +59,6 @@ module.exports = {
   },
 
   plugins: [
-    // new MiniCssExtractPlugin( path.join( bundleDir, '[name].min.css' ) )
     new MiniCssExtractPlugin()
   ],
 

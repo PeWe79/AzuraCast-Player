@@ -4,18 +4,18 @@
   "description": "SPA audio player for the streaming stations provided by Soma FM.",
   "scripts": {
     "dev": "cross-env webpack-dev-server --mode development",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "build": "cross-env webpack --mode production --progress --hide-modules",
     "init": "live-server --open=."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rainner/soma-fm-player.git"
+    "url": "git+https://github.com/PeWe79/somaFm-player-mod.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/rainner/soma-fm-player/issues"
+    "url": "https://github.com/PeWe79/somaFm-player-mod/issues"
   },
   "devDependencies": {
     "@babel/core": "^7.23.7",
