@@ -1,0 +1,91 @@
+// media query helpers
+.if-small {
+  display: none;
+  @media #{$screenSmall} {
+    display: initial;
+  }
+}
+.if-medium {
+  display: none;
+  @media #{$screenMedium} {
+    display: initial;
+  }
+}
+.if-large {
+  display: none;
+  @media #{$screenLarge} {
+    display: initial;
+  }
+}
+
+// not rendered
+.hidden, [hidden], [v-cloak] {
+  display: none;
+}
+
+// visible but not usable
+.disabled, [disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+// clickable elms
+.clickable {
+  cursor: pointer;
+}
+
+// common card style
+.card {
+  padding: $padSpace;
+  background-image: radial-gradient( ellipse at top left, rgba( black, 0.5 ) 0%, rgba( black, 0 ) 90% );
+  border-radius: $lineJoin;
+
+  .heading {
+    margin: 0 0 .5rem 0;
+  }
+}
+
+// hover state on text elements
+.hover-text {
+  &:hover {
+    color: lighten( $colorSecondary, 10% );
+  }
+}
+
+// focus state on text elements
+.focus-text {
+  &:focus, &:active {
+    text-shadow: $focusText;
+  }
+}
+
+// focus state on box elements
+.focus-box {
+  &:focus, &:active {
+    box-shadow: $focusBox;
+  }
+}
+
+// margin helpers
+.push-top { margin-top: $padSpace; }
+.push-right { margin-right: $padSpace; }
+.push-bottom { margin-bottom: $padSpace; }
+.push-left { margin-left: $padSpace; }
+.push-all { margin: $padSpace; }
+
+// padding helpers
+.pad-top { padding-top: $padSpace; }
+.pad-right { padding-right: $padSpace; }
+.pad-bottom { padding-bottom: $padSpace; }
+.pad-left { padding-left: $padSpace; }
+.pad-all { padding: $padSpace; }
+
+// border helpers
+.border-top { border-top: $lineWidth $lineStyle $lineColor; }
+.border-right { border-right: $lineWidth $lineStyle $lineColor; }
+.border-bottom { border-bottom: $lineWidth $lineStyle $lineColor; }
+.border-left { border-left: $lineWidth $lineStyle $lineColor; }
+
+// shadow helpers
+.shadow-box { box-shadow: $shadowPaper; }
+.shadow-text { text-shadow: $shadowPaper; }

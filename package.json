@@ -1,0 +1,40 @@
+{
+  "name": "soma-fm-player",
+  "version": "1.0.0",
+  "description": "SPA audio player for the streaming stations provided by Soma FM.",
+  "scripts": {
+    "dev": "cross-env webpack-dev-server --mode development",
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "init": "live-server --open=."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rainner/soma-fm-player.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rainner/soma-fm-player/issues"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.7",
+    "autoprefixer": "^10.4.16",
+    "babel-core": "^4.7.16",
+    "babel-loader": "^4.3.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.8.1",
+    "file-loader": "^6.2.0",
+    "ignore-loader": "^0.1.2",
+    "mini-css-extract-plugin": "^2.7.6",
+    "postcss-loader": "^7.3.4",
+    "sass": "^1.69.7",
+    "sass-loader": "^13.3.3",
+    "style-loader": "^3.3.3",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}
