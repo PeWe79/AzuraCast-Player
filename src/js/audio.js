@@ -2,95 +2,95 @@
  * Audio handler object
  */
 export default {
-  _context: null,
-  _audio: null,
-  _source: null,
-  _gain: null,
-  _analyser: null,
-  _freq: new Uint8Array( 32 ),
-  _hasfreq: false,
-  _counter: 0,
-  _events: {},
+  mContext: null,
+  mAudio: null,
+  mSource: null,
+  mGain: null,
+  mAnalyser: null,
+  mFreq: new Uint8Array( 32 ),
+  mHasfreq: false,
+  mCounter: 0,
+  mEvents: {},
 
   // setup audio routing, called after user interaction, setup once
   setupAudio() {
-    if ( this._audio && this._context ) return;
+    if ( this.mAudio && this.mContext ) return;
 
-    this._audio    = new Audio();
-    this._context  = new ( window.AudioContext || window.webkitAudioContext )();
-    this._source   = this._context.createMediaElementSource( this._audio );
-    this._analyser = this._context.createAnalyser();
-    this._gain     = this._context.createGain();
+    this.mAudio    = new Audio();
+    this.mContext  = new ( window.AudioContext || window.webkitAudioContext )();
+    this.mSource   = this.mContext.createMediaElementSource( this.mAudio );
+    this.mAnalyser = this.mContext.createAnalyser();
+    this.mGain     = this.mContext.createGain();
 
-    this._analyser.fftSize = 32;
-    this._source.connect( this._analyser );
-    this._source.connect( this._gain );
-    this._gain.connect( this._context.destination );
+    this.mAnalyser.fftSize = 32;
+    this.mSource.connect( this.mAnalyser );
+    this.mSource.connect( this.mGain );
+    this.mGain.connect( this.mContext.destination );
 
-    this._audio.addEventListener( 'canplay', e => {
-      this._freq = new Uint8Array( this._analyser.frequencyBinCount );
-      this._audio.play();
+    this.mAudio.addEventListener( 'canplay', e => {
+      this.mFreq = new Uint8Array( this.mAnalyser.frequencyBinCount );
+      this.mAudio.play();
     });
 
     [ 'waiting', 'playing', 'ended', 'stalled', 'error' ].forEach( event => {
-      this._audio.addEventListener( event, e => this.emit( event, e ) );
+      this.mAudio.addEventListener( event, e => this.emit( event, e ) );
     });
   },
 
   // add event listeners to the audio api
   on( event, callback ) {
     if ( event && typeof callback === 'function' ) {
-      this._events[ event ] = callback;
+      this.mEvents[ event ] = callback;
     }
   },
 
   // emit saved audio event
   emit( event, data ) {
-    if ( event && this._events.hasOwnProperty( event ) ) {
-      this._events[ event ]( data );
+    if ( event && this.mEvents.hasOwnProperty( event ) ) {
+      this.mEvents[ event ]( data );
     }
   },
 
   // update and return analyser frequency value (0-1) to control animations
   getFreqData( playing ) {
-    if ( !this._analyser ) return 0;
+    if ( !this.mAnalyser ) return 0;
 
     // this is not working on some devices running safari
-    this._analyser.getByteFrequencyData( this._freq );
-    let _freq = Math.floor( this._freq[ 4 ] | 0 ) / 255;
+    this.mAnalyser.getByteFrequencyData( this.mFreq );
+    let mFreq = Math.floor( this.mFreq[ 4 ] | 0 ) / 255;
 
     // indicate that a freq value can be read
-    if ( !this._hasfreq && _freq ) { this._hasfreq = true; }
+    if ( !this.mHasfreq && mFreq ) { this.mHasfreq = true; }
 
     // frequency data available
-    if ( this._hasfreq ) return _freq;
+    if ( this.mHasfreq ) return mFreq;
 
     // return fake counter if no freq data available (safari workaround)
     if ( playing ) {
-      this._counter = ( this._counter < .6 ) ? ( this._counter + .01 ) : this._counter;
+      this.mCounter = ( this.mCounter < .6 ) ? ( this.mCounter + .01 ) : this.mCounter;
     } else {
-      this._counter = ( this._counter > 0 ) ? ( this._counter - .01 ) : this._counter;
+      this.mCounter = ( this.mCounter > 0 ) ? ( this.mCounter - .01 ) : this.mCounter;
     }
-    return this._counter;
+    return this.mCounter;
   },
 
   // set audio volume
   setVolume( volume ) {
-    if ( !this._gain ) return;
+    if ( !this.mGain ) return;
     volume = parseFloat( volume ) || 0;
     volume = ( volume > 1 ) ? ( volume / 100 ) : volume;
     volume = ( volume > 1 ) ? 1 : volume;
     volume = ( volume < 0 ) ? 0 : volume;
-    this._audio.muted = ( volume <= 0 ) ? true : false;
-    this._gain.gain.value = volume;
+    this.mAudio.muted = ( volume <= 0 ) ? true : false;
+    this.mGain.gain.value = volume;
   },
 
   // stop playing audio
   stopAudio() {
-    if ( !this._audio ) return;
-    try { this._audio.pause(); } catch ( e ) {}
-    try { this._audio.stop(); } catch ( e ) {}
-    try { this._audio.close(); } catch ( e ) {}
+    if ( !this.mAudio ) return;
+    try { this.mAudio.pause(); } catch ( e ) {}
+    try { this.mAudio.stop(); } catch ( e ) {}
+    try { this.mAudio.close(); } catch ( e ) {}
   },
 
   // play audio source url
@@ -98,16 +98,16 @@ export default {
     this.setupAudio();
     this.stopAudio();
 
-    if ( this._context.state === 'suspended' ) {
-      this._context.resume().then( () => {
+    if ( this.mContext.state === 'suspended' ) {
+      this.mContext.resume().then( () => {
         console.log( 'Audio context has been resumed.' );
       });
     }
-    this._audio.src = String( source || '' ) + '?x=' + Date.now();
-    this._audio.preload = 'metadata';
-    this._audio.crossOrigin = 'anonymous';
-    this._audio.autoplay = false;
-    this._audio.load();
+    this.mAudio.src = String( source || '' ) + '?x=' + Date.now();
+    this.mAudio.preload = 'metadata';
+    this.mAudio.crossOrigin = 'anonymous';
+    this.mAudio.autoplay = false;
+    this.mAudio.load();
   },
 
 }
