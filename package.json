@@ -4,7 +4,7 @@
   "description": "SPA audio player for the streaming stations provided by Soma FM.",
   "scripts": {
     "dev": "cross-env webpack-dev-server --mode development",
-    "build": "cross-env webpack --mode production --progress --hide-modules",
+    "build": "cross-env webpack --mode production --progress",
     "init": "live-server --open=."
   },
   "repository": {
