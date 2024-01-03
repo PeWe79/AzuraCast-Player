@@ -8,7 +8,7 @@ const isProd = ( process.env.NODE_ENV === 'production' );
 
 // dev server and globals styles
 // const serverHost = '192.168.1.152';
-const serverHost = 'localhost';
+const serverHost = '0.0.0.0';
 const serverPort = 8080;
 const serverRoot = path.join( __dirname, '/' );
 const appEntry   = './src/app.js';

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "SPA audio player for the streaming stations provided by Soma FM.",
   "scripts": {
-    "dev": "cross-env webpack-dev-server --mode development",
+    "dev": "cross-env webpack --mode development",
     "build": "cross-env webpack --mode production --progress",
     "init": "live-server --open=."
   },
