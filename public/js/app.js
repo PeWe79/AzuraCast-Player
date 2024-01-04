@@ -291,7 +291,7 @@ new Vue({
 
     // get channels data from api
     getChannels( sidebar ) {
-      let endpoint = 'https://somafm.com/channels.json';
+      let endpoint = 'https://stream.cloudmu.id/api/nowplaying/station.json';
       let emsg = [ 'There was a problem trying to load the list of available channels from SomaFM.' ];
 
       axios.get( endpoint ).then( res => {
@@ -301,15 +301,15 @@ new Vue({
           return this.setError( 'channels', emsg.join( ' ' ) );
         }
         for ( let c of res.data.channels ) {
-          if ( !Array.isArray( c.playlists ) ) continue;
+          // if ( !Array.isArray( c.playlists ) ) continue;
           // filter and sanitize list of channels
           c.twitter   = c.twitter ? 'https://twitter.com/@'+ c.twitter : ''; // full twitter url
-          c.plsfile   = c.playlists.filter( p => ( p.format === 'mp3' && /^(highest|high)$/.test( p.quality ) ) ).shift().url || '';
-          c.mp3file   = 'http://ice1.somafm.com/'+ c.id +'-128-mp3'; // assumed stream url
-          c.songsurl  = 'https://somafm.com/songs/'+ c.id +'.json'; // songs data url
-          c.infourl   = 'https://somafm.com/'+ c.id +'/'; // channel page url
-          c.listeners = c.listeners | 0; // force numeric
-          c.updated   = c.updated | 0; // force numeric
+          c.plsfile   = c.station.listen_url;
+          c.mp3file   = c.station.listen_url; // assumed stream url
+          c.songsurl  = 'https://stream.cloudmu.id/api/nowplaying/'+ c.station.shortcode +'.json'; // songs data url
+          c.infourl   = 'https://stream.cloudmu.id/api/nowplaying/'+ c.station.name +'/'; // channel page url
+          c.listeners = c.station.mounts.listeners | 0; // force numeric
+          // c.updated   = c.updated | 0; // force numeric
           c.active    = false; // select state
           // update selected channel
           if ( this.isCurrentChannel( c ) ) {

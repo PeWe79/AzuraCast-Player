@@ -161,8 +161,8 @@ new Vue({
 
     // show player when app is mounted
     setupEvents() {
-      document.addEventListener( 'visibilitychange', e => { this.visible = ( document.visibilityState === 'visible' ) } );
-      window.addEventListener( 'hashchange', e => this.applyRoute( window.location.hash ) );
+      document.addEventListener( 'visibilitychange', () => { this.visible = ( document.visibilityState === 'visible' ) } );
+      window.addEventListener( 'hashchange', () => this.applyRoute( window.location.hash ) );
       window.addEventListener( 'keydown', this.onKeyboard );
       // audio related events
       _audio.on( 'waiting', this.onWaiting );
