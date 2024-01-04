@@ -21,14 +21,14 @@ export default {
   },
 
   // fetch songs for a channel
-  getSongs( channel ) {
-    const apiurl = API+'/nowplaying/'+channel;
-    // const title  = channel.title || '...';
-    const error  = 'There was a problem loading the list of songs for channel from AzuraCast.';
+  getSongs( channel, callback ) {
+    const apiurl = channel.songsurl || '';
+    const title  = channel.name || '...';
+    const error  = 'There was a problem loading the list of songs for channel '+ title +' from AzuraCast.';
 
     axios.get( apiurl ).then( res => {
-      if ( !res.data.station ) return callback( error, [] );
-      return callback( null, res.data.station );
+      if ( !res.data ) return callback( error, [] );
+      return callback( null, res.data );
     })
     .catch( e => {
       return callback( error + String( e.message || '' ), [] );
@@ -43,7 +43,7 @@ export default {
         // if ( !Array.isArray( c.playlists ) ) continue;
         // c.plsfile   = API+ c.id +'.pls';
         c.mp3file   = c.listen_url;
-        c.songsurl  = API+'/nowplaying/'+ c.shortcode;
+        c.songsurl  = API + '/nowplaying/' + c.id;
         // c.infourl   = 'https://somafm.com/'+ c.id +'/';
         c.twitter   = c.twitter ? 'https://twitter.com/@'+ c.twitter : '';
         c.route     = '/station/'+ c.shortcode;

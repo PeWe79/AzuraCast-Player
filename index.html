@@ -89,7 +89,7 @@
                   <div class="push-bottom">
                     <div class="flex-row flex-middle pad-bottom">
                       <div class="fx fx-drop-in fx-delay-1">
-                        <img class="img-round" :src="station.largeimage" width="80" height="80" :alt="station.title" />
+                        <img class="img-round" :src="station.largeimage" width="80" height="80" :alt="station.name" />
                       </div>
                       <div class="pad-left">
                         <h3 class="text-clip fx fx-fade-in fx-delay-2">
@@ -105,7 +105,7 @@
                   <!-- description -->
                   <div class="push-bottom pad-bottom fx fx-slide-up fx-delay-3">
                     <div class="push-bottom">
-                      <span class="text-secondary">Mixed by DJ {{ station.dj | toText( 'N/A' ) }}.</span> <br />
+                      <span class="text-secondary">Mixed by DJ {{ station.name | toText( 'N/A' ) }}.</span> <br />
                       <span class="text-bright text-capitalize">{{ station.title }}</span> -
                       <span class="text-bright text-capitalize">{{ station.genre | toText( 'Station' ) }}.</span> <br />
                       <span>{{ station.description }}</span>
@@ -142,7 +142,7 @@
                   <!-- current track -->
                   <div class="card fx fx-slide-left fx-delay-4" :key="track.date">
                     <div><span class="text-secondary">{{ track.title | toText( 'N/A' ) }}</span></div>
-                    <div><span class="text-faded">From:</span>&nbsp; <span class="text-bright">{{ track.album | toText( 'N/A' ) }}</span></div>
+                    <!-- <div><span class="text-faded">From:</span>&nbsp; <span class="text-bright">{{ track.album | toText( 'N/A' ) }}</span></div> -->
                     <div><span class="text-faded">By:</span>&nbsp; <span class="text-default">{{ track.artist | toText( 'N/A' ) }}</span></div>
                   </div>
 
@@ -164,7 +164,7 @@
                   <ul class="player-tracklist push-bottom" v-if="hasSongs">
                     <li v-for="( s, i ) of songsList" :key="s.date" class="card fx" :class="'fx-slide-left fx-delay-' + ( i + 4 )">
                       <div><span class="text-secondary">{{ s.title | toText( 'N/A' ) }}</span></div>
-                      <div><span class="text-faded">From:</span>&nbsp; <span class="text-bright">{{ s.album | toText( 'N/A' ) }}</span></div>
+                      <!-- <div><span class="text-faded">From:</span>&nbsp; <span class="text-bright">{{ s.album | toText( 'N/A' ) }}</span></div> -->
                       <div><span class="text-faded">By:</span>&nbsp; <span class="text-default">{{ s.artist | toText( 'N/A' ) }}</span></div>
                     </li>
                   </ul>
@@ -248,11 +248,11 @@
             <ul class="player-stations-list">
               <li class="player-stations-list-item flex-row flex-top flex-stretch" tabindex="0" v-for="c of channelsList" :key="c.shortcode" @click="selectChannel( c, true )" :class="{ 'active': c.active }" :title="c.title">
                 <figure class="push-right">
-                  <img class="img-round" width="70" height="70" :src="c.largeimage" :alt="c.title" />
+                  <img class="img-round" width="70" height="70" :src="c.largeimage" :alt="c.name" />
                 </figure>
                 <aside class="flex-1">
                   <div class="flex-row flex-middle flex-space">
-                    <div class="player-stations-list-title text-bright text-clip">{{ c.title }}</div>
+                    <div class="player-stations-list-title text-bright text-clip">{{ c.name }}</div>
                     <div class="text-nowrap">
                       <span class="text-secondary"><i class="ico ico-headphones"></i>&nbsp; {{ c.mounts[0].listeners.current  | toCommas( 0 ) }} &nbsp;</span>
                       <fav-btn :id="c.shortcode" :active="c.favorite" @change="toggleFavorite"></fav-btn>
