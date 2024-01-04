@@ -24,10 +24,10 @@ new Vue({
     // sidebar toggles
     sbActive: false,
     sbVisible: false,
-    // channels stuff
+    // stations stuff
     route: '/',
-    channels: [],
-    channel: {},
+    stations: [],
+    station: {},
     songs: [],
     track: {},
     favorites: [],
@@ -64,9 +64,9 @@ new Vue({
   // computed methods
   computed: {
 
-    // filter channels list
+    // filter stations list
     channelsList() {
-      let list = this.channels.slice();
+      let list = this.stations.slice();
       let search = this.searchText.replace( /[^\w\s\-]+/g, '' ).replace( /[\r\s\t\n]+/g, ' ' ).trim();
 
       if ( search && search.length > 1 ) {
@@ -75,9 +75,9 @@ new Vue({
       if ( this.sortParam ) {
         list = _utils.sort( list, this.sortParam, this.sortOrder, false );
       }
-      if ( this.channel.id ) {
+      if ( this.station.shortcode ) {
         list = list.map( i => {
-          i.active = ( this.channel.id === i.id ) ? true : false;
+          i.active = ( this.station.shortcode === i.shortcode ) ? true : false;
           return i;
         });
       }
@@ -102,12 +102,12 @@ new Vue({
 
     // check if audio can be played
     canPlay() {
-      return ( this.channel.id && !this.loading ) ? true : false;
+      return ( this.station.shortcode && !this.loading ) ? true : false;
     },
 
-    // check if a channel is selected
+    // check if a station is selected
     hasChannel() {
-      return this.channel.id ? true : false;
+      return this.station.shortcode ? true : false;
     },
 
     // check if there are tracks loaded
@@ -118,7 +118,7 @@ new Vue({
     // check for errors that would affect playback
     hasErrors() {
       if ( this.errors.support || this.errors.stream ) return true;
-      if ( this.errors.channels && !this.channels.length ) return true;
+      if ( this.errors.stations && !this.stations.length ) return true;
       return false;
     },
   },
@@ -129,8 +129,8 @@ new Vue({
     // run maintenance tasks on a timer
     setupMaintenance() {
       this.itv = setInterval( () => {
-        this.getChannels( this.sidebar ); // update channels
-        this.getSongs( this.channel ); // update channel tracks
+        this.getChannels( this.sidebar ); // update stations
+        this.getSongs( this.station ); // update station tracks
       }, 1000 * 30 );
     },
 
@@ -180,11 +180,11 @@ new Vue({
       }, 100 );
     },
 
-    // reset selected channel
+    // reset selected station
     resetPlayer() {
       this.closeAudio();
       this.flushErrors();
-      this.channel = {};
+      this.station = {};
       this.songs = [];
     },
 
@@ -195,7 +195,7 @@ new Vue({
         setTimeout( this.setupAudio, 1 );
       } else {
         this.flushErrors();
-        this.playChannel( this.channel );
+        this.playChannel( this.station );
       }
     },
 
@@ -212,12 +212,12 @@ new Vue({
       }
     },
 
-    // toggle stream playback for current selected channel
+    // toggle stream playback for current selected station
     togglePlay( e ) {
       e && e.preventDefault();
       if ( this.loading ) return;
       if ( this.playing ) return this.closeAudio();
-      this.playChannel( this.channel );
+      this.playChannel( this.station );
     },
 
     // save volume to store
@@ -262,11 +262,11 @@ new Vue({
     saveFavorites() {
       let data = '#EXTM3U';
       for ( let id of this.favorites ) {
-        const channel = this.channels.filter( c => ( c.id === id ) ).shift();
-        if ( !channel ) continue;
+        const station = this.stations.filter( c => ( c.shortcode === id ) ).shift();
+        if ( !station ) continue;
         data += '\n\n';
-        data += `#EXTINF:0,${channel.title} [SomaFM]\n`;
-        data += `${channel.mp3file}`;
+        data += `#EXTINF:0,${station.title} [SomaFM]\n`;
+        data += `${station.mp3file}`;
       }
       const elm = document.createElement( 'a' );
       elm.setAttribute( 'href', 'data:audio/mpegurl;charset=utf-8,'+ encodeURIComponent( data ) );
@@ -277,7 +277,7 @@ new Vue({
       setTimeout( () => elm.remove(), 1000 );
     },
 
-    // toggle favorite channel by id
+    // toggle favorite station by id
     toggleFavorite( id, toggle ) {
       let favs = this.favorites.slice();
       favs = favs.filter( fid => ( fid !== id ) );
@@ -307,23 +307,23 @@ new Vue({
       }
     },
 
-    // get channels data from api
+    // get stations data from api
     getChannels( sidebar ) {
-      _soma.getChannels( ( err, channels ) => {
-        if ( err ) return this.setError( 'channels', err );
-        this.channels = channels;
-        this.clearError( 'channels' );
+      _soma.getChannels( ( err, stations ) => {
+        if ( err ) return this.setError( 'stations', err );
+        this.stations = stations;
+        this.clearError( 'stations' );
         this.updateCurrentChannel();
         this.applyRoute( window.location.hash, sidebar );
       });
     },
 
-    // get songs list for a channel from api
-    getSongs( channel, cb ) {
-      if ( !channel || !channel.id || !channel.songsurl ) return;
-      if ( !this.isCurrentChannel( channel ) ) { this.songs = []; this.track = {}; }
+    // get songs list for a station from api
+    getSongs( station, cb ) {
+      if ( !station || !station.shortcode || !station.songsurl ) return;
+      if ( !this.isCurrentChannel( station ) ) { this.songs = []; this.track = {}; }
 
-      _soma.getSongs( channel, ( err, songs ) => {
+      _soma.getSongs( station, ( err, songs ) => {
         if ( err ) return this.setError( 'songs', err );
         if ( typeof cb === 'function' ) cb( songs );
         this.track = songs.shift();
@@ -332,45 +332,45 @@ new Vue({
       });
     },
 
-    // checks is a channel is currently selected
-    isCurrentChannel( channel ) {
-      if ( !channel || !channel.id || !this.channel.id ) return false;
-      if ( this.channel.id !== channel.id ) return false;
+    // checks is a station is currently selected
+    isCurrentChannel( station ) {
+      if ( !station || !station.shortcode || !this.station.shortcode ) return false;
+      if ( this.station.shortcode !== station.shortcode ) return false;
       return true;
     },
 
     // update data for current selected channel
     updateCurrentChannel() {
-      for ( let c of this.channels ) {
+      for ( let c of this.stations ) {
         // see if channel has been saved as a favorite
-        c.favorite = ( this.favorites.indexOf( c.id ) >= 0 );
+        c.favorite = ( this.favorites.indexOf( c.shortcode ) >= 0 );
         // see if channel is currently selected
         if ( this.isCurrentChannel( c ) ) {
-          this.channel = Object.assign( this.channel, c );
+          this.station = Object.assign( this.station, c );
           c.active = true;
         }
       }
     },
 
-    // play audio stream for a channel
-    playChannel( channel ) {
-      if ( this.playing || !channel || !channel.mp3file ) return;
+    // play audio stream for a station
+    playChannel( station ) {
+      if ( this.playing || !station || !station.mp3file ) return;
       this.loading = true;
-      _audio.playSource( channel.mp3file );
+      _audio.playSource( station.mp3file );
       _audio.setVolume( this.volume );
     },
 
-    // select a channel to play
-    selectChannel( channel, play = false ) {
-      if ( !channel || !channel.id ) return;
-      if ( this.isCurrentChannel( channel ) ) return;
+    // select a station to play
+    selectChannel( station, play = false ) {
+      if ( !station || !station.shortcode ) return;
+      if ( this.isCurrentChannel( station ) ) return;
       this.closeAudio();
       this.toggleSidebar( false );
-      this.setRoute( channel.route );
-      this.getSongs( channel );
-      this.channel = channel;
-      // attempt to play only after user insteraction, triggered from clicking a channel on the list
-      if ( play ) { this.playChannel( channel ); }
+      this.setRoute( station.route );
+      this.getSongs( station );
+      this.station = station;
+      // attempt to play only after user insteraction, triggered from clicking a station on the list
+      if ( play ) { this.playChannel( station ); }
     },
 
     // set station route
@@ -386,11 +386,11 @@ new Vue({
       const action = data.length ? data.shift() : '';
       const param  = data.length ? data.shift() : '';
 
-      // select a channel from the url
-      if ( action === 'channel' && param ) {
-        const channel = this.channels.filter( c => ( c.id === param ) ).shift();
-        if ( channel && channel.id ) {
-          return this.selectChannel( channel );
+      // select a station from the url
+      if ( action === 'station' && param ) {
+        const station = this.stations.filter( c => ( c.shortcode === param ) ).shift();
+        if ( station && station.shortcode ) {
+          return this.selectChannel( station );
         }
       }
       // nothing to do, reset player
@@ -402,7 +402,7 @@ new Vue({
     // on keyboard events
     onKeyboard( e ) {
       const k = e.key || '';
-      if ( k === ' ' && this.channel.id ) return this.togglePlay();
+      if ( k === ' ' && this.station.shortcode ) return this.togglePlay();
       if ( k === 'Enter' ) return this.toggleSidebar( true );
       if ( k === 'Escape' ) return this.toggleSidebar( false );
     },
@@ -431,7 +431,7 @@ new Vue({
     // error loading stream
     onError( e ) {
       this.closeAudio();
-      this.setError( 'stream', `The selected stream (${this.channel.title}) could not load, or stopped loading due to network problems.` );
+      this.setError( 'stream', `The selected stream (${this.station.title}) could not load, or stopped loading due to network problems.` );
       this.playing = false;
       this.loading = false;
     },

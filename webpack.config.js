@@ -9,7 +9,7 @@ const isProd = ( process.env.NODE_ENV === 'production' );
 // dev server and globals styles
 const serverHost = '0.0.0.0';
 const serverPort = 8080;
-const serverRoot = path.join( __dirname, '/' );
+const basePath = path.join( __dirname, '/' );
 const appEntry   = './src/app.js';
 const bundleDir  = './public/bundles/';
 
@@ -21,7 +21,7 @@ module.exports = {
   },
 
   output: {
-    path: serverRoot,
+    path: basePath,
     filename: path.join( bundleDir, '[name].min.js' ),
   },
 
@@ -57,7 +57,7 @@ module.exports = {
   devServer: {
     host: serverHost,
     port: serverPort,
-    contentBase: serverRoot,
+    contentBase: basePath,
     clientLogLevel: 'info',
     hot: true,
     inline: true,
