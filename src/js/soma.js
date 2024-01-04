@@ -44,6 +44,7 @@ export default {
         // c.plsfile   = API+ c.id +'.pls';
         c.mp3file   = c.listen_url;
         c.songsurl  = API + '/nowplaying/' + c.id;
+        c.image     = '/public/img/'+c.shortcode+'.png';
         // c.infourl   = 'https://somafm.com/'+ c.id +'/';
         c.twitter   = c.twitter ? 'https://twitter.com/@'+ c.twitter : '';
         c.route     = '/station/'+ c.shortcode;
@@ -52,7 +53,7 @@ export default {
         c.favorite  = false;
         c.active    = false;
         output.push( c );
-        // console.log("DATA => "+c.songsurl);
+        // console.log("DATA => "+c.image);
       }
     }
     return output;

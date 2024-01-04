@@ -30,6 +30,7 @@ new Vue({
     station: {},
     songs: [],
     track: {},
+    image: {},
     favorites: [],
     errors: {},
     // timer stuff
@@ -321,15 +322,16 @@ new Vue({
     // get songs list for a station from api
     getSongs( station, cb ) {
       if ( !station || !station.shortcode || !station.songsurl ) return;
-      if ( !this.isCurrentChannel( station ) ) { this.songs = []; this.track = {}; };
+      if ( !this.isCurrentChannel( station ) ) { this.songs = []; this.track = {}; this.image = {}; };
 
       _soma.getSongs( station, ( err, songs ) => {
         if ( err ) return this.setError( 'songs', err );
         if ( typeof cb === 'function' ) cb( songs );
         this.track = songs.now_playing.song;
         this.songs = songs.now_playing.song;
+        this.image = songs.now_playing.song;
         this.clearError( 'songs' );
-        console.log("DATA => ", this.track);
+        // console.log("DATA => ", this.image);
       });
     },
 
