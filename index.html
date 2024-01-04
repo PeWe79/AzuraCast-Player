@@ -89,7 +89,7 @@
                   <div class="push-bottom">
                     <div class="flex-row flex-middle pad-bottom">
                       <div class="fx fx-drop-in fx-delay-1">
-                        <img class="img-round" :src="image.art" width="80" height="80" :alt="station.name" />
+                        <img class="img-art" :src="image.art" width="120" height="120" :alt="station.name" />
                       </div>
                       <div class="pad-left">
                         <h3 class="text-clip fx fx-fade-in fx-delay-2">
@@ -248,7 +248,7 @@
             <ul class="player-stations-list">
               <li class="player-stations-list-item flex-row flex-top flex-stretch" tabindex="0" v-for="c of channelsList" :key="c.shortcode" @click="selectChannel( c, true )" :class="{ 'active': c.active }" :title="c.title">
                 <figure class="push-right">
-                  <img class="img-round" width="70" height="70" :src="c.image" :alt="c.name" />
+                  <img class="img-art" width="70" height="70" :src="c.image" :alt="c.name" />
                 </figure>
                 <aside class="flex-1">
                   <div class="flex-row flex-middle flex-space">
