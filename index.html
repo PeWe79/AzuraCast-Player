@@ -162,10 +162,10 @@
                   </div>
 
                   <ul class="player-tracklist push-bottom" v-if="hasSongs">
-                    <li v-for="( history, i ) of songsList" :key="history.played_at" class="card fx" :class="'fx-slide-left fx-delay-' + ( i + 4 )">
-                      <div><span class="text-secondary">{{ history.song.title | toText( 'N/A' ) }}</span></div>
+                    <li v-for="( sh, i ) of songsList" :key="sh.played_at" class="card fx" :class="'fx-slide-left fx-delay-' + ( i + 4 )">
+                      <div><span class="text-secondary">{{ sh.song.title | toText( 'N/A' ) }}</span></div>
                       <!-- <div><span class="text-faded">From:</span>&nbsp; <span class="text-bright">{{ s.album | toText( 'N/A' ) }}</span></div> -->
-                      <div><span class="text-faded">By:</span>&nbsp; <span class="text-default">{{ history.song.artist | toText( 'N/A' ) }}</span></div>
+                      <div><span class="text-faded">By:</span>&nbsp; <span class="text-default">{{ sh.song.artist | toText( 'N/A' ) }}</span></div>
                     </li>
                   </ul>
 
