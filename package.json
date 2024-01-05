@@ -1,5 +1,5 @@
 {
-  "name": "soma-fm-player",
+  "name": "azuracast-player",
   "version": "1.0.0",
   "description": "SPA audio player for the streaming stations provided by Soma FM.",
   "scripts": {

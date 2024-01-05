@@ -1,6 +1,8 @@
 /**
- * Soma-FM API handler
+ * AzuraCast API handler
  */
+
+// API home
 let API='https://stream.cloudmu.id';
 
 export default {

@@ -4,7 +4,7 @@
 import './scss/app.scss';
 import './js/filters';
 import './js/favorite';
-import _soma from './js/soma';
+import _api from './js/api';
 import _audio from './js/audio';
 import _scene from './js/scene';
 import _utils from './js/utils';
@@ -310,7 +310,7 @@ new Vue({
 
     // get stations data from api
     getChannels( sidebar ) {
-      _soma.getChannels( ( err, stations ) => {
+      _api.getChannels( ( err, stations ) => {
         if ( err ) return this.setError( 'stations', err );
         this.stations = stations;
         this.clearError( 'stations' );
@@ -324,7 +324,7 @@ new Vue({
       if ( !station || !station.shortcode || !station.songsurl ) return;
       if ( !this.isCurrentChannel( station ) ) { this.songs = []; this.track = {}; this.image = {}; };
 
-      _soma.getSongs( station, ( err, songs ) => {
+      _api.getSongs( station, ( err, songs ) => {
         if ( err ) return this.setError( 'songs', err );
         if ( typeof cb === 'function' ) cb( songs );
         this.track = songs.now_playing.song;
