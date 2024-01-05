@@ -88,7 +88,7 @@ new Vue({
 
     // filter songs list
     songsList() {
-      let list = this.songs.slice();
+      let list = this.history;
       console.log("HIST =>",list);
       return list;
     },
@@ -268,12 +268,12 @@ new Vue({
         const station = this.stations.filter( c => ( c.shortcode === id ) ).shift();
         if ( !station ) continue;
         data += '\n\n';
-        data += `#EXTINF:0,${station.title} [SomaFM]\n`;
+        data += `#EXTINF:0,${station.title} [AzuraCast]\n`;
         data += `${station.mp3file}`;
       }
       const elm = document.createElement( 'a' );
       elm.setAttribute( 'href', 'data:audio/mpegurl;charset=utf-8,'+ encodeURIComponent( data ) );
-      elm.setAttribute( 'download', 'somafm_favorites.m3u' );
+      elm.setAttribute( 'download', 'azuracast_favorites.m3u' );
       elm.setAttribute( 'target', '_blank' );
       document.body.appendChild( elm );
       setTimeout( () => elm.click(), 100 );
@@ -332,9 +332,9 @@ new Vue({
         this.track = songs.now_playing.song;
         this.songs = songs.now_playing;
         this.image = songs.now_playing.song;
-        this.history = songs;
+        this.history = songs.song_history;
         this.clearError( 'songs' );
-        console.log("DATA => ", this.history);
+        // console.log("DATA => ", this.history);
       });
     },
 

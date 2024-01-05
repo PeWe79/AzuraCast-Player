@@ -7,7 +7,7 @@
     <meta http-equiv="x-ua-compatible" content="IE=Edge, chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <meta name="description" id="description" content="SPA audio player for the streaming stations provided by Soma FM." />
-    <meta name="author" content="Rainner Lins | @raintek_ | https://rainnerlins.com | https://github.com/rainner" />
+    <meta name="author" content="PeWe79 | @PeWe79 | https://cloudmu.id | https://github.com/PeWe79" />
 
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="prefetch" href="https://stream.cloudmu.id/api/nowplaying/station.json" />
@@ -74,7 +74,7 @@
             <!-- default greet message -->
             <section class="player-greet" v-if="!hasChannel && !hasErrors">
               <div class="fx fx-slide-left push-bottom"><h1>Pick a Station</h1></div>
-              <div class="fx fx-slide-left fx-delay-1 push-bottom">This is a music streaming player for the channels provided by SomaFM.com. Just pick a station from the sidebar to the right to start listening.</div>
+              <div class="fx fx-slide-left fx-delay-1 push-bottom">This is a music streaming player for the channels provided by AzuraCast. Just pick a station from the sidebar to the right to start listening.</div>
               <div class="fx fx-slide-up fx-delay-2 pad-top"><button class="cta-btn focus-box" type="button" @click="toggleSidebar( true )"><i class="ico ico-headphones"></i> &nbsp; View Stations</button></div>
             </section>
 
@@ -162,10 +162,10 @@
                   </div>
 
                   <ul class="player-tracklist push-bottom" v-if="hasSongs">
-                    <li v-for="( history, i ) of songsList" :key="history.date" class="card fx" :class="'fx-slide-left fx-delay-' + ( i + 4 )">
-                      <div><span class="text-secondary">{{ history.title | toText( 'N/A' ) }}</span></div>
+                    <li v-for="( history, i ) of songsList" :key="history.played_at" class="card fx" :class="'fx-slide-left fx-delay-' + ( i + 4 )">
+                      <div><span class="text-secondary">{{ history.song.title | toText( 'N/A' ) }}</span></div>
                       <!-- <div><span class="text-faded">From:</span>&nbsp; <span class="text-bright">{{ s.album | toText( 'N/A' ) }}</span></div> -->
-                      <div><span class="text-faded">By:</span>&nbsp; <span class="text-default">{{ history.artist | toText( 'N/A' ) }}</span></div>
+                      <div><span class="text-faded">By:</span>&nbsp; <span class="text-default">{{ history.song.artist | toText( 'N/A' ) }}</span></div>
                     </li>
                   </ul>
 
@@ -222,7 +222,7 @@
 
             <!-- player links -->
             <section class="player-links text-nowrap">
-              <a class="common-btn text-faded focus-text" href="https://github.com/rainner" title="Github profile" target="_blank">
+              <a class="common-btn text-faded focus-text" href="https://github.com/PeWe79" title="Github profile" target="_blank">
                 <i class="ico ico-github"></i>
               </a>
             </section>
