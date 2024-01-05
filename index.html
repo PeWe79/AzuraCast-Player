@@ -162,10 +162,14 @@
                   </div>
 
                   <ul class="player-tracklist push-bottom" v-if="hasSongs">
-                    <li v-for="( sh, i ) of songsList" :key="sh.played_at" class="card fx" :class="'fx-slide-left fx-delay-' + ( i + 4 )">
-                      <div><span class="text-secondary">{{ sh.song.title | toText( 'N/A' ) }}</span></div>
-                      <!-- <div><span class="text-faded">From:</span>&nbsp; <span class="text-bright">{{ s.album | toText( 'N/A' ) }}</span></div> -->
-                      <div><span class="text-faded">By:</span>&nbsp; <span class="text-default">{{ sh.song.artist | toText( 'N/A' ) }}</span></div>
+                    <li v-for="( sh, i ) of songsList" :key="sh.played_at" class="card fx flex-row flex-top flex-stretch" :class="'fx-slide-left fx-delay-' + ( i + 2 )">
+                      <div><img :alt="sh.song.title" :src="sh.song.art" height="70" width="70"/></div>
+                      <div class="pad-left">
+                        <div><span class="text-secondary">{{ sh.song.title | toText( 'N/A' ) }}</span></div>
+                        <!-- <div><span class="text-faded">From:</span>&nbsp; <span class="text-bright">{{ sh.album | toText( 'N/A' ) }}</span></div> -->
+                        <div><span class="text-faded">By:</span>&nbsp; <span class="text-default">{{ sh.song.artist | toText( 'N/A' ) }}</span></div>
+                      </div>
+                      
                     </li>
                   </ul>
 
