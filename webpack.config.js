@@ -3,6 +3,7 @@
  */
 const path = require( 'path' );
 const webpack = require( 'webpack' );
+const CssMinimizerPlugin = require( 'css-minimizer-webpack-plugin' );
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 const isProd = ( process.env.NODE_ENV === 'production' );
 
@@ -35,13 +36,10 @@ module.exports = {
         test: /\.scss$/i,
         exclude: /node_modules/,
         use: [MiniCssExtractPlugin.loader, 
-          // Creates `style` nodes from JS strings
-          "style-loader", 
           // Translates CSS into CommonJS
-          "css-loader", 
-          "postcss-loader", 
+          { loader: 'css-loader', options: { url: false, sourceMap: true } },
           // Compiles Sass to CSS
-          "sass-loader"
+          { loader: 'sass-loader', options: { sourceMap: true } }
         ],
       },
       {
@@ -58,6 +56,12 @@ module.exports = {
       filename: path.join( bundleDir, '[name].min.css' )
     }),
   ],
+  optimization: {
+    minimizer: [
+      new CssMinimizerPlugin(),
+    ],
+    minimize: true,
+  },
 
   devServer: {
     host: serverHost,
