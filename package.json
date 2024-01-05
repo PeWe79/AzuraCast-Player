@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "cross-env webpack --mode development",
     "build": "cross-env webpack --mode production --progress",
+    "scss": "sass --style=compressed --watch ./src/scss:./public/css",
     "init": "live-server --open=."
   },
   "repository": {

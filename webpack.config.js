@@ -34,11 +34,13 @@ module.exports = {
       {
         test: /\.scss$/i,
         exclude: /node_modules/,
-        // use: cssLoaders(),
         use: [MiniCssExtractPlugin.loader, 
+          // Creates `style` nodes from JS strings
           "style-loader", 
+          // Translates CSS into CommonJS
           "css-loader", 
           "postcss-loader", 
+          // Compiles Sass to CSS
           "sass-loader"
         ],
       },
@@ -51,7 +53,10 @@ module.exports = {
   },
 
   plugins: [
-    new MiniCssExtractPlugin()
+    new MiniCssExtractPlugin({
+      // path: basePath,
+      filename: path.join( bundleDir, '[name].min.css' )
+    }),
   ],
 
   devServer: {
