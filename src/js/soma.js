@@ -40,7 +40,6 @@ export default {
     let output = [];
     if ( Array.isArray( station ) ) {
       for ( let c of station ) {
-        // if ( !Array.isArray( c.playlists ) ) continue;
         c.plsfile   = c.playlist_pls_url;
         c.mp3file   = c.listen_url;
         c.songsurl  = API + '/nowplaying/' + c.id;
