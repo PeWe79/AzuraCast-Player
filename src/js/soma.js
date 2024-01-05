@@ -41,11 +41,11 @@ export default {
     if ( Array.isArray( station ) ) {
       for ( let c of station ) {
         // if ( !Array.isArray( c.playlists ) ) continue;
-        // c.plsfile   = API+ c.id +'.pls';
+        c.plsfile   = c.playlist_pls_url;
         c.mp3file   = c.listen_url;
         c.songsurl  = API + '/nowplaying/' + c.id;
         c.image     = '/public/img/'+c.shortcode+'.png';
-        // c.infourl   = 'https://somafm.com/'+ c.id +'/';
+        c.infourl   = c.url;
         c.twitter   = c.twitter ? 'https://twitter.com/@'+ c.twitter : '';
         c.route     = '/station/'+ c.shortcode;
         c.listeners = c.mounts[0].listeners.current | 0;

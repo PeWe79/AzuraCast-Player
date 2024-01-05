@@ -89,7 +89,7 @@
                   <div class="push-bottom">
                     <div class="flex-row flex-middle pad-bottom">
                       <div class="fx fx-drop-in fx-delay-1">
-                        <img class="img-art" :src="image.art" width="120" height="120" :alt="station.name" />
+                        <img class="img-art" :src="image.art" width="180" height="180" :alt="station.name" />
                       </div>
                       <div class="pad-left">
                         <h3 class="text-clip fx fx-fade-in fx-delay-2">
@@ -111,16 +111,16 @@
                       <span>{{ station.description }}</span>
                     </div>
                     <div class="flex-row flex-middle">
-                      <!-- <div class="fx fx-slide-up fx-delay-2 push-right" v-if="station.infourl">
+                      <div class="fx fx-slide-up fx-delay-2 push-right" v-if="station.infourl">
                         <a class="cta-btn text-nowrap focus-box" :href="station.infourl" title="Channel page" target="_blank">
                           <i class="ico ico-earth"></i>&nbsp; Webpage
                         </a>
-                      </div> -->
-                      <!-- <div class="fx fx-slide-up fx-delay-3 push-right" v-if="station.plsfile">
+                      </div>
+                      <div class="fx fx-slide-up fx-delay-3 push-right" v-if="station.plsfile">
                         <a class="cta-btn text-nowrap focus-box" :href="station.plsfile" title="Download PLS" target="_blank">
                           <i class="ico ico-download"></i>&nbsp; PLS
                         </a>
-                      </div> -->
+                      </div>
                       <div class="fx fx-slide-up fx-delay-4 push-right" v-if="station.twitter">
                         <a class="cta-btn text-nowrap focus-box" :href="station.twitter" title="Twitter page" target="_blank">
                           <i class="ico ico-twitter"></i>
@@ -140,7 +140,7 @@
                   </div>
 
                   <!-- current track -->
-                  <div class="card fx fx-slide-left fx-delay-4" :key="track.date">
+                  <div class="card fx fx-slide-left fx-delay-4" :key="track.played_at">
                     <div><span class="text-secondary">{{ track.title | toText( 'N/A' ) }}</span></div>
                     <!-- <div><span class="text-faded">From:</span>&nbsp; <span class="text-bright">{{ track.album | toText( 'N/A' ) }}</span></div> -->
                     <div><span class="text-faded">By:</span>&nbsp; <span class="text-default">{{ track.artist | toText( 'N/A' ) }}</span></div>
@@ -162,10 +162,10 @@
                   </div>
 
                   <ul class="player-tracklist push-bottom" v-if="hasSongs">
-                    <li v-for="( s, i ) of songsList" :key="s.date" class="card fx" :class="'fx-slide-left fx-delay-' + ( i + 4 )">
-                      <div><span class="text-secondary">{{ s.title | toText( 'N/A' ) }}</span></div>
+                    <li v-for="( history, i ) of songsList" :key="history.date" class="card fx" :class="'fx-slide-left fx-delay-' + ( i + 4 )">
+                      <div><span class="text-secondary">{{ history.title | toText( 'N/A' ) }}</span></div>
                       <!-- <div><span class="text-faded">From:</span>&nbsp; <span class="text-bright">{{ s.album | toText( 'N/A' ) }}</span></div> -->
-                      <div><span class="text-faded">By:</span>&nbsp; <span class="text-default">{{ s.artist | toText( 'N/A' ) }}</span></div>
+                      <div><span class="text-faded">By:</span>&nbsp; <span class="text-default">{{ history.artist | toText( 'N/A' ) }}</span></div>
                     </li>
                   </ul>
 
