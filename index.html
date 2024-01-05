@@ -89,7 +89,7 @@
                   <div class="push-bottom">
                     <div class="flex-row flex-middle pad-bottom">
                       <div class="fx fx-drop-in fx-delay-1">
-                        <img class="img-art" :src="image.art" width="180" height="180" :alt="station.name" />
+                        <img class="img-art" :src="image.art" width="160" height="160" :alt="station.name" />
                       </div>
                       <div class="pad-left">
                         <h3 class="text-clip fx fx-fade-in fx-delay-2">
@@ -106,8 +106,8 @@
                   <div class="push-bottom pad-bottom fx fx-slide-up fx-delay-3">
                     <div class="push-bottom">
                       <span class="text-secondary">Mixed by DJ {{ station.name | toText( 'N/A' ) }}.</span> <br />
-                      <span class="text-bright text-capitalize">{{ station.title }}</span> -
-                      <span class="text-bright text-capitalize">{{ station.genre | toText( 'Station' ) }}.</span> <br />
+                      <span class="text-bright text-capitalize">{{ station.title }}</span>
+                      <!-- <span class="text-bright text-capitalize">{{ station.genre | toText( 'Station' ) }}.</span> <br /> -->
                       <span>{{ station.description }}</span>
                     </div>
                     <div class="flex-row flex-middle">
