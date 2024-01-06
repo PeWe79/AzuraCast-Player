@@ -37,7 +37,7 @@
 // common card style
 .card {
   padding: $padSpace;
-  background-image: radial-gradient( ellipse at top left, rgba( black, 0.5 ) 0%, rgba( black, 0 ) 90% );
+  background-image: radial-gradient(ellipse at top left, rgba(black, 0.5) 0%, rgba(black, 0) 90%);
   border-radius: $lineJoin;
 
   .heading {
@@ -48,7 +48,7 @@
 // hover state on text elements
 .hover-text {
   &:hover {
-    color: lighten( $colorSecondary, 10% );
+    color: lighten($colorSecondary, 10%);
   }
 }
 

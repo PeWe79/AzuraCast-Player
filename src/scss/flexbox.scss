@@ -69,8 +69,8 @@
   flex: 5;
 }
 @for $i from 1 through 10 {
-  $s: ( 10 * $i );
-  $p: ( 10% * $i );
+  $s: (10 * $i);
+  $p: (10% * $i);
   .flex-#{$s} { flex: $p; width: $p; }
 }
 
@@ -98,13 +98,13 @@
     flex-wrap: nowrap;
     align-items: center;
     justify-content: stretch;
-    margin: 0 0 ( $lineWidth * 2 ) 0;
+    margin: 0 0 ($lineWidth * 2) 0;
     padding: calc($padSpace / 2);
     border-radius: $lineJoin;
-    background-color: rgba( 0, 0, 0, 0.1 );
+    background-color: rgba(0, 0, 0, 0.1);
   }
   & > .flex-item:hover {
-    background-color: rgba( 0, 0, 0, 0.3 );
+    background-color: rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -139,16 +139,16 @@
 .flex-grid {
   display: grid;
   grid-gap: $padSpace;
-  grid-template-columns: repeat( auto-fill, minmax( 140px, 1fr ) );
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
 
   &.flex-grid-sm {
-    grid-template-columns: repeat( auto-fill, minmax( 200px, 1fr ) );
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
   &.flex-grid-md {
-    grid-template-columns: repeat( auto-fill, minmax( 300px, 1fr ) );
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
   &.flex-grid-lg {
-    grid-template-columns: repeat( auto-fill, minmax( 400px, 1fr ) );
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   }
 }
 

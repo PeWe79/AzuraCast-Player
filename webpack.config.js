@@ -1,16 +1,16 @@
 /**
  * Webpack client-side config file
  */
-const path = require( 'path' );
-const webpack = require( 'webpack' );
-const CssMinimizerPlugin = require( 'css-minimizer-webpack-plugin' );
-const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
-const isProd = ( process.env.NODE_ENV === 'production' );
+const path = require('path');
+const webpack = require('webpack');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const isProd = (process.env.NODE_ENV === 'production');
 
 // dev server and globals styles
 const serverHost = '0.0.0.0';
 const serverPort = 8080;
-const basePath = path.join( __dirname, '/' );
+const basePath = path.join(__dirname, '/');
 const appEntry   = './src/app.js';
 const bundleDir  = './public/bundles/';
 
@@ -23,7 +23,7 @@ module.exports = {
 
   output: {
     path: basePath,
-    filename: path.join( bundleDir, '[name].min.js' ),
+    filename: path.join(bundleDir, '[name].min.js'),
   },
 
   module: {
@@ -53,7 +53,7 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
       // path: basePath,
-      filename: path.join( bundleDir, '[name].min.css' )
+      filename: path.join(bundleDir, '[name].min.css')
     }),
   ],
   optimization: {
@@ -84,7 +84,7 @@ module.exports = {
   mode: 'development',
 }
 
-if ( isProd ) {
+if (isProd) {
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': {

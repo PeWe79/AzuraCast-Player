@@ -38,7 +38,7 @@ select, button {
 a, .link {
   color: $colorSecondary;
   &:hover {
-    color: lighten( $colorSecondary, 10% );
+    color: lighten($colorSecondary, 10%);
   }
 }
 

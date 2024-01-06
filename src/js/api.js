@@ -8,40 +8,40 @@ let API='https://stream.cloudmu.id';
 export default {
 
   // get station data from api
-  getChannels( callback ) {
+  getChannels(callback) {
     const apiurl = API+'/api/stations';
     const error  = 'There was a problem fetching the latest list of music channels from AzuraCast.';
 
-    axios.get( apiurl ).then( res => {
-      const list = this._parseChannels( res.data );
-      if ( !list.length ) return callback( error, [] );
-      return callback( null, list );
+    axios.get(apiurl).then(res => {
+      const list = this._parseChannels(res.data);
+      if (!list.length) return callback(error, []);
+      return callback(null, list);
     })
-    .catch( e => {
-      return callback( error + String( e.message || '' ), [] );
+    .catch(e => {
+      return callback(error + String(e.message || ''), []);
     });
   },
 
   // fetch songs for a channel
-  getSongs( channel, callback ) {
+  getSongs(channel, callback) {
     const apiurl = channel.songsurl || '';
     const title  = channel.name || '...';
     const error  = 'There was a problem loading the list of songs for channel '+ title +' from AzuraCast.';
 
-    axios.get( apiurl ).then( res => {
-      if ( !res.data ) return callback( error, [] );
-      return callback( null, res.data );
+    axios.get(apiurl).then(res => {
+      if (!res.data) return callback(error, []);
+      return callback(null, res.data);
     })
-    .catch( e => {
-      return callback( error + String( e.message || '' ), [] );
+    .catch(e => {
+      return callback(error + String(e.message || ''), []);
     });
   },
 
   // parse station list from api response
-  _parseChannels( station ) {
+  _parseChannels(station) {
     let output = [];
-    if ( Array.isArray( station ) ) {
-      for ( let c of station ) {
+    if (Array.isArray(station)) {
+      for (let c of station) {
         c.plsfile   = c.playlist_pls_url;
         c.mp3file   = c.listen_url;
         c.songsurl  = API + '/api/nowplaying/' + c.id;
@@ -53,7 +53,7 @@ export default {
         c.updated   = c.updated | 0;
         c.favorite  = false;
         c.active    = false;
-        output.push( c );
+        output.push(c);
         // console.log("DATA => "+c.image);
       }
     }
