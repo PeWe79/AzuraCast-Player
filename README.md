@@ -6,7 +6,7 @@
 [vue]: https://github.com/vuejs/vue
 [node]: https://nodejs.org/
 
-# Fully Modified SomaFM Music Player As AzuraCast Player
+## Fully Modified SomaFM Music Player As AzuraCast Player
 
 ![SomaFM-Player](https://github.com/PeWe79/AzuraCast-Player/blob/azuracast/thumb.png)
 
