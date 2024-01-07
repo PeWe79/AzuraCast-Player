@@ -2,14 +2,13 @@
  * AzuraCast API handler
  */
 
-// API home
-let API='https://stream.cloudmu.id';
+import config from './config'
 
 export default {
 
   // get station data from api
   getChannels(callback) {
-    const apiurl = API+'/api/stations';
+    const apiurl = config.api_url+'/api/stations';
     const error  = 'There was a problem fetching the latest list of music channels from AzuraCast.';
 
     axios.get(apiurl).then(res => {
@@ -44,7 +43,7 @@ export default {
       for (let c of station) {
         c.plsfile   = c.playlist_pls_url;
         c.mp3file   = c.listen_url;
-        c.songsurl  = API + '/api/nowplaying/' + c.id;
+        c.songsurl  = config.api_url + '/api/nowplaying/' + c.id;
         c.image     = '/public/img/'+c.shortcode+'.png';
         c.infourl   = c.url;
         c.twitter   = c.twitter ? 'https://twitter.com/@'+ c.twitter : '';
