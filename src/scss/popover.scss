@@ -1,3 +1,5 @@
+@import './variables';
+
 // common absolute popover
 @keyframes popoverShow {
     0% { transform: translateX(-50%) scale(.8); opacity: 0; }
