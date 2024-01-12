@@ -31,6 +31,7 @@ new Vue({
     songs: [],
     track: {},
     image: {},
+    deezer: {},
     favorites: [],
     errors: {},
     // timer stuff
@@ -322,7 +323,7 @@ new Vue({
     // get songs list for a station from api
     getSongs(station, cb) {
       if (!station || !station.shortcode || !station.songsurl) return;
-      if (!this.isCurrentChannel(station)) { this.songs = []; this.track = {}; this.image = {}; };
+      if (!this.isCurrentChannel(station)) { this.songs = []; this.track = {}; this.image = {}; this.deezer = {}; };
 
       _api.getSongs(station, (err, songs) => {
         if (err) return this.setError('songs', err);
@@ -332,6 +333,29 @@ new Vue({
         this.image = songs.now_playing.song;
         this.clearError('songs');
         // console.log("DATA => ", this.songs);
+
+        // get cover
+        const a = this.track.artist;
+        const t =this.track.title;
+
+        let cors = 'https://origin.cloudmu.id/?url=';
+        let url = cors+'https://api.deezer.com/search?q=artist%3A"'+a+'" track%3A"'+t+'"';
+        url=encodeURI(url);
+
+        axios.get(url, {
+          method: 'GET',
+          headers: {'content-type': 'application/json'}
+        }).then(response => {
+          if(response.data.data.length >= 1) {
+            this.deezer = response.data.data[0].album;
+            console.log("COVER => ",this.deezer.cover_big);
+          }
+        }).catch((err) => {
+          if(err) {
+            console.log("Error data===> ",err);
+            this.deezer = this.image;
+          }
+        });
       });
     },
 
