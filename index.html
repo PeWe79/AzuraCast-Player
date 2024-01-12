@@ -94,7 +94,7 @@
                   <div class="push-bottom">
                     <div class="flex-row flex-middle pad-bottom">
                       <div class="fx fx-drop-in fx-delay-1">
-                        <img class="img-art" :src="image.art" width="160" height="160" :alt="station.name" />
+                        <img class="album-cover" :src="image.art" :alt="station.name" />
                       </div>
                       <div class="pad-left">
                         <h3 class="text-clip fx fx-fade-in fx-delay-2">
@@ -168,7 +168,7 @@
 
                   <ul class="player-tracklist push-bottom" v-if="hasSongs">
                     <li v-for="( sh, i ) of songsList" :key="sh.played_at" class="card fx flex-row flex-top flex-stretch" :class="'fx-slide-left fx-delay-' + ( i + 2 )">
-                      <div><img class="hist-art" :alt="sh.song.title" :src="sh.song.art" /></div>
+                      <div><img class="history-cover" :alt="sh.song.title" :src="sh.song.art" /></div>
                       <div class="pad-left">
                         <div><span class="text-secondary">{{ sh.song.title | toText( 'N/A' ) }}</span></div>
                         <!-- <div><span class="text-faded">From:</span>&nbsp; <span class="text-bright">{{ sh.album | toText( 'N/A' ) }}</span></div> -->
@@ -257,7 +257,7 @@
             <ul class="player-stations-list">
               <li class="player-stations-list-item flex-row flex-top flex-stretch" tabindex="0" v-for="c of channelsList" :key="c.shortcode" @click="selectChannel( c, true )" :class="{ 'active': c.active }" :title="c.title">
                 <figure class="push-right">
-                  <img class="hist-art" :src="c.image" :alt="c.name" />
+                  <img class="history-cover" :src="c.image" :alt="c.name" />
                 </figure>
                 <aside class="flex-1">
                   <div class="flex-row flex-middle flex-space">

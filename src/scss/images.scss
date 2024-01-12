@@ -10,15 +10,17 @@
   background-image: linear-gradient(45deg, lighten($colorDocumentDark, 10%), lighten($colorDocumentDark, 25%));
   box-shadow: $shadowPaper;
 }
-.img-art {
+.album-cover {
   overflow: hidden;
+  height: 160px;
+  width: 160px;
   text-indent: -1000px;
   border-radius: 10px;
   background-color: lighten($colorDocumentDark, 10%);
   background-image: linear-gradient(45deg, lighten($colorDocumentDark, 10%), lighten($colorDocumentDark, 25%));
   box-shadow: $shadowPaper;
 }
-.hist-art {
+.history-cover {
   overflow: hidden;
   height: 70px;
   width: 70px;
