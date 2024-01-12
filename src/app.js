@@ -348,7 +348,7 @@ new Vue({
         }).then(response => {
           if(response.data.data.length >= 1) {
             this.deezer = response.data.data[0].album;
-            console.log("COVER => ",this.deezer.cover_big);
+            // console.log("COVER => ",this.deezer.cover_big);
           }
         }).catch((err) => {
           if(err) {
