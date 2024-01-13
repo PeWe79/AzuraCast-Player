@@ -2,8 +2,10 @@
  * Webpack client-side config file
  */
 const path = require('path');
+const webpack = require('webpack');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const isProd = (process.env.NODE_ENV === 'production');
 
 // dev server and globals styles
 const serverHost = '0.0.0.0';
@@ -80,4 +82,22 @@ module.exports = {
     maxAssetSize: 614400
   },
   mode: 'development',
+}
+
+if (isProd) {
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
+    })
+  ])
 }
