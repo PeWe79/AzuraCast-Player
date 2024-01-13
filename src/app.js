@@ -335,8 +335,8 @@ new Vue({
         // console.log("DATA => ", this.songs);
 
         // get cover
-        const a = this.track.artist;
-        const t =this.track.title;
+        const a = this.track.artist.replace(/ *\([^)]*\) */g, "");
+        const t =this.track.title.replace(/ *\([^)]*\) */g, "");
 
         let cors = 'https://origin.cloudmu.id/?url=';
         let url = cors+'https://api.deezer.com/search?q=artist%3A"'+a+'" track%3A"'+t+'"';
@@ -349,11 +349,13 @@ new Vue({
           if(response.data.data.length >= 1) {
             this.deezer = response.data.data[0].album;
             // console.log("COVER => ",this.deezer.cover_big);
-          }
-        }).catch((err) => {
-          if(err) {
-            console.log("Error data===> ",err);
+          } else {
             this.deezer = this.image;
+            console.log("%c Cover data not found => return", 'background: red; color:white')
+          }
+        }).catch((e) => {
+          if(err) {
+            return callback(String(e.message || ''), []);
           }
         });
       });
