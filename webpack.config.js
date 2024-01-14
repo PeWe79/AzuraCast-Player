@@ -5,6 +5,7 @@ const path = require('path');
 const webpack = require('webpack');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 const isProd = (process.env.NODE_ENV === 'production');
 
 // dev server and globals styles
@@ -39,7 +40,13 @@ module.exports = {
           // Translates CSS into CommonJS
           { loader: 'css-loader', options: { url: false, sourceMap: true } },
           // Compiles Sass to CSS
-          { loader: 'sass-loader', options: { sourceMap: true } }
+          { 
+            loader: 'sass-loader', 
+            options: { 
+              implementation: require('sass'),
+              sourceMap: true 
+            } 
+          }
         ],
       },
       {
@@ -57,10 +64,39 @@ module.exports = {
     }),
   ],
   optimization: {
-    minimizer: [
-      new CssMinimizerPlugin(),
-    ],
     minimize: true,
+    minimizer: [
+      // CSS minimizer
+      new CssMinimizerPlugin({
+        minimizerOptions: {
+          preset: [
+            "default",
+            {
+              discardComments: { removeAll: true },
+            },
+          ],
+        },
+        minify: CssMinimizerPlugin.cleanCssMinify,
+      }),
+      // Javascript minimizer
+      new TerserPlugin({
+        terserOptions: {
+          ecma: undefined,
+          warnings: false,
+          parse: {},
+          compress: {},
+          mangle: true, // Note `mangle.properties` is `false` by default.
+          module: false,
+          output: null,
+          toplevel: false,
+          nameCache: null,
+          ie8: false,
+          keep_classnames: undefined,
+          keep_fnames: false,
+          safari10: false,
+        },
+      })
+    ],
   },
 
   devServer: {
@@ -91,7 +127,7 @@ if (isProd) {
         NODE_ENV: '"production"'
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
+    new webpack.optimize.TerserPlugin({
       compress: {
         warnings: false
       }
