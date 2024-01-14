@@ -143,7 +143,7 @@
                     <div class="push-bottom">
                       <span class="text-secondary">Mixed by DJ {{ station.name | toText( 'N/A' ) }}.</span> <br />
                       <span class="text-bright text-capitalize">{{ station.title }}</span>
-                      <!-- <span class="text-bright text-capitalize">{{ station.genre | toText( 'Station' ) }}.</span> <br /> -->
+                      <span class="text-bright text-capitalize">{{ station.genre | toText( 'Station' ) }}.</span> <br />
                       <span>{{ station.description }}</span>
                     </div>
                     <div class="flex-row flex-middle">
@@ -178,7 +178,7 @@
                   <!-- current track -->
                   <div class="card fx fx-slide-left fx-delay-4" :key="track.played_at">
                     <div><span class="text-secondary">{{ track.title | toText( 'N/A' ) }}</span></div>
-                    <!-- <div><span class="text-faded">From:</span>&nbsp; <span class="text-bright">{{ track.album | toText( 'N/A' ) }}</span></div> -->
+                    <div><span class="text-faded">From:</span>&nbsp; <span class="text-bright">{{ track.album | toText( 'N/A' ) }}</span></div>
                     <div><span class="text-faded">By:</span>&nbsp; <span class="text-default">{{ track.artist | toText( 'N/A' ) }}</span></div>
                   </div>
 
