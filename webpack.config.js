@@ -94,7 +94,11 @@ module.exports = {
           keep_classnames: undefined,
           keep_fnames: false,
           safari10: false,
+          format: {
+            comments: false,
+          },
         },
+        extractComments: false,
       })
     ],
   },
