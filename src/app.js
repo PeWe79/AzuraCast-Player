@@ -31,7 +31,7 @@ new Vue({
     songs: [],
     track: {},
     image: {},
-    deezer: {},
+    itunes: {},
     favorites: [],
     errors: {},
     // timer stuff
@@ -323,7 +323,7 @@ new Vue({
     // get songs list for a station from api
     getSongs(station, cb) {
       if (!station || !station.shortcode || !station.songsurl) return;
-      if (!this.isCurrentChannel(station)) { this.songs = []; this.track = {}; this.image = {}; this.deezer = {}; };
+      if (!this.isCurrentChannel(station)) { this.songs = []; this.track = {}; this.image = {}; };
 
       _api.getSongs(station, (err, songs) => {
         if (err) return this.setError('songs', err);
@@ -338,27 +338,46 @@ new Vue({
         const a = this.track.artist.replace(/ *\([^)]*\) */g, "");
         const t =this.track.title.replace(/ *\([^)]*\) */g, "");
 
-        let cors = 'https://origin.cloudmu.id/?url=';
-        let url = cors+'https://api.deezer.com/search?q=artist%3A"'+a+'" track%3A"'+t+'"';
-        url=encodeURI(url);
+        this.getCover(a, t);
+      });
+    },
 
-        axios.get(url, {
-          method: 'GET',
-          headers: {'content-type': 'application/json'}
-        }).then(response => {
-          if(response.data.data.length >= 1) {
-            this.deezer = response.data.data[0].album;
-            // console.log("COVER => ",this.deezer.cover_big);
+    // get album cover
+    getCover(a, t) {
+      this.itunes = {};
+      var url =
+        "https://itunes.apple.com/search?term==" +
+        a +
+        "-" +
+        t +
+        "&media=music&limit=1";
+      url = encodeURI(url);
+      axios
+        .get(url)
+        .then((response) => {
+          if (response.data.results.length == 1) {
+            var cover = response.data.results[0].artworkUrl100.replace(
+              "100x100",
+              "500x500"
+            );
+            this.itunes = { cover };
+            console.log(
+              "%c Cover found from iTunes!",
+              "background:green; color: white;"
+            );
           } else {
-            this.deezer = this.image;
-            console.log("%c Cover data not found => return", 'background: red; color:white')
+            this.itunes = this.image;
+            console.log(
+              "%c Cover not found: Get default:",
+              "background: red; color: white;"
+            );
           }
-        }).catch((e) => {
-          if(err) {
-            return callback(String(e.message || ''), []);
+        })
+        .catch((err) => {
+          if (err) {
+            console.log("Error data ===> ", err);
           }
         });
-      });
     },
 
     // checks is a station is currently selected
