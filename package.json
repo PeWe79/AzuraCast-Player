@@ -1,7 +1,7 @@
 {
   "name": "azuracast-player",
   "version": "1.0.0",
-  "description": "SPA audio player for the streaming stations provided by Soma FM.",
+  "description": "SPA audio player for the streaming stations provided by AzuraCast.",
   "scripts": {
     "dev": "cross-env webpack --mode development",
     "build": "cross-env webpack --mode production --progress",
@@ -10,13 +10,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PeWe79/somaFm-player-mod.git"
+    "url": "git@github.com:PeWe79/AzuraCast-Player-Main.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/PeWe79/somaFm-player-mod/issues"
+    "url": "https://github.com/PeWe79/AzuraCast-Player-Main/issues"
   },
   "devDependencies": {
     "@babel/core": "^7.23.7",
