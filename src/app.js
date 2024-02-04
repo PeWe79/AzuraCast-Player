@@ -1,18 +1,18 @@
 /**
  * Main app JS entry file.
  */
-import './scss/app.scss';
-import './js/filters';
-import './js/favorite';
-import _api from './js/api';
-import _audio from './js/audio';
-import _scene from './js/scene';
-import _utils from './js/utils';
-import _store from './js/store';
+import "./scss/app.scss";
+import "./js/filters";
+import "./js/favorite";
+import _api from "./js/api";
+import _audio from "./js/audio";
+import _scene from "./js/scene";
+import _utils from "./js/utils";
+import _store from "./js/store";
 
 // main vue app
 new Vue({
-  el: '#app',
+  el: "#app",
   data: {
     // toggles
     init: false,
@@ -20,12 +20,12 @@ new Vue({
     playing: false,
     loading: false,
     sidebar: false,
-    volume: 100,
+    volume: 80,
     // sidebar toggles
     sbActive: false,
     sbVisible: false,
     // stations stuff
-    route: '/',
+    route: "/",
     stations: [],
     station: {},
     songs: [],
@@ -36,12 +36,12 @@ new Vue({
     errors: {},
     // timer stuff
     timeStart: 0,
-    timeDisplay: '00:00:00',
+    timeDisplay: "00:00:00",
     timeItv: null,
     // sorting stuff
-    searchText: '',
-    sortParam: 'listeners',
-    sortOrder: 'desc',
+    searchText: "",
+    sortParam: "listeners",
+    sortOrder: "desc",
     // timer stuff
     anf: null,
     sto: null,
@@ -50,36 +50,40 @@ new Vue({
 
   // watch methods
   watch: {
-
     // watch playing status
     playing() {
-      if (this.playing) { this.startClock(); }
-      else { this.stopClock(); }
+      if (this.playing) {
+        this.startClock();
+      } else {
+        this.stopClock();
+      }
     },
 
     // update player volume
     volume() {
       _audio.setVolume(this.volume);
-    }
+    },
   },
 
   // computed methods
   computed: {
-
     // filter stations list
     channelsList() {
       let list = this.stations.slice();
-      let search = this.searchText.replace(/[^\w\s\-]+/g, '').replace(/[\r\s\t\n]+/g, ' ').trim();
+      let search = this.searchText
+        .replace(/[^\w\s\-]+/g, "")
+        .replace(/[\r\s\t\n]+/g, " ")
+        .trim();
 
       if (search && search.length > 1) {
-        list = _utils.search(list, 'title', search);
+        list = _utils.search(list, "title", search);
       }
       if (this.sortParam) {
         list = _utils.sort(list, this.sortParam, this.sortOrder, false);
       }
       if (this.station.shortcode) {
-        list = list.map(i => {
-          i.active = (this.station.shortcode === i.shortcode) ? true : false;
+        list = list.map((i) => {
+          i.active = this.station.shortcode === i.shortcode ? true : false;
           return i;
         });
       }
@@ -95,16 +99,20 @@ new Vue({
     // sort-by label for buttons, etc
     sortLabel() {
       switch (this.sortParam) {
-        case 'title'     : return 'Station Name';
-        case 'listeners' : return 'Listeners Count';
-        case 'favorite'  : return 'Saved Favorites';
-        case 'genre'     : return 'Music Genre';
+        case "title":
+          return "Station Name";
+        case "listeners":
+          return "Listeners Count";
+        case "favorite":
+          return "Saved Favorites";
+        case "genre":
+          return "Music Genre";
       }
     },
 
     // check if audio can be played
     canPlay() {
-      return (this.station.shortcode && !this.loading) ? true : false;
+      return this.station.shortcode && !this.loading ? true : false;
     },
 
     // check if a station is selected
@@ -127,7 +135,6 @@ new Vue({
 
   // custom methods
   methods: {
-
     // run maintenance tasks on a timer
     setupMaintenance() {
       this.itv = setInterval(() => {
@@ -139,8 +146,8 @@ new Vue({
     // set an erro message
     setError(key, err) {
       let errors = Object.assign({}, this.errors);
-      errors[key] = String(err || '').trim();
-      if (err) console.warn('ERROR('+ key +'):', err);
+      errors[key] = String(err || "").trim();
+      if (err) console.warn("ERROR(" + key + "):", err);
       this.errors = errors;
     },
 
@@ -153,7 +160,7 @@ new Vue({
 
     // check if an error has been set for a key
     hasError(key) {
-      return (key && this.errors.hasOwnProperty(key));
+      return key && this.errors.hasOwnProperty(key);
     },
 
     // flush all errors
@@ -163,21 +170,25 @@ new Vue({
 
     // show player when app is mounted
     setupEvents() {
-      document.addEventListener('visibilitychange', () => { this.visible = (document.visibilityState === 'visible') });
-      window.addEventListener('hashchange', () => this.applyRoute(window.location.hash));
-      window.addEventListener('keydown', this.onKeyboard);
+      document.addEventListener("visibilitychange", () => {
+        this.visible = document.visibilityState === "visible";
+      });
+      window.addEventListener("hashchange", () =>
+        this.applyRoute(window.location.hash)
+      );
+      window.addEventListener("keydown", this.onKeyboard);
       // audio related events
-      _audio.on('waiting', this.onWaiting);
-      _audio.on('playing', this.onPlaying);
-      _audio.on('ended', this.onEnded);
-      _audio.on('error', this.onError);
+      _audio.on("waiting", this.onWaiting);
+      _audio.on("playing", this.onPlaying);
+      _audio.on("ended", this.onEnded);
+      _audio.on("error", this.onError);
     },
 
     // hide spinner and show player
     initPlayer() {
       setTimeout(() => {
-        document.querySelector('#_spnr').style.display = 'none';
-        document.querySelector('#player-wrap').style.opacity = '1';
+        document.querySelector("#_spnr").style.display = "none";
+        document.querySelector("#player-wrap").style.opacity = "1";
         this.init = true;
       }, 100);
     },
@@ -192,7 +203,7 @@ new Vue({
 
     // try resuming stream problem if possible
     tryAgain() {
-      if (this.hasError('support')) {
+      if (this.hasError("support")) {
         this.flushErrors();
         setTimeout(this.setupAudio, 1);
       } else {
@@ -203,14 +214,16 @@ new Vue({
 
     // show/hide the sidebar
     toggleSidebar(toggle) {
-      const state = (typeof toggle === 'boolean') ? toggle : false;
+      const state = typeof toggle === "boolean" ? toggle : false;
       if (state) {
         this.sbActive = true; // bring to front
         this.sbVisible = true; // show drawer
         this.$refs.sidebarDrawer.focus();
       } else {
         this.sbVisible = false;
-        setTimeout(() => { this.sbActive = false; }, 500);
+        setTimeout(() => {
+          this.sbActive = false;
+        }, 500);
       }
     },
 
@@ -224,56 +237,65 @@ new Vue({
 
     // save volume to store
     saveVolume() {
-      _store.set('player_volume', this.volume);
+      _store.set("player_volume", this.volume);
     },
 
     // load saved volume from store
     loadVolume() {
-      const vol = parseInt(_store.get('player_volume')) || 100;
+      const vol = parseInt(_store.get("player_volume")) || 80;
       this.volume = vol;
     },
 
     // load last sort options from store
     loadSortOptions() {
-      const opts = _store.get('sorting_data');
+      const opts = _store.get("sorting_data");
       if (opts && opts.param) this.sortParam = opts.param;
       if (opts && opts.order) this.sortOrder = opts.order;
     },
 
     // toggle sort order
     toggleSortOrder() {
-      this.sortOrder = (this.sortOrder === 'asc') ? 'desc' : 'asc';
+      this.sortOrder = this.sortOrder === "asc" ? "desc" : "asc";
     },
 
     // apply sorting and toggle order
     sortBy(param, order) {
-      if (this.sortParam === param) { this.toggleSortOrder(); }
-      else { this.sortOrder = order || 'asc'; }
+      if (this.sortParam === param) {
+        this.toggleSortOrder();
+      } else {
+        this.sortOrder = order || "asc";
+      }
       this.sortParam = param;
-      _store.set('sorting_data', { param: this.sortParam, order: this.sortOrder });
+      _store.set("sorting_data", {
+        param: this.sortParam,
+        order: this.sortOrder,
+      });
     },
 
     // load saved favs list from store
     loadFavorites() {
-      const favs = _store.get('favorites_data');
+      const favs = _store.get("favorites_data");
       if (!Array.isArray(favs)) return;
       this.favorites = favs;
     },
 
     // save favs to a .m3u file
     saveFavorites() {
-      let data = '#EXTM3U';
+      let data = "#EXTM3U";
       for (let id of this.favorites) {
-        const station = this.stations.filter(c => (c.shortcode === id)).shift();
+        const station = this.stations.filter((c) => c.shortcode === id).shift();
         if (!station) continue;
-        data += '\n\n';
+        data += "\n\n";
         data += `#EXTINF:0,${station.title} [AzuraCast]\n`;
         data += `${station.mp3file}`;
       }
-      const elm = document.createElement('a');
-      elm.setAttribute('href', 'data:audio/mpegurl;charset=utf-8,'+ encodeURIComponent(data));
-      elm.setAttribute('download', 'azuracast_favorites.m3u');
-      elm.setAttribute('target', '_blank');
+      const elm = document.createElement("a");
+      elm.setAttribute(
+        "href",
+        "data:audio/mpegurl;charset=utf-8," + encodeURIComponent(data)
+      );
+      elm.setAttribute("download", "azuracast_favorites.m3u");
+      elm.setAttribute("target", "_blank");
       document.body.appendChild(elm);
       setTimeout(() => elm.click(), 100);
       setTimeout(() => elm.remove(), 1000);
@@ -282,11 +304,11 @@ new Vue({
     // toggle favorite station by id
     toggleFavorite(id, toggle) {
       let favs = this.favorites.slice();
-      favs = favs.filter(fid => (fid !== id));
+      favs = favs.filter((fid) => fid !== id);
       if (toggle) favs.push(id);
       this.favorites = favs;
       this.updateCurrentChannel();
-      _store.set('favorites_data', favs);
+      _store.set("favorites_data", favs);
     },
 
     // close active audio
@@ -312,9 +334,9 @@ new Vue({
     // get stations data from api
     getChannels(sidebar) {
       _api.getChannels((err, stations) => {
-        if (err) return this.setError('stations', err);
+        if (err) return this.setError("stations", err);
         this.stations = stations;
-        this.clearError('stations');
+        this.clearError("stations");
         this.updateCurrentChannel();
         this.applyRoute(window.location.hash, sidebar);
       });
@@ -323,20 +345,24 @@ new Vue({
     // get songs list for a station from api
     getSongs(station, cb) {
       if (!station || !station.shortcode || !station.songsurl) return;
-      if (!this.isCurrentChannel(station)) { this.songs = []; this.track = {}; this.image = {}; };
+      if (!this.isCurrentChannel(station)) {
+        this.songs = [];
+        this.track = {};
+        this.image = {};
+      }
 
       _api.getSongs(station, (err, songs) => {
-        if (err) return this.setError('songs', err);
-        if (typeof cb === 'function') cb(songs);
+        if (err) return this.setError("songs", err);
+        if (typeof cb === "function") cb(songs);
         this.track = songs.now_playing.song;
         this.songs = songs.song_history;
         this.image = songs.now_playing.song;
-        this.clearError('songs');
+        this.clearError("songs");
         // console.log("DATA => ", this.songs);
 
         // get cover
         const a = this.track.artist.replace(/ *\([^)]*\) */g, "");
-        const t =this.track.title.replace(/ *\([^)]*\) */g, "");
+        const t = this.track.title.replace(/ *\([^)]*\) */g, "");
 
         this.getCover(a, t);
       });
@@ -382,7 +408,8 @@ new Vue({
 
     // checks is a station is currently selected
     isCurrentChannel(station) {
-      if (!station || !station.shortcode || !this.station.shortcode) return false;
+      if (!station || !station.shortcode || !this.station.shortcode)
+        return false;
       if (this.station.shortcode !== station.shortcode) return false;
       return true;
     },
@@ -391,7 +418,7 @@ new Vue({
     updateCurrentChannel() {
       for (let c of this.stations) {
         // see if channel has been saved as a favorite
-        c.favorite = (this.favorites.indexOf(c.shortcode) >= 0);
+        c.favorite = this.favorites.indexOf(c.shortcode) >= 0;
         // see if channel is currently selected
         if (this.isCurrentChannel(c)) {
           this.station = Object.assign(this.station, c);
@@ -418,25 +445,36 @@ new Vue({
       this.getSongs(station);
       this.station = station;
       // attempt to play only after user insteraction, triggered from clicking a station on the list
-      if (play) { this.playChannel(station); }
+      if (play) {
+        this.playChannel(station);
+      }
     },
 
     // set station route
     setRoute(route) {
-      route = '/'+ String(route || '').replace(/^[\#\/]+|[\/]+$/g, '').trim();
+      route =
+        "/" +
+        String(route || "")
+          .replace(/^[\#\/]+|[\/]+$/g, "")
+          .trim();
       window.location.hash = route;
       this.route = route;
     },
 
     // parse url hash route actions
     applyRoute(route, sidebar = false) {
-      const data   = String(route || '').replace(/^[\#\/]+|[\/]+$/g, '').trim().split('/');
-      const action = data.length ? data.shift() : '';
-      const param  = data.length ? data.shift() : '';
+      const data = String(route || "")
+        .replace(/^[\#\/]+|[\/]+$/g, "")
+        .trim()
+        .split("/");
+      const action = data.length ? data.shift() : "";
+      const param = data.length ? data.shift() : "";
 
       // select a station from the url
-      if (action === 'station' && param) {
-        const station = this.stations.filter(c => (c.shortcode === param)).shift();
+      if (action === "station" && param) {
+        const station = this.stations
+          .filter((c) => c.shortcode === param)
+          .shift();
         if (station && station.shortcode) {
           return this.selectChannel(station);
         }
@@ -449,10 +487,10 @@ new Vue({
 
     // on keyboard events
     onKeyboard(e) {
-      const k = e.key || '';
-      if (k === ' ' && this.station.shortcode) return this.togglePlay();
-      if (k === 'Enter') return this.toggleSidebar(true);
-      if (k === 'Escape') return this.toggleSidebar(false);
+      const k = e.key || "";
+      if (k === " " && this.station.shortcode) return this.togglePlay();
+      if (k === "Enter") return this.toggleSidebar(true);
+      if (k === "Escape") return this.toggleSidebar(false);
     },
 
     // waiting for media to load
@@ -465,7 +503,7 @@ new Vue({
 
     // audio stream playing
     onPlaying(e) {
-      this.clearError('stream');
+      this.clearError("stream");
       this.playing = true;
       this.loading = false;
     },
@@ -479,7 +517,10 @@ new Vue({
     // error loading stream
     onError(e) {
       this.closeAudio();
-      this.setError('stream', `The selected stream (${this.station.title}) could not load, or stopped loading due to network problems.`);
+      this.setError(
+        "stream",
+        `The selected stream (${this.station.title}) could not load, or stopped loading due to network problems.`
+      );
       this.playing = false;
       this.loading = false;
     },
@@ -494,12 +535,12 @@ new Vue({
 
     // update tracking playback time
     updateClock() {
-      let p = n => (n < 10) ? '0'+n : ''+n;
+      let p = (n) => (n < 10 ? "0" + n : "" + n);
       let elapsed = (Date.now() - this.timeStart) / 1000;
       let seconds = Math.floor(elapsed % 60);
-      let minutes = Math.floor(elapsed / 60 % 60);
-      let hours   = Math.floor(elapsed / 3600);
-      this.timeDisplay = p(hours) +':'+ p(minutes) +':'+ p(seconds);
+      let minutes = Math.floor((elapsed / 60) % 60);
+      let hours = Math.floor(elapsed / 3600);
+      this.timeDisplay = p(hours) + ":" + p(minutes) + ":" + p(seconds);
     },
 
     // stop tracking playback time
@@ -517,14 +558,16 @@ new Vue({
 
     // pass height property to css
     setCssHeight(elm, height) {
-      elm.style.setProperty('--height', `${height}px`);
+      elm.style.setProperty("--height", `${height}px`);
     },
 
     // keep track of window height
     updateHeight() {
-      let root = document.querySelector(':root');
+      let root = document.querySelector(":root");
       this.setCssHeight(root, window.innerHeight);
-      window.addEventListener('resize', e => this.setCssHeight(root, window.innerHeight));
+      window.addEventListener("resize", (e) =>
+        this.setCssHeight(root, window.innerHeight)
+      );
     },
 
     // ...
@@ -548,6 +591,5 @@ new Vue({
   destroyed() {
     this.closeAudio();
     this.clearTimers();
-  }
+  },
 });
-
