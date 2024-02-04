@@ -1,66 +1,65 @@
 /**
  * Webpack client-side config file
  */
-const path = require('path');
-const webpack = require('webpack');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require("path");
+const webpack = require("webpack");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-const isProd = (process.env.NODE_ENV === 'production');
+const isProd = process.env.NODE_ENV === "production";
 
 // dev server and globals styles
-const serverHost = '0.0.0.0';
+const serverHost = "0.0.0.0";
 const serverPort = 8080;
-const basePath = path.join(__dirname, '/');
-const appEntry   = './src/app.js';
-const bundleDir  = './public/bundles/';
+const basePath = path.join(__dirname, "/");
+const appEntry = "./src/app.js";
+const bundleDir = "./public/bundles/";
 
 // webpack config
 module.exports = {
-
   entry: {
     app: appEntry,
   },
 
   output: {
     path: basePath,
-    filename: path.join(bundleDir, '[name].min.js'),
+    filename: path.join(bundleDir, "[name].min.js"),
   },
 
   module: {
     rules: [
       {
         test: /\.(jpe?g|png|gif|svg|map|css|eot|woff|woff2|ttf)$/,
-        loader: 'ignore-loader',
+        loader: "ignore-loader",
       },
       {
         test: /\.scss$/i,
         exclude: /node_modules/,
-        use: [MiniCssExtractPlugin.loader, 
+        use: [
+          MiniCssExtractPlugin.loader,
           // Translates CSS into CommonJS
-          { loader: 'css-loader', options: { url: false, sourceMap: true } },
+          { loader: "css-loader", options: { url: false, sourceMap: true } },
           // Compiles Sass to CSS
-          { 
-            loader: 'sass-loader', 
-            options: { 
-              implementation: require('sass'),
-              sourceMap: true 
-            } 
-          }
+          {
+            loader: "sass-loader",
+            options: {
+              implementation: require("sass"),
+              sourceMap: true,
+            },
+          },
         ],
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-      }
-    ]
+        loader: "babel-loader",
+      },
+    ],
   },
 
   plugins: [
     new MiniCssExtractPlugin({
-      // path: basePath,
-      filename: path.join(bundleDir, '[name].min.css')
+      filename: path.join(bundleDir, "[name].min.css"),
     }),
   ],
   optimization: {
@@ -99,7 +98,7 @@ module.exports = {
           },
         },
         extractComments: false,
-      })
+      }),
     ],
   },
 
@@ -107,7 +106,7 @@ module.exports = {
     host: serverHost,
     port: serverPort,
     contentBase: basePath,
-    clientLogLevel: 'info',
+    clientLogLevel: "info",
     hot: false,
     liveReload: true,
     inline: true,
@@ -117,27 +116,27 @@ module.exports = {
   },
 
   performance: {
-    hints: 'error',
+    hints: "error",
     maxEntrypointSize: 614400,
-    maxAssetSize: 614400
+    maxAssetSize: 614400,
   },
-  mode: 'development',
-}
+  mode: "development",
+};
 
 if (isProd) {
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
+      "process.env": {
+        NODE_ENV: '"production"',
+      },
     }),
     new webpack.optimize.TerserPlugin({
       compress: {
-        warnings: false
-      }
+        warnings: false,
+      },
     }),
     new webpack.LoaderOptionsPlugin({
-      minimize: true
-    })
-  ])
+      minimize: true,
+    }),
+  ]);
 }
