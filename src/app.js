@@ -99,7 +99,7 @@ new Vue({
     // sort-by label for buttons, etc
     sortLabel() {
       switch (this.sortParam) {
-        case "title":
+        case "name":
           return "Station Name";
         case "listeners":
           return "Listeners Count";
