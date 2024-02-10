@@ -76,7 +76,7 @@ new Vue({
         .trim();
 
       if (search && search.length > 1) {
-        list = _utils.search(list, "title", search);
+        list = _utils.search(list, "name", search);
       }
       if (this.sortParam) {
         list = _utils.sort(list, this.sortParam, this.sortOrder, false);
