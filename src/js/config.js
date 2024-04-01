@@ -1,3 +1,3 @@
 export default {
-  api_url: 'https://stream.cloudmu.id'
+  api_url: 'https://s1.cloudmu.id'
 }
