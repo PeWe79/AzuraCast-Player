@@ -354,15 +354,15 @@ new Vue({
       _api.getSongs(station, (err, songs) => {
         if (err) return this.setError("songs", err);
         if (typeof cb === "function") cb(songs);
-        this.track = songs.now_playing.song;
+        this.track = songs.now_playing;
         this.songs = songs.song_history;
         this.image = songs.now_playing.song;
         this.clearError("songs");
         // console.log("DATA => ", this.songs);
 
         // get cover
-        const a = this.track.artist.replace(/ *\([^)]*\) */g, "");
-        const t = this.track.title.replace(/ *\([^)]*\) */g, "");
+        const a = this.track.song.artist.replace(/ *\([^)]*\) */g, "");
+        const t = this.track.song.title.replace(/ *\([^)]*\) */g, "");
 
         this.getCover(a, t);
       });
