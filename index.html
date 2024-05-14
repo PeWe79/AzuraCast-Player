@@ -270,7 +270,7 @@
                       >
                       <span class="text-faded">Playlist:</span>&nbsp;
                       <span class="text-bright text-capitalize"
-                        >{{ track.playlist | toText( 'N/A' ) }}.</span
+                        >{{ playlist | toText( 'N/A' ) }}.</span
                       >
                       <br />
                       <span>{{ station.description }}</span>
@@ -338,23 +338,23 @@
                   <!-- current track -->
                   <div
                     class="card fx fx-slide-left fx-delay-4"
-                    :key="track.song.played_at"
+                    :key="track.played_at"
                   >
                     <div>
                       <span class="text-secondary"
-                        >{{ track.song.title | toText( 'N/A' ) }}</span
+                        >{{ track.title | toText( 'N/A' ) }}</span
                       >
                     </div>
                     <div>
                       <span class="text-faded">From:</span>&nbsp;
                       <span class="text-bright"
-                        >{{ track.song.album | toText( 'N/A' ) }}</span
+                        >{{ track.album | toText( 'N/A' ) }}</span
                       >
                     </div>
                     <div>
                       <span class="text-faded">By:</span>&nbsp;
                       <span class="text-default"
-                        >{{ track.song.artist | toText( 'N/A' ) }}</span
+                        >{{ track.artist | toText( 'N/A' ) }}</span
                       >
                     </div>
                   </div>

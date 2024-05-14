@@ -32,6 +32,7 @@ new Vue({
     track: {},
     image: {},
     itunes: {},
+    playlist: {},
     favorites: [],
     errors: {},
     // timer stuff
@@ -348,21 +349,23 @@ new Vue({
       if (!this.isCurrentChannel(station)) {
         this.songs = [];
         this.track = {};
+        this.playlist = {},
         this.image = {};
       }
 
       _api.getSongs(station, (err, songs) => {
         if (err) return this.setError("songs", err);
         if (typeof cb === "function") cb(songs);
-        this.track = songs.now_playing;
+        this.track = songs.now_playing.song;
+        this.playlist = songs.now_playing.playlist;
         this.songs = songs.song_history;
         this.image = songs.now_playing.song;
         this.clearError("songs");
         // console.log("DATA => ", this.songs);
 
         // get cover
-        const a = this.track.song.artist.replace(/ *\([^)]*\) */g, "");
-        const t = this.track.song.title.replace(/ *\([^)]*\) */g, "");
+        const a = this.track.artist.replace(/ *\([^)]*\) */g, "");
+        const t = this.track.title.replace(/ *\([^)]*\) */g, "");
 
         this.getCover(a, t);
       });
