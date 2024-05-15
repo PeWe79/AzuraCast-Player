@@ -32,7 +32,7 @@ new Vue({
     track: {},
     image: {},
     itunes: {},
-    playlist: {},
+    now_playing: {},
     favorites: [],
     errors: {},
     // timer stuff
@@ -349,7 +349,7 @@ new Vue({
       if (!this.isCurrentChannel(station)) {
         this.songs = [];
         this.track = {};
-        this.playlist = {},
+        this.now_playing = {},
         this.image = {};
       }
 
@@ -357,30 +357,24 @@ new Vue({
         if (err) return this.setError("songs", err);
         if (typeof cb === "function") cb(songs);
         this.track = songs.now_playing.song;
-        this.playlist = songs.now_playing.playlist;
+        this.now_playing = songs.now_playing;
         this.songs = songs.song_history;
         this.image = songs.now_playing.song;
         this.clearError("songs");
         // console.log("DATA => ", this.songs);
 
         // get cover
-        const a = this.track.artist.replace(/ *\([^)]*\) */g, "");
-        const t = this.track.title.replace(/ *\([^)]*\) */g, "");
-
-        this.getCover(a, t);
+        const n = this.now_playing.song.text;
+        this.getCover(n);
       });
     },
 
     // get album cover
-    getCover(a, t) {
+    getCover(t) {
       this.itunes = {};
       var url =
-        "https://itunes.apple.com/search?term==" +
-        a +
-        "-" +
-        t +
+        "https://itunes.apple.com/search?term==" + encodeURIComponent(t) +
         "&media=music&limit=1";
-      url = encodeURI(url);
       axios
         .get(url)
         .then((response) => {
