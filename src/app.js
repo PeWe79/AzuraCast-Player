@@ -28,7 +28,7 @@ new Vue({
     route: "/",
     stations: [],
     station: {},
-    songs: [],
+    songHist: [],
     track: {},
     image: {},
     itunes: {},
@@ -93,7 +93,7 @@ new Vue({
 
     // filter songs list
     songsList() {
-      let list = this.songs.slice();
+      let list = this.songHist.slice();
       return list;
     },
 
@@ -123,7 +123,7 @@ new Vue({
 
     // check if there are tracks loaded
     hasSongs() {
-      return this.songs.length ? true : false;
+      return this.songHist.length ? true : false;
     },
 
     // check for errors that would affect playback
@@ -199,7 +199,7 @@ new Vue({
       this.closeAudio();
       this.flushErrors();
       this.station = {};
-      this.songs = [];
+      this.songHist = [];
     },
 
     // try resuming stream problem if possible
@@ -347,7 +347,7 @@ new Vue({
     getSongs(station, cb) {
       if (!station || !station.shortcode || !station.songsurl) return;
       if (!this.isCurrentChannel(station)) {
-        this.songs = [];
+        this.songHist = [];
         this.track = {};
         this.now_playing = {},
         this.image = {};
@@ -358,7 +358,7 @@ new Vue({
         if (typeof cb === "function") cb(songs);
         this.track = songs.now_playing.song;
         this.now_playing = songs.now_playing;
-        this.songs = songs.song_history;
+        this.songHist = songs.song_history;
         this.image = songs.now_playing.song;
         this.clearError("songs");
         // console.log("DATA => ", this.songs);
