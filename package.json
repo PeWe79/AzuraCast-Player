@@ -33,7 +33,7 @@
     "ignore-loader": "^0.1.2",
     "mini-css-extract-plugin": "^2.8.1",
     "postcss-loader": "^8.1.1",
-    "sass": "^1.75.0",
+    "sass": "^1.77.2",
     "sass-loader": "^14.2.0",
     "style-loader": "^4.0.0",
     "terser-webpack-plugin": "^5.3.10",
