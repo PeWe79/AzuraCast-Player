@@ -32,7 +32,8 @@ new Vue({
     track: {},
     image: {},
     itunes: {},
-    now_playing: {},
+    currentsong: {},
+    nextPlay: {},
     favorites: [],
     errors: {},
     // timer stuff
@@ -349,7 +350,8 @@ new Vue({
       if (!this.isCurrentChannel(station)) {
         this.songHist = [];
         this.track = {};
-        this.now_playing = {},
+        this.currentsong = {},
+        this.nextPlay = {},
         this.image = {};
       }
 
@@ -357,14 +359,15 @@ new Vue({
         if (err) return this.setError("songs", err);
         if (typeof cb === "function") cb(songs);
         this.track = songs.now_playing.song;
-        this.now_playing = songs.now_playing;
+        this.currentsong = songs.now_playing;
+        this.nextPlay = songs.playing_next.song;
         this.songHist = songs.song_history;
         this.image = songs.now_playing.song;
         this.clearError("songs");
-        // console.log("DATA => ", this.songs);
+        // console.log("DATA => ", this.nextPlay);
 
         // get cover
-        const n = this.now_playing.song.text;
+        const n = this.currentsong.song.text;
         this.getCover(n);
       });
     },

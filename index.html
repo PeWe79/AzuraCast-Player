@@ -24,6 +24,10 @@
       rel="prefetch"
       href="https://s1.cloudmu.id/api/nowplaying/station.json"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link rel="preconnect" href="https://azuracast.com" />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
 
@@ -270,7 +274,7 @@
                       >
                       <span class="text-faded">Playlist:</span>&nbsp;
                       <span class="text-bright text-capitalize"
-                        >{{ now_playing.playlist | toText( 'N/A' ) }}.</span
+                        >{{ currentsong.playlist | toText( 'N/A' ) }}.</span
                       >
                       <br />
                       <span>{{ station.description }}</span>
@@ -318,7 +322,7 @@
                     </div>
                   </div>
 
-                  <!-- heading -->
+                  <!-- heading current playing -->
                   <div class="flex-row flex-middle push-bottom">
                     <div class="push-right">
                       <h5 class="text-nowrap fx fx-fade-in fx-delay-2">
@@ -338,7 +342,7 @@
                   <!-- current track -->
                   <div
                     class="card fx fx-slide-left fx-delay-4"
-                    :key="now_playing.played_at"
+                    :key="currentsong.played_at"
                   >
                     <div>
                       <span class="text-secondary"
@@ -355,6 +359,36 @@
                       <span class="text-faded">By:</span>&nbsp;
                       <span class="text-default"
                         >{{ track.artist | toText( 'N/A' ) }}</span
+                      >
+                    </div>
+                  </div>
+
+                  <!-- heading next -->
+                  <div class="flex-row flex-middle push-bottom">
+                    <div class="push-right">
+                      <h6 class="text-nowrap fx fx-fade-in fx-delay-4">
+                        <i class="fa fa-arrow-circle-right" style="font-size:24px"></i>&nbsp; Playing Next
+                      </h6>
+                    </div>
+                  </div>
+
+                  <!-- next play -->
+                  <div class="card fx fx-slide-left fx-delay-4" >
+                    <div>
+                      <span class="text-secondary"
+                        >{{ nextPlay.title | toText( 'N/A' ) }}</span
+                      >
+                    </div>
+                    <div>
+                      <span class="text-faded">From:</span>&nbsp;
+                      <span class="text-bright"
+                        >{{ nextPlay.album | toText( 'N/A' ) }}</span
+                      >
+                    </div>
+                    <div>
+                      <span class="text-faded">By:</span>&nbsp;
+                      <span class="text-default"
+                        >{{ nextPlay.artist | toText( 'N/A' ) }}</span
                       >
                     </div>
                   </div>
@@ -395,7 +429,10 @@
                             >{{ sh.song.title | toText( 'N/A' ) }}</span
                           >
                         </div>
-                        <!-- <div><span class="text-faded">From:</span>&nbsp; <span class="text-bright">{{ sh.album | toText( 'N/A' ) }}</span></div> -->
+                        <div>
+                          <span class="text-faded">From:</span>&nbsp; 
+                          <span class="text-bright">{{ sh.song.album | toText( 'N/A' ) }}</span>
+                        </div>
                         <div>
                           <span class="text-faded">By:</span>&nbsp;
                           <span class="text-default"
