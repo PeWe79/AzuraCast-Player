@@ -351,6 +351,7 @@ new Vue({
         this.songHist = [];
         this.track = {};
         this.currentsong = {},
+        this.nextPlay = {},
         this.image = {};
       }
 
@@ -367,17 +368,11 @@ new Vue({
         const n = this.currentsong.song.text;
         this.getCover(n);
       });
-    },
 
-    // get next song
-    getNextSong(station, ns) {
-      if (!station || !station.shortcode || !station.songsurl) return;
-      if (!this.isCurrentChannel(station)) {
-        this.nextPlay = {};
-      }
-
-      _api.getNextSong(station, ns, (err, reslt) => {
+      // get next song from station
+      _api.getNextSong(station, (err, reslt) => {
         if (err) return this.setError("Next songs", err);
+        if (typeof cb === "function") cb(reslt);
         this.nextPlay = reslt.playing_next.song;
         this.clearError("Next songs");
       });
