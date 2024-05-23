@@ -351,7 +351,6 @@ new Vue({
         this.songHist = [];
         this.track = {};
         this.currentsong = {},
-        this.nextPlay = {},
         this.image = {};
       }
 
@@ -360,15 +359,27 @@ new Vue({
         if (typeof cb === "function") cb(songs);
         this.track = songs.now_playing.song;
         this.currentsong = songs.now_playing;
-        this.nextPlay = songs.playing_next.song;
         this.songHist = songs.song_history;
         this.image = songs.now_playing.song;
         this.clearError("songs");
-        // console.log("DATA => ", this.nextPlay);
 
         // get cover
         const n = this.currentsong.song.text;
         this.getCover(n);
+      });
+    },
+
+    // get next song
+    getNextSong(station, ns) {
+      if (!station || !station.shortcode || !station.songsurl) return;
+      if (!this.isCurrentChannel(station)) {
+        this.nextPlay = {};
+      }
+
+      _api.getNextSong(station, ns, (err, reslt) => {
+        if (err) return this.setError("Next songs", err);
+        this.nextPlay = reslt.playing_next.song;
+        this.clearError("Next songs");
       });
     },
 
