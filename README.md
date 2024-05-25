@@ -19,7 +19,7 @@ This Web project will be grab all radio station from AzuraCast streaming server 
 
 This is a Vue.js web application for streaming radio stations from [demo.azuracast.com][azuracast]. This app uses the public AzuraCast JSON channels API endpoint to pull in a list of stations and makes it easy to switch between stations. This app also used Three.js and the [HTML5 Web Audio Context API][audioapi] to sample audio data and create a visualizer effect for the selected station.
 
-##### [Check it out](https://azuracast-player.vercel.app){:target="_blank" rel="noopener"}
+##### [Check it out][demo]
 
 ## Install
 Clone this repository :
