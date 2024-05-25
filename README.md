@@ -25,7 +25,7 @@ Clone this repository :
 git clone https://github.com/PeWe79/AzuraCast-Player.git
 ```
 
-## Documentation.
+#### Edit Your AzuraCast Server.
 Edit the configuration AzuraCast server. Open the [config.js](https://github.com/PeWe79/AzuraCast-Player/blob/main/src/js/config.js) file and edit the line below :
 
 ```javascript
@@ -33,20 +33,20 @@ apiBaseUrl: 'https://your-azuracast-server.com'
 
 ```
 
-### Project setup
+#### Project setup
 ```
 npm install
 ```
-### Compiles for development
+#### Compiles for development
 ```
 npm run dev
 ```
 
-### Compiles and hot-reloads for development
+#### Compiles and hot-reloads for development
 ```
 npm run init
 ```
-### Compiles and minifies for production
+#### Compiles and minifies for production
 ```
 npm run build
 ```
