@@ -344,6 +344,15 @@ new Vue({
       });
     },
 
+    getImageBrand(sidebar) {
+      _api.getImageBrand((err, stations) => {
+        if (err) return this.setError("image", err);
+        this.clearError("Brand image");
+        this.updateCurrentChannel();
+        this.applyRoute(window.location.hash, sidebar);
+      })
+    },
+
     // get songs list for a station from api
     getSongs(station, cb) {
       if (!station || !station.shortcode || !station.songsurl) return;
@@ -449,6 +458,7 @@ new Vue({
       this.toggleSidebar(false);
       this.setRoute(station.route);
       this.getSongs(station);
+      this.getImageBrand(station);
       this.station = station;
       // attempt to play only after user insteraction, triggered from clicking a station on the list
       if (play) {

@@ -36,6 +36,9 @@ apiBaseUrl: 'https://your-azuracast-server.com'
 
 ```
 
+#### Image Branding
+Make sure youre image brang in your Azuracast server is .png extension to work with this configuration project!.
+
 #### Project setup
 ```
 npm install
@@ -58,8 +61,9 @@ npm run build
 * iTunes
 
 ## TODO
-* Option get Cover Artworks from Deezer or/and from Spotify.
-* Make song request form and work with AzuraCast server.
+- [ ] Option get Cover Artworks from Deezer or/and from Spotify.
+- [ ] Make song request form and work with AzuraCast server.
+- [x] Get Station image branding
 
 ### Author
 [PeWe79][site]
