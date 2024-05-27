@@ -55,14 +55,13 @@ export default {
   _parseChannels(station) {
     let output = [];
     var randomNumber=Math.floor(Math.random()*5);
-    let fileName = ".png";
+    let fileName = ".jpg";
     let extension = fileName.split("/").pop();
     if (Array.isArray(station)) {
       for (let c of station) {
         c.plsfile = c.playlist_pls_url;
         c.mp3file = c.listen_url;
         c.songsurl = config.apiBaseUrl + '/api/nowplaying/' + c.id;
-        c.image = '/public/img/' + c.shortcode + '.png';
         c.infourl = c.url;
         c.twitter = c.twitter ? 'https://twitter.com/@' + c.twitter : '';
         c.route = '/station/' + c.shortcode;
