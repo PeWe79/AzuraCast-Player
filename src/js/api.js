@@ -21,22 +21,6 @@ export default {
       });
   },
 
-  // get image branding from azuracast
-  getImageBrand(callback) {
-    const apiurl = config.apiBaseUrl + '/api/stations';
-    const error = 'There was a problem fetching the latest list of image branding from AzuraCast.';
-
-    axios.get(apiurl).then(res => {
-      const list = this._parseChannelsList(res.data);
-      console.log("DATA ==> " + res);
-      if (!list.length) return callback(error, []);
-      return callback(null, list);
-    })
-    .catch(e => {
-      return callback(error + String(e.message || ''), []);
-    });
-  },
-
   // fetch songs for a channel
   getSongs(channel, callback) {
     const apiurl = channel.songsurl || '';
@@ -56,7 +40,7 @@ export default {
   getNextSong(channel, callback) {
     const apiurl = channel.songsurl || '';
     const title = channel.name || '...';
-    const error = 'There was a problem loading the next song for channel ' + title + ' from AzuraCast.';
+    const error = 'Station ' + title + ' does not support Next Songs from AzuraCast.';
 
     axios.get(apiurl).then(res => {
       if (!res.data) return callback(error, []);
@@ -66,8 +50,6 @@ export default {
         return callback(error + String(e.message || ''), []);
       });
   },
-
-  // fetch next song for a channel
 
   // parse station list from api response
   _parseChannels(station) {
@@ -90,7 +72,7 @@ export default {
         c.active = false;
         c.imgLogo = config.apiBaseUrl + '/static/uploads/' + c.shortcode + '/' + 'album_art.' + randomNumber + extension;
         output.push(c);
-        // console.log("DATA => "+ c.imgLogo);
+        console.log("DATA => "+ c.imgLogo);
       }
     }
     return output;
