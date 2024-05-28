@@ -71,7 +71,6 @@ export default {
         c.active = false;
         c.imgLogo = config.apiBaseUrl + '/static/uploads/' + c.shortcode + '/' + 'album_art.' + randomNumber + extension;
         output.push(c);
-        console.log("DATA => "+ c.imgLogo);
       }
     }
     return output;
