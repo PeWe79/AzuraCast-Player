@@ -1,3 +1,3 @@
 export default {
-  apiBaseUrl: 'https://demo.azuracast.com'
+  apiBaseUrl: 'https://s1.cloudmu.id'
 }
