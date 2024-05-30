@@ -508,14 +508,14 @@ new Vue({
     },
 
     // audio stream playing
-    onPlaying(e) {
+    onPlaying() {
       this.clearError("stream");
       this.playing = true;
       this.loading = false;
     },
 
     // audio stream ended
-    onEnded(e) {
+    onEnded() {
       this.playing = false;
       this.loading = false;
     },
@@ -529,6 +529,7 @@ new Vue({
       );
       this.playing = false;
       this.loading = false;
+      console.log("%c Errot => " + e.message);
     },
 
     // start tracking playback time
