@@ -37,13 +37,13 @@ export default {
   },
 
   // fetch next song for a channel
-  getNextSong(channel, callback) {
+  getNextSongs(channel, callback) {
     const apiurl = channel.songsurl || '';
     const title = channel.name || '...';
     const error = 'Station ' + title + ' does not support Next Songs from AzuraCast.';
 
     axios.get(apiurl).then(res => {
-      if (!res.data) return callback(error, []);
+      if (!res.data.playing_next) return callback(error, []);
       return callback(null, res.data);
     })
       .catch(e => {
@@ -54,7 +54,7 @@ export default {
   // parse station list from api response
   _parseChannels(station) {
     let output = [];
-    var randomNumber=Math.floor(Math.random()*5);
+    var randomNumber = Math.floor(Math.random() * 5);
     let fileName = ".jpg";
     let extension = fileName.split("/").pop();
     if (Array.isArray(station)) {

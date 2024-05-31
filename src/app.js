@@ -29,11 +29,13 @@ new Vue({
     stations: [],
     station: {},
     songHist: [],
-    track: {},
+    songNow: {},
+    nextSong: {},
+    nextPlay: {},
     image: {},
     itunes: {},
+    nextitunes: {},
     currentsong: {},
-    nextPlay: {},
     favorites: [],
     errors: {},
     // timer stuff
@@ -349,16 +351,15 @@ new Vue({
       if (!station || !station.shortcode || !station.songsurl) return;
       if (!this.isCurrentChannel(station)) {
         this.songHist = [];
-        this.track = {};
+        this.songNow = {};
         this.currentsong = {},
-        this.nextPlay = {},
-        this.image = {};
+          this.image = {};
       }
 
       _api.getSongs(station, (err, songs) => {
         if (err) return this.setError("songs", err);
         if (typeof cb === "function") cb(songs);
-        this.track = songs.now_playing.song;
+        this.songNow = songs.now_playing.song;
         this.currentsong = songs.now_playing;
         this.songHist = songs.song_history;
         this.image = songs.now_playing.song;
@@ -367,14 +368,6 @@ new Vue({
         // get cover
         const n = this.currentsong.song.text;
         this.getCover(n);
-      });
-
-      // get next song from station
-      _api.getNextSong(station, (err, reslt) => {
-        if (err) return this.setError("Next songs not available from this station", err);
-        if (typeof cb === "function") cb(reslt);
-        this.nextPlay = reslt.playing_next.song;
-        this.clearError("Next songs not available from this station");
       });
     },
 
@@ -410,6 +403,58 @@ new Vue({
             console.log("Error data ===> ", err);
           }
         });
+    },
+
+    // get next song
+    getNextSongs(station, cb) {
+      if (!station || !station.shortcode || !station.songsurl) return;
+      if (!this.isCurrentChannel(station)) {
+        this.nextSong = {};
+        this.nextPlay = {};
+      }
+      _api.getNextSongs(station, (err, reslt) => {
+        if (err) {
+          this.nextPlay.played_at = 0;
+          if (typeof cb === "function") cb(reslt);
+          // this.setError("reslt", err);
+          console.log(
+            "%c This station doesn't support next song",
+            "background: red; color: white"
+          );
+          return;
+        }
+        if (typeof cb === "function") cb(reslt);
+        this.nextSong = reslt.playing_next.song;
+        this.nextPlay = reslt.playing_next;
+        // get cover next song
+        const n = this.nextSong.text;
+        this.getNextCover(n);
+      });
+    },
+
+    // get cover next song from iTunes
+    getNextCover(track) {
+      this.nextitunes = {};
+      const url = `https://itunes.apple.com/search?limit=1&term=${encodeURIComponent(
+        track
+      )}`;
+
+      axios.get(url).then((response) => {
+        if (response.data.results.length == 1) {
+          const cover = response.data.results[0].artworkUrl100.replace(
+            "100x100",
+            "500x500"
+          );
+          this.nextitunes = { cover };
+        } else {
+          this.nextitunes = this.nextSong;
+          /* eslint-disable */
+          console.log(
+            "%c Cover not found: Get default:",
+            "background: red; color: white;",
+          );
+        }
+      });
     },
 
     // checks is a station is currently selected
@@ -449,6 +494,7 @@ new Vue({
       this.toggleSidebar(false);
       this.setRoute(station.route);
       this.getSongs(station);
+      this.getNextSongs(station);
       this.station = station;
       // attempt to play only after user insteraction, triggered from clicking a station on the list
       if (play) {
@@ -561,6 +607,24 @@ new Vue({
       if (this.sto) clearTimeout(this.sto);
       if (this.itv) clearInterval(this.itv);
       if (this.anf) cancelAnimationFrame(this.anf);
+    },
+
+    // convert timestamp get playing at
+    getPlayAt(numeric) {
+      // Convert Unix timestamp to milliseconds
+      const date = new Date(numeric * 1000);
+      date.toLocaleString();
+      date.toDateString();
+      date.toLocaleTimeString();
+      // Define options for formatting just get hour & minutes
+      // weekday: "long", year: "numeric", month: "short",
+      // day: "numeric", hour: "2-digit", minute: "2-digit",
+      const options = {
+        hour: "2-digit",
+        minute: "2-digit",
+      };
+      const formattedDate = date.toLocaleTimeString("en-us", options);
+      return formattedDate;
     },
 
     // pass height property to css

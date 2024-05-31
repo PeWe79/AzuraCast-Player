@@ -342,19 +342,19 @@
 									>
 										<div>
 											<span class="text-secondary"
-												>{{ track.title | toText( 'N/A' ) }}</span
+												>{{ songNow.title | toText( 'N/A' ) }}</span
 											>
 										</div>
 										<div>
 											<span class="text-faded">From:</span>&nbsp;
 											<span class="text-bright"
-												>{{ track.album | toText( 'N/A' ) }}</span
+												>{{ songNow.album | toText( 'N/A' ) }}</span
 											>
 										</div>
 										<div>
 											<span class="text-faded">By:</span>&nbsp;
 											<span class="text-default"
-												>{{ track.artist | toText( 'N/A' ) }}</span
+												>{{ songNow.artist | toText( 'N/A' ) }}</span
 											>
 										</div>
 									</div>
@@ -373,23 +373,40 @@
 									</div>
 
 									<!-- next play -->
-									<div class="card fx fx-slide-left fx-delay-4">
+									<div
+										class="card fx flex-row flex-top flex-stretch fx-delay-4"
+									>
 										<div>
-											<span class="text-secondary"
-												>{{ nextPlay.title | toText( 'N/A' ) }}</span
-											>
+											<img
+												class="history-cover"
+												:alt="nextSong.title"
+												:src="nextitunes.cover || nextSong.art"
+											/>
 										</div>
-										<div>
-											<span class="text-faded">From:</span>&nbsp;
-											<span class="text-bright"
-												>{{ nextPlay.album | toText( 'N/A' ) }}</span
-											>
-										</div>
-										<div>
-											<span class="text-faded">By:</span>&nbsp;
-											<span class="text-default"
-												>{{ nextPlay.artist | toText( 'N/A' ) }}</span
-											>
+										<div class="pad-left">
+											<div>
+												<span class="text-secondary"
+													>{{ nextSong.title | toText( 'N/A' ) }}</span
+												>
+											</div>
+											<div>
+												<span class="text-faded">Played at:</span>&nbsp;
+												<span class="text-default">
+													{{ getPlayAt(nextPlay.played_at) }}
+												</span>
+											</div>
+											<div>
+												<span class="text-faded">From:</span>&nbsp;
+												<span class="text-bright"
+													>{{ nextSong.album | toText( 'N/A' ) }}</span
+												>
+											</div>
+											<div>
+												<span class="text-faded">By:</span>&nbsp;
+												<span class="text-default"
+													>{{ nextSong.artist | toText( 'N/A' ) }}</span
+												>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -440,6 +457,12 @@
 													<span class="text-default"
 														>{{ sh.song.artist | toText( 'N/A' ) }}</span
 													>
+												</div>
+												<div>
+													<span class="text-faded">Played: </span>&nbsp;
+													<span class="text-default">
+														{{ getPlayAt(sh.played_at) }}
+													</span>
 												</div>
 											</div>
 										</li>
