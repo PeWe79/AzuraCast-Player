@@ -359,53 +359,56 @@
 										</div>
 									</div>
 
-									<!-- heading next -->
-									<div class="flex-row flex-middle push-bottom">
-										<div class="push-right">
-											<h6 class="text-nowrap fx fx-fade-in fx-delay-4">
-												<i
-													class="fa fa-arrow-circle-right"
-													style="font-size: 24px"
-												></i
-												>&nbsp; Playing Next
-											</h6>
+									<!-- If station doesn't support next song will be hiden -->
+									<div v-if="hasNextSong">
+										<!-- heading next -->
+										<div class="flex-row flex-middle push-bottom">
+											<div class="push-right">
+												<h6 class="text-nowrap fx fx-fade-in fx-delay-4">
+													<i
+														class="fa fa-arrow-circle-right"
+														style="font-size: 24px"
+													></i
+													>&nbsp; Playing Next
+												</h6>
+											</div>
 										</div>
-									</div>
 
-									<!-- next play -->
-									<div
-										class="card fx flex-row flex-top flex-stretch fx-delay-4"
-									>
-										<div>
-											<img
-												class="history-cover"
-												:alt="nextSong.title"
-												:src="nextitunes.cover || nextSong.art"
-											/>
-										</div>
-										<div class="pad-left">
+										<!-- next play -->
+										<div
+											class="card fx flex-row flex-top flex-stretch fx-delay-4"
+										>
 											<div>
-												<span class="text-secondary"
-													>{{ nextSong.title | toText( 'N/A' ) }}</span
-												>
+												<img
+													class="history-cover"
+													:alt="nextSong.title"
+													:src="nextitunes.cover || nextSong.art"
+												/>
 											</div>
-											<div>
-												<span class="text-faded">Played at:</span>&nbsp;
-												<span class="text-default">
-													{{ getPlayAt(nextPlay.played_at) }}
-												</span>
-											</div>
-											<div>
-												<span class="text-faded">From:</span>&nbsp;
-												<span class="text-bright"
-													>{{ nextSong.album | toText( 'N/A' ) }}</span
-												>
-											</div>
-											<div>
-												<span class="text-faded">By:</span>&nbsp;
-												<span class="text-default"
-													>{{ nextSong.artist | toText( 'N/A' ) }}</span
-												>
+											<div class="pad-left">
+												<div>
+													<span class="text-secondary"
+														>{{ nextSong.title | toText( 'N/A' ) }}</span
+													>
+												</div>
+												<div>
+													<span class="text-faded">Played at:</span>&nbsp;
+													<span class="text-default">
+														{{ getPlayAt(nextPlay.played_at) }}
+													</span>
+												</div>
+												<div>
+													<span class="text-faded">From:</span>&nbsp;
+													<span class="text-bright"
+														>{{ nextSong.album | toText( 'N/A' ) }}</span
+													>
+												</div>
+												<div>
+													<span class="text-faded">By:</span>&nbsp;
+													<span class="text-default"
+														>{{ nextSong.artist | toText( 'N/A' ) }}</span
+													>
+												</div>
 											</div>
 										</div>
 									</div>

@@ -129,6 +129,11 @@ new Vue({
       return this.songHist.length ? true : false;
     },
 
+    // check if statio support next song
+    hasNextSong() {
+      return this.nextSong.title? true : false;
+    },
+
     // check for errors that would affect playback
     hasErrors() {
       if (this.errors.support || this.errors.stream) return true;
