@@ -37,7 +37,7 @@ apiBaseUrl: 'https://your-azuracast-server.com'
 ```
 
 #### Image Branding
-Make sure youre image brang in your Azuracast server is **.jpg** extension to work with this configuration project!.
+Make sure youre image brand in your Azuracast server is **.jpg** extension to work with this configuration project!.
 
 #### Project setup
 ```
