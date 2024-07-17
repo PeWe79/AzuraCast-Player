@@ -9,6 +9,7 @@ import _audio from "./js/audio";
 import _scene from "./js/scene";
 import _utils from "./js/utils";
 import _store from "./js/store";
+// import jsonp from "jsonp";
 
 // main vue app
 new Vue({
@@ -131,7 +132,7 @@ new Vue({
 
     // check if statio support next song
     hasNextSong() {
-      return this.nextSong.title? true : false;
+      return this.nextSong.title ? true : false;
     },
 
     // check for errors that would affect playback
@@ -378,36 +379,30 @@ new Vue({
 
     // get album cover
     getCover(t) {
+      const jsonp = require('jsonp');
       this.itunes = {};
       var url =
         "https://itunes.apple.com/search?term==" + encodeURIComponent(t) +
         "&media=music&limit=1";
-      axios
-        .get(url)
-        .then((response) => {
-          if (response.data.results.length == 1) {
-            var cover = response.data.results[0].artworkUrl100.replace(
+
+      jsonp(url, (err, response) => {
+        if (err) {
+          this.image;
+          console.log(
+            "%c Cover not found, Get default from server",
+            "background: red; color: white;",
+          );
+          // console.log(err.message);
+        } else {
+          if (response.results.length == 1) {
+            const cover = response.results[0].artworkUrl100.replace(
               "100x100",
-              "500x500"
+              "512x512",
             );
             this.itunes = { cover };
-            console.log(
-              "%c Cover found from iTunes!",
-              "background:green; color: white;"
-            );
-          } else {
-            this.itunes = this.image;
-            console.log(
-              "%c Cover not found: Get default:",
-              "background: red; color: white;"
-            );
           }
-        })
-        .catch((err) => {
-          if (err) {
-            console.log("Error data ===> ", err);
-          }
-        });
+        }
+      });
     },
 
     // get next song
@@ -439,25 +434,28 @@ new Vue({
 
     // get cover next song from iTunes
     getNextCover(track) {
+      const jsonp = require('jsonp');
       this.nextitunes = {};
       const url = `https://itunes.apple.com/search?limit=1&term=${encodeURIComponent(
         track
       )}`;
 
-      axios.get(url).then((response) => {
-        if (response.data.results.length == 1) {
-          const cover = response.data.results[0].artworkUrl100.replace(
-            "100x100",
-            "500x500"
-          );
-          this.nextitunes = { cover };
-        } else {
-          this.nextitunes = this.nextSong;
-          /* eslint-disable */
+      jsonp(url, (err, response) => {
+        if (err) {
+          this.nextSong;
           console.log(
-            "%c Cover not found: Get default:",
+            "%c Cover Next song not found, Get default from server",
             "background: red; color: white;",
           );
+          // console.log(err.message);
+        } else {
+          if (response.results.length == 1) {
+            const cover = response.results[0].artworkUrl100.replace(
+              "100x100",
+              "512x512",
+            );
+            this.nextitunes = { cover };
+          }
         }
       });
     },
