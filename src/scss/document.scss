@@ -1,4 +1,4 @@
-@import './variables';
+@use 'variables';
 
 // document setup
 html, body {
@@ -12,25 +12,25 @@ html {
   overflow-y: auto;
 }
 body {
-  font-family: $fontFamily;
-  font-weight: $fontWeight;
-  font-size: calc(#{$fontSize} - 3px);
-  line-height: $fontSpace;
-  color: $colorDocumentText;
+  font-family: variables.$fontFamily;
+  font-weight: variables.$fontWeight;
+  font-size: calc(#{variables.$fontSize} - 3px);
+  line-height: variables.$fontSpace;
+  color: variables.$colorDocumentText;
   background-size: cover;
-  background-color: $colorDocument;
+  background-color: variables.$colorDocument;
   background-image:
-    linear-gradient(217deg, rgba($colorPrimary, .8), rgba($colorPrimary, 0) 70.71%),
-    linear-gradient(127deg, rgba($colorDocument, 1), rgba($colorDocument, 0) 70.71%),
-    linear-gradient(336deg, rgba($colorSecondary, .8), rgba($colorSecondary, 0) 70.71%);
+    linear-gradient(217deg, rgba(variables.$colorPrimary, .8), rgba(variables.$colorPrimary, 0) 70.71%),
+    linear-gradient(127deg, rgba(variables.$colorDocument, 1), rgba(variables.$colorDocument, 0) 70.71%),
+    linear-gradient(336deg, rgba(variables.$colorSecondary, .8), rgba(variables.$colorSecondary, 0) 70.71%);
 
-  @media #{$screenSmall} {
-    font-size: calc(#{$fontSize} - 2px);
+  @media #{variables.$screenSmall} {
+    font-size: calc(#{variables.$fontSize} - 2px);
   }
-  @media #{$screenMedium} {
-    font-size: calc(#{$fontSize} - 1px);
+  @media #{variables.$screenMedium} {
+    font-size: calc(#{variables.$fontSize} - 1px);
   }
-  @media #{$screenLarge} {
-    font-size: $fontSize;
+  @media #{variables.$screenLarge} {
+    font-size: variables.$fontSize;
   }
 }

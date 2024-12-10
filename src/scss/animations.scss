@@ -1,11 +1,11 @@
-@import './variables';
+@use 'variables';
 
 // animations on
 .fx {
   position: relative;
   animation-direction: normal;
-  animation-duration: $fxSpeed;
-  animation-timing-function: $fxEase;
+  animation-duration: variables.$fxSpeed;
+  animation-timing-function: variables.$fxEase;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
   transform-origin: center;
@@ -24,7 +24,7 @@
 // effect delays
 @for $i from 1 through 8 {
   .fx-delay-#{$i} {
-    animation-delay: calc(#{$fxSpeedOffset} * #{$i});
+    animation-delay: calc(#{variables.$fxSpeedOffset} * #{$i});
   }
 }
 
@@ -74,30 +74,30 @@
 
 // drop-in animation (scale)
 @keyframes dropIn {
-    0% { opacity: 0; transform: scale($fxGrowScale); }
+    0% { opacity: 0; transform: scale(variables.$fxGrowScale); }
   100% { opacity: 1; transform: scale(1); }
 }
 .fx-drop-in {
   opacity: 0;
-  transform: scale($fxGrowScale);
+  transform: scale(variables.$fxGrowScale);
   animation-name: dropIn;
 }
 
 // zoom-in animation (modal, alert, etc)
 @keyframes zoomIn {
-    0% { opacity: 0; transform: scale($fxShrinkScale); }
+    0% { opacity: 0; transform: scale(variables.$fxShrinkScale); }
   100% { opacity: 1; transform: scale(1); }
 }
 .fx-zoom-in {
   opacity: 0;
-  transform: scale($fxShrinkScale);
+  transform: scale(variables.$fxShrinkScale);
   animation-name: zoomIn;
 }
 
 // zoom-out animation (modal, alert, etc)
 @keyframes zoomOut {
     0% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale($fxShrinkScale); }
+  100% { opacity: 0; transform: scale(variables.$fxShrinkScale); }
 }
 .fx-zoom-out {
   opacity: 1;
@@ -107,45 +107,45 @@
 
 // slide in to the left
 @keyframes slideLeft {
-    0% { opacity: 0; transform: translateX($fxSlideDist); }
+    0% { opacity: 0; transform: translateX(variables.$fxSlideDist); }
   100% { opacity: 1; transform: translateX(0); }
 }
 .fx-slide-left {
   opacity: 0;
-  transform: translateX($fxSlideDist);
+  transform: translateX(variables.$fxSlideDist);
   animation-name: slideLeft;
 }
 
 // slide in to the right
 @keyframes slideRight {
-    0% { opacity: 0; transform: translateX(calc(-#{$fxSlideDist})); }
+    0% { opacity: 0; transform: translateX(calc(-#{variables.$fxSlideDist})); }
   100% { opacity: 1; transform: translateX(0); }
 }
 .fx-slide-right {
   opacity: 0;
-  transform: translateX(calc(-#{$fxSlideDist}));
+  transform: translateX(calc(-#{variables.$fxSlideDist}));
   animation-name: slideRight;
 }
 
 // slide in to the top
 @keyframes slideUp {
-    0% { opacity: 0; transform: translateY($fxSlideDist); }
+    0% { opacity: 0; transform: translateY(variables.$fxSlideDist); }
   100% { opacity: 1; transform: translateY(0); }
 }
 .fx-slide-up {
   opacity: 0;
-  transform: translateY($fxSlideDist);
+  transform: translateY(variables.$fxSlideDist);
   animation-name: slideUp;
 }
 
 // slide in to the bottom
 @keyframes slideDown {
-    0% { opacity: 0; transform: translateY(calc(-#{$fxSlideDist})); }
+    0% { opacity: 0; transform: translateY(calc(-#{variables.$fxSlideDist})); }
   100% { opacity: 1; transform: translateY(0); }
 }
 .fx-slide-down {
   opacity: 0;
-  transform: translateY(calc(-#{$fxSlideDist}));
+  transform: translateY(calc(-#{variables.$fxSlideDist}));
   animation-name: slideDown;
 }
 

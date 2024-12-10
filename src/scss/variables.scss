@@ -1,3 +1,4 @@
+@use "sass:color";
 // spacing and padding
 $padSpace: 1em;
 $padSmall: calc($padSpace / 2);
@@ -6,27 +7,27 @@ $headerHeight: 3.6em;
 // document colors
 $colorDocument: #8086a0;
 $colorDocumentDark: #1e1f30;
-$colorDocumentDarker: darken($colorDocumentDark, 10%);
+$colorDocumentDarker: color.adjust($colorDocumentDark, $lightness: -10%);
 $colorDocumentLight: #a0a6b0;
-$colorDocumentText: desaturate(lighten($colorDocumentDark, 40%), 5%);
+$colorDocumentText: color.adjust(color.adjust($colorDocumentDark, $lightness: 40%), $saturation: -5%);
 
 // common colors
 $colorPrimary: crimson;
-$colorPrimaryText: lighten($colorPrimary, 40%);
+$colorPrimaryText: color.adjust($colorPrimary, $lightness: 40%);
 $colorSecondary: cornflowerblue;
-$colorSecondaryText: darken($colorSecondary, 40%);
+$colorSecondaryText: color.adjust($colorSecondary, $lightness: -40%);
 $colorDefault: lightslategray;
-$colorDefaultText: darken($colorDefault, 40%);
+$colorDefaultText: color.adjust($colorDefault, $lightness: -40%);
 $colorGrey: slategray;
-$colorGreyText: darken($colorGrey, 40%);
+$colorGreyText: color.adjust($colorGrey, $lightness: -40%);
 $colorBright: whitesmoke;
-$colorBrightText: darken($colorBright, 40%);
+$colorBrightText: color.adjust($colorBright, $lightness: -40%);
 $colorOverlay: rgba(black, 0.4);
 $colorCard: rgba(black, 0.2);
 
 // scrollbar colors
-$scrollTrack: darken($colorDocumentDark, 4%);
-$scrollThumb: lighten($colorDocumentDark, 12%);
+$scrollTrack: color.adjust($colorDocumentDark, $lightness: -4%);
+$scrollThumb: color.adjust($colorDocumentDark, $lightness: 12%);
 
 // borders and lines
 $lineWidth: 2px;

@@ -1,4 +1,5 @@
-@import './variables';
+@use "sass:color";
+@use 'variables';
 
 // common absolute popover
 @keyframes popoverShow {
@@ -12,17 +13,17 @@
   .popover-box {
     display: none;
     position: absolute;
-    padding: calc($padSpace / 2) 0;
+    padding: calc(variables.$padSpace / 2) 0;
     max-width: 300px;
     min-height: 100px;
     left: 50%;
     bottom: 50%;
     transition: none;
     transform: translateX(-50%);
-    background-color: lighten($colorDocumentDark, 8%);
-    border-radius: $lineJoin;
-    box-shadow: $shadowOverlay;
-    animation: popoverShow $fxSpeed $fxEase forwards;
+    background-color: color.adjust(variables.$colorDocumentDark, $lightness: 8%);
+    border-radius: variables.$lineJoin;
+    box-shadow: variables.$shadowOverlay;
+    animation: popoverShow variables.$fxSpeed variables.$fxEase forwards;
     z-index: 2000;
 
     &:before {
@@ -41,16 +42,16 @@
       display: block;
       width: 100%;
       text-align: left;
-      padding: calc($padSpace / 2) $padSpace;
+      padding: calc(variables.$padSpace / 2) variables.$padSpace;
       line-height: 1.2em;
       white-space: nowrap;
-      background-color: rgba($colorDocumentDark, 0);
+      background-color: rgba(variables.$colorDocumentDark, 0);
 
       &:hover {
-        background-color: rgba($colorDocumentDark, .2);
+        background-color: rgba(variables.$colorDocumentDark, .2);
       }
       & + button {
-        border-top: $lineWidth $lineStyle $lineColor;
+        border-top: variables.$lineWidth variables.$lineStyle variables.$lineColor;
       }
     }
 
@@ -73,7 +74,7 @@
         bottom: -10px;;
         border-left: 10px solid transparent;
         border-right: 10px solid transparent;
-        border-top: 10px solid lighten($colorDocumentDark, 8%);
+        border-top: 10px solid color.adjust(variables.$colorDocumentDark, $lightness: 8%);
       }
     }
     &.popover-bottom {
@@ -85,7 +86,7 @@
         bottom: auto;
         border-left: 10px solid transparent;
         border-right: 10px solid transparent;
-        border-bottom: 10px solid lighten($colorDocumentDark, 8%);
+        border-bottom: 10px solid color.adjust(variables.$colorDocumentDark, $lightness: 8%);
       }
     }
   }

@@ -1,4 +1,5 @@
-@import './variables';
+@use "sass:color";
+@use 'variables';
 
 // page reset
 *, *:before, *:after {
@@ -11,10 +12,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition:
-    border-color $fxSpeed $fxEase,
-    background-color $fxSpeed $fxEase,
-    opacity $fxSpeed $fxEase,
-    transform $fxSpeed $fxEase;
+    border-color variables.$fxSpeed variables.$fxEase,
+    background-color variables.$fxSpeed variables.$fxEase,
+    opacity variables.$fxSpeed variables.$fxEase,
+    transform variables.$fxSpeed variables.$fxEase;
 }
 
 // block types
@@ -38,9 +39,9 @@ select, button {
 
 // links
 a, .link {
-  color: $colorSecondary;
+  color: variables.$colorSecondary;
   &:hover {
-    color: lighten($colorSecondary, 10%);
+    color: color.adjust(variables.$colorSecondary, $lightness: 10%);
   }
 }
 
@@ -48,8 +49,8 @@ a, .link {
 hr {
   display: block;
   overflow: hidden;
-  margin: $padSpace 0;
+  margin: variables.$padSpace 0;
   height: 0;
   border: 0;
-  border-bottom: $lineWidth $lineStyle $lineColor;
+  border-bottom: variables.$lineWidth variables.$lineStyle variables.$lineColor;
 }

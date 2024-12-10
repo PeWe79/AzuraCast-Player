@@ -1,4 +1,5 @@
-@import './variables';
+@use "sass:color";
+@use 'variables';
 
 // common large bright text buttons
 .common-btn {
@@ -8,10 +9,10 @@
   font-weight: normal;
   line-height: 1em;
   width: 1em;
-  color: $colorBright;
+  color: variables.$colorBright;
 
   &:hover {
-    color: darken($colorBright, 20%);
+    color: color.adjust(variables.$colorBright, $lightness: -20%);
   }
 }
 
@@ -19,15 +20,15 @@
 .cta-btn {
   display: inline-block;
   text-decoration: none;
-  padding: calc($padSpace / 2) $padSpace;
-  color: $colorPrimaryText;
-  background-color: darken(desaturate($colorPrimary, 10%), 10%);
+  padding: calc(variables.$padSpace / 2) variables.$padSpace;
+  color: variables.$colorPrimaryText;
+  background-color: color.adjust(color.adjust(variables.$colorPrimary, $saturation: -10%), $lightness: -10%);
   border-radius: 100px;
   line-height: 1.1em;
 
   &:hover {
-    color: lighten($colorPrimaryText, 5%);
-    background-color: darken($colorPrimary, 5%);
+    color: color.adjust(variables.$colorPrimaryText, $lightness: 5%);
+    background-color: color.adjust(variables.$colorPrimary, $lightness: -5%);
   }
 }
 
@@ -38,12 +39,12 @@
   flex-direction: row;
   align-items: center;
   justify-content: stretch;
-  color: $colorBright;
+  color: variables.$colorBright;
 
   & > input {
     flex: 1;
     line-height: 1.5em;
-    padding: 0 calc($padSpace / 2);
+    padding: 0 calc(variables.$padSpace / 2);
   }
 }
 
@@ -51,10 +52,10 @@
 @mixin sliderTrack {
   width: 100%;
   height: 3px;
-  background-color: lighten($colorDocumentDark, 10%);
+  background-color: color.adjust(variables.$colorDocumentDark, $lightness: 10%);
   color: transparent !important;
   border-color: transparent !important;
-  border-radius: $lineJoin !important;
+  border-radius: variables.$lineJoin !important;
   border: 0 !important;
 }
 @mixin sliderThumb {
@@ -62,18 +63,18 @@
   height: 1em;
   margin: -.4em 0 0 0;
   border-radius: 50%;
-  box-shadow: $shadowPaper;
-  background-color: $colorBright !important;;
-  transition: background $fxSpeed $fxEase;
+  box-shadow: variables.$shadowPaper;
+  background-color: variables.$colorBright !important;;
+  transition: background variables.$fxSpeed variables.$fxEase;
   color: transparent !important;
   border-color: transparent !important;
   border: 0 !important;
   cursor: pointer;
   &:hover {
-    background-color: darken($colorBright, 20%);
+    background-color: color.adjust(variables.$colorBright, $lightness: -20%);
   }
   &:focus, &:active {
-    box-shadow: $focusBox;
+    box-shadow: variables.$focusBox;
   }
 }
 .form-slider {
@@ -100,8 +101,8 @@
     &::-moz-range-thumb { @include sliderThumb; }
     &::-ms-thumb { @include sliderThumb; }
     // focus
-    &:focus::-webkit-slider-thumb { box-shadow: $focusBox; }
-    &:focus::-moz-range-thumb { box-shadow: $focusBox; }
-    &:focus::-ms-thumb { box-shadow: $focusBox; }
+    &:focus::-webkit-slider-thumb { box-shadow: variables.$focusBox; }
+    &:focus::-moz-range-thumb { box-shadow: variables.$focusBox; }
+    &:focus::-ms-thumb { box-shadow: variables.$focusBox; }
   }
 }

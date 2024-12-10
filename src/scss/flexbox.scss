@@ -1,4 +1,4 @@
-@import './variables';
+@use 'variables';
 
 /**
  * Align children vertically (column)
@@ -100,9 +100,9 @@
     flex-wrap: nowrap;
     align-items: center;
     justify-content: stretch;
-    margin: 0 0 ($lineWidth * 2) 0;
-    padding: calc($padSpace / 2);
-    border-radius: $lineJoin;
+    margin: 0 0 (variables.$lineWidth * 2) 0;
+    padding: calc(variables.$padSpace / 2);
+    border-radius: variables.$lineJoin;
     background-color: rgba(0, 0, 0, 0.1);
   }
   & > .flex-item:hover {
@@ -121,15 +121,15 @@
   & > .flex-item {
     flex: 1;
     width: 100%;
-    margin: 0 0 $padSpace 0; // push bottom
+    margin: 0 0 variables.$padSpace 0; // push bottom
     &:last-of-type { margin: 0; }
   }
 
-  @media #{$screenMedium} {
+  @media #{variables.$screenMedium} {
     flex-direction: row;
 
     & > .flex-item {
-      margin: 0 $padSpace 0 0; // push right
+      margin: 0 variables.$padSpace 0 0; // push right
       &:last-of-type { margin: 0; }
     }
   }
@@ -140,7 +140,7 @@
  */
 .flex-grid {
   display: grid;
-  grid-gap: $padSpace;
+  grid-gap: variables.$padSpace;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
 
   &.flex-grid-sm {

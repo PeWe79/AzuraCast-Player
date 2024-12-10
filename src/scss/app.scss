@@ -1,15 +1,16 @@
 // common
-@import './variables';
-@import './reset';
-@import './document';
-@import './common';
-@import './animations';
-@import './flexbox';
-@import './images';
-@import './forms';
-@import './popover';
-@import './type';
-@import './icons';
+@use "sass:color";
+@use 'variables';
+@use 'reset';
+@use 'document';
+@use 'common';
+@use 'animations';
+@use 'flexbox';
+@use 'images';
+@use 'forms';
+@use 'popover';
+@use 'type';
+@use 'icons';
 
 // app root
 .app-wrap {
@@ -31,7 +32,7 @@
   flex: 1;
   width: 100%;
   height: var(--height, 100vh);
-  background-color: $colorDocumentDark;
+  background-color: variables.$colorDocumentDark;
 
   & > .player-bg,
   & > .player-canvas {
@@ -52,13 +53,13 @@
   & > .player-canvas {
     z-index: 2;
   }
-  @media #{$screenMedium} {
-    margin: 0 ($padSpace * 2);
+  @media #{variables.$screenMedium} {
+    margin: 0 (variables.$padSpace * 2);
     max-width: 1080px;
-    height: calc(var(--height, 100vh) - (#{$padSpace} * 4));
+    height: calc(var(--height, 100vh) - (#{variables.$padSpace} * 4));
     max-height: 700px;
-    border-radius: $lineJoin;
-    box-shadow: $shadowContainer;
+    border-radius: variables.$lineJoin;
+    box-shadow: variables.$shadowContainer;
   }
 }
 
@@ -79,14 +80,14 @@
   }
   .player-header,
   .player-footer {
-    padding: 0 $padSpace;
-    height: $headerHeight;
-    min-height: $headerHeight;
+    padding: 0 variables.$padSpace;
+    height: variables.$headerHeight;
+    min-height: variables.$headerHeight;
     // background-color: $colorCard;
   }
   .player-header {
     & > h2 {
-      color: $colorPrimary;
+      color: variables.$colorPrimary;
       i { vertical-align: bottom; }
     }
   }
@@ -99,14 +100,14 @@
     height: 100%;
     overflow: hidden;
     overflow-y: auto;
-    padding: $padSpace;
-    @include customScrollbar;
+    padding: variables.$padSpace;
+    @include variables.customScrollbar;
 
     & > section {
       margin: auto 0; // prevent vertical aligned flex item from overflowing
     }
-    @media #{$screenMedium} {
-      padding: $padSpace ($padSpace * 2);
+    @media #{variables.$screenMedium} {
+      padding: variables.$padSpace (variables.$padSpace * 2);
     }
   }
 }
@@ -114,7 +115,7 @@
 // player greeting message
 .player-greet {
   flex: 1;
-  @media #{$screenMedium} { flex: .5; }
+  @media #{variables.$screenMedium} { flex: .5; }
 }
 
 // player tracklist
@@ -124,7 +125,7 @@
   list-style: none;
 
   & > li + li {
-    margin-top: $padSpace;
+    margin-top: variables.$padSpace;
   }
 }
 
@@ -141,8 +142,8 @@
   top: 0;
   width: 100%;
   height: 100%;
-  border-radius: $lineJoin;
-  background-color: rgba($colorOverlay, 0);
+  border-radius: variables.$lineJoin;
+  background-color: rgba(variables.$colorOverlay, 0);
   pointer-events: none;
   z-index: -1;
 
@@ -157,16 +158,16 @@
     width: 100vw;
     min-height: 100%;
     max-height: 100%;
-    background-color: lighten($colorDocumentDark, 2%);
+    background-color: color.adjust(variables.$colorDocumentDark, $lightness: 2%);
 
-    @media #{$screenSmall} {
+    @media #{variables.$screenSmall} {
       width: 420px;
     }
 
     .player-stations-header,
     .player-stations-footer {
-      padding: 0 $padSpace;
-      min-height: $headerHeight;
+      padding: 0 variables.$padSpace;
+      min-height: variables.$headerHeight;
       box-shadow: 0 0 3px rgba(black, 0.3);
     }
     .player-stations-list {
@@ -177,11 +178,11 @@
       margin-left: -10px;
       padding-left: 10px;
       flex: 1;
-      @include customScrollbar;
+      @include variables.customScrollbar;
 
       .player-stations-list-item {
         position: relative;
-        padding: $padSpace;
+        padding: variables.$padSpace;
         background-color: rgba(black, 0.1);
         cursor: pointer;
 
@@ -192,8 +193,8 @@
           background-color: rgba(black, 0);
         }
         &:focus, &:active, &.active {
-          background-color: darken($colorDocumentDark, 2%);
-          .player-stations-list-title { color: $colorPrimary; }
+          background-color: color.adjust(variables.$colorDocumentDark, $lightness: -2%);
+          .player-stations-list-title { color: variables.$colorPrimary; }
         }
       }
     }
@@ -207,15 +208,15 @@
 
   // slide out
   &.visible {
-    background-color: $colorOverlay;
+    background-color: variables.$colorOverlay;
 
     .player-stations-sidebar {
       transform: translate3d(0, 0, 0);
       transform: translateX(-100vw);
 
-      @media #{$screenSmall} {
+      @media #{variables.$screenSmall} {
         transform: translateX(-420px);
-        box-shadow: $shadowOverlay;
+        box-shadow: variables.$shadowOverlay;
       }
     }
     .player-stations-list-item.active:before {
@@ -227,7 +228,7 @@
       left: -10px;
       border-top: 10px solid transparent;
       border-bottom: 10px solid transparent;
-      border-right: 10px solid darken($colorDocumentDark, 2%);
+      border-right: 10px solid color.adjust(variables.$colorDocumentDark, $lightness: -2%);
       content: '';
     }
   }

@@ -1,18 +1,19 @@
-@import "./variables";
+@use "sass:color";
+@use "variables";
 
 // rouded image
 .img-round {
   overflow: hidden;
   text-indent: -1000px;
   border-radius: 1000px;
-  border: $lineWidth solid $colorBright;
-  background-color: lighten($colorDocumentDark, 10%);
+  border: variables.$lineWidth solid variables.$colorBright;
+  background-color: color.adjust(variables.$colorDocumentDark, $lightness: 10%);
   background-image: linear-gradient(
     45deg,
-    lighten($colorDocumentDark, 10%),
-    lighten($colorDocumentDark, 25%)
+    color.adjust(variables.$colorDocumentDark, $lightness: 10%),
+    color.adjust(variables.$colorDocumentDark, $lightness: 25%)
   );
-  box-shadow: $shadowPaper;
+  box-shadow: variables.$shadowPaper;
 }
 .album-cover {
   overflow: hidden;
@@ -20,13 +21,13 @@
   width: 120px;
   text-indent: -1000px;
   border-radius: 0.4rem;
-  background-color: lighten($colorDocumentDark, 10%);
+  background-color: color.adjust(variables.$colorDocumentDark, $lightness: 10%);
   background-image: linear-gradient(
     45deg,
-    lighten($colorDocumentDark, 10%),
-    lighten($colorDocumentDark, 25%)
+    color.adjust(variables.$colorDocumentDark, $lightness: 10%),
+    color.adjust(variables.$colorDocumentDark, $lightness: 25%)
   );
-  box-shadow: $shadowPaper;
+  box-shadow: variables.$shadowPaper;
 }
 .history-cover {
   overflow: hidden;
@@ -34,13 +35,13 @@
   width: 70px;
   text-indent: -1000px;
   border-radius: 0.2rem;
-  background-color: lighten($colorDocumentDark, 10%);
+  background-color: color.adjust(variables.$colorDocumentDark, $lightness: 10%);
   background-image: linear-gradient(
     45deg,
-    lighten($colorDocumentDark, 10%),
-    lighten($colorDocumentDark, 25%)
+    color.adjust(variables.$colorDocumentDark, $lightness: 10%),
+    color.adjust(variables.$colorDocumentDark, $lightness: 25%)
   );
-  box-shadow: $shadowPaper;
+  box-shadow: variables.$shadowPaper;
 }
 // centered image
 .img-center {

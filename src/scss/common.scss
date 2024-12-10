@@ -1,21 +1,22 @@
-@import './variables';
+@use "sass:color";
+@use 'variables';
 
 // media query helpers
 .if-small {
   display: none;
-  @media #{$screenSmall} {
+  @media #{variables.$screenSmall} {
     display: initial;
   }
 }
 .if-medium {
   display: none;
-  @media #{$screenMedium} {
+  @media #{variables.$screenMedium} {
     display: initial;
   }
 }
 .if-large {
   display: none;
-  @media #{$screenLarge} {
+  @media #{variables.$screenLarge} {
     display: initial;
   }
 }
@@ -38,9 +39,9 @@
 
 // common card style
 .card {
-  padding: $padSpace;
+  padding: variables.$padSpace;
   background-image: radial-gradient(ellipse at top left, rgba(black, 0.5) 0%, rgba(black, 0) 90%);
-  border-radius: $lineJoin;
+  border-radius: variables.$lineJoin;
 
   .heading {
     margin: 0 0 .5rem 0;
@@ -50,44 +51,44 @@
 // hover state on text elements
 .hover-text {
   &:hover {
-    color: lighten($colorSecondary, 10%);
+    color: color.adjust(variables.$colorSecondary, $lightness: 10%);
   }
 }
 
 // focus state on text elements
 .focus-text {
   &:focus, &:active {
-    text-shadow: $focusText;
+    text-shadow: variables.$focusText;
   }
 }
 
 // focus state on box elements
 .focus-box {
   &:focus, &:active {
-    box-shadow: $focusBox;
+    box-shadow: variables.$focusBox;
   }
 }
 
 // margin helpers
-.push-top { margin-top: $padSpace; }
-.push-right { margin-right: $padSpace; }
-.push-bottom { margin-bottom: $padSpace; }
-.push-left { margin-left: $padSpace; }
-.push-all { margin: $padSpace; }
+.push-top { margin-top: variables.$padSpace; }
+.push-right { margin-right: variables.$padSpace; }
+.push-bottom { margin-bottom: variables.$padSpace; }
+.push-left { margin-left: variables.$padSpace; }
+.push-all { margin: variables.$padSpace; }
 
 // padding helpers
-.pad-top { padding-top: $padSpace; }
-.pad-right { padding-right: $padSpace; }
-.pad-bottom { padding-bottom: $padSpace; }
-.pad-left { padding-left: $padSpace; }
-.pad-all { padding: $padSpace; }
+.pad-top { padding-top: variables.$padSpace; }
+.pad-right { padding-right: variables.$padSpace; }
+.pad-bottom { padding-bottom: variables.$padSpace; }
+.pad-left { padding-left: variables.$padSpace; }
+.pad-all { padding: variables.$padSpace; }
 
 // border helpers
-.border-top { border-top: $lineWidth $lineStyle $lineColor; }
-.border-right { border-right: $lineWidth $lineStyle $lineColor; }
-.border-bottom { border-bottom: $lineWidth $lineStyle $lineColor; }
-.border-left { border-left: $lineWidth $lineStyle $lineColor; }
+.border-top { border-top: variables.$lineWidth variables.$lineStyle variables.$lineColor; }
+.border-right { border-right: variables.$lineWidth variables.$lineStyle variables.$lineColor; }
+.border-bottom { border-bottom: variables.$lineWidth variables.$lineStyle variables.$lineColor; }
+.border-left { border-left: variables.$lineWidth variables.$lineStyle variables.$lineColor; }
 
 // shadow helpers
-.shadow-box { box-shadow: $shadowPaper; }
-.shadow-text { text-shadow: $shadowPaper; }
+.shadow-box { box-shadow: variables.$shadowPaper; }
+.shadow-text { text-shadow: variables.$shadowPaper; }
