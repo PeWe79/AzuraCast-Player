@@ -238,7 +238,7 @@
 											<div class="fx fx-drop-in fx-delay-1">
 												<img
 													class="album-cover"
-													:src="itunes.cover || image.art"
+													:src="npiTunes.art || image.art"
 													:alt="station.name"
 												/>
 											</div>
@@ -270,7 +270,7 @@
 											>
 											<span class="text-faded">Playlist:</span>&nbsp;
 											<span class="text-bright text-capitalize"
-												>{{ currentsong.playlist | toText( 'N/A' ) }}.</span
+												>{{ nowPlaying.playlist | toText( 'N/A' ) }}.</span
 											>
 											<br />
 											<span>{{ station.description }}</span>
@@ -338,7 +338,7 @@
 									<!-- current track -->
 									<div
 										class="card fx fx-slide-left fx-delay-4"
-										:key="currentsong.played_at"
+										:key="nowPlaying.played_at"
 									>
 										<div>
 											<span class="text-secondary"
