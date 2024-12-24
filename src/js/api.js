@@ -11,12 +11,14 @@ export default {
     const apiurl = config.apiBaseUrl + '/api/stations';
     const error = 'There was a problem fetching the latest list of music channels from AzuraCast.';
 
-    axios.get(apiurl).then(res => {
-      const list = this._parseChannels(res.data);
-      if (!list.length) return callback(error, []);
-      return callback(null, list);
-    })
-      .catch(e => {
+    fetch(apiurl)
+      .then((e) => e.json())
+      .then((res) => {
+        const list = this._parseChannels(res);
+        if (!list.length) return callback(error, []);
+        return callback(null, res);
+      })
+      .catch((e) => {
         return callback(error + String(e.message || ''), []);
       });
   },
@@ -27,26 +29,13 @@ export default {
     const title = channel.name || '...';
     const error = 'There was a problem loading the list of songs for channel ' + title + ' from AzuraCast.';
 
-    axios.get(apiurl).then(res => {
-      if (!res.data) return callback(error, []);
-      return callback(null, res.data);
-    })
-      .catch(e => {
-        return callback(error + String(e.message || ''), []);
-      });
-  },
-
-  // fetch next song for a channel
-  getNextSongs(channel, callback) {
-    const apiurl = channel.songsurl || '';
-    const title = channel.name || '...';
-    const error = 'Station ' + title + ' does not support Next Songs from AzuraCast.';
-
-    axios.get(apiurl).then(res => {
-      if (!res.data.playing_next) return callback(error, []);
-      return callback(null, res.data);
-    })
-      .catch(e => {
+    fetch(apiurl)
+      .then((e) => e.json())
+      .then((res) => {
+        if (!res) return callback(error, []);
+        return callback(null, res);
+      })
+      .catch((e) => {
         return callback(error + String(e.message || ''), []);
       });
   },

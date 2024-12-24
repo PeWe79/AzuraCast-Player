@@ -28,7 +28,6 @@
     "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.0",
     "ignore-loader": "^0.1.2",
-    "jsonp": "^0.2.1",
     "mini-css-extract-plugin": "^2.9.2",
     "postcss-loader": "^8.1.1",
     "sass": "^1.82.0",

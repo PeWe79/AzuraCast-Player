@@ -9,7 +9,6 @@ import _audio from "./js/audio";
 import _scene from "./js/scene";
 import _utils from "./js/utils";
 import _store from "./js/store";
-// import jsonp from "jsonp";
 
 // main vue app
 new Vue({
