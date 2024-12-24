@@ -210,6 +210,7 @@ new Vue({
       this.flushErrors();
       this.station = {};
       this.songHist = [];
+      this.histiTunes = [];
     },
 
     // try resuming stream problem if possible
@@ -358,6 +359,7 @@ new Vue({
       if (!station || !station.shortcode || !station.songsurl) return;
       if (!this.isCurrentChannel(station)) {
         this.songHist = [];
+        this.histiTunes = [];
         this.songNow = {};
         this.nowPlaying = {};
         this.nextSong = {};
