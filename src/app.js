@@ -33,7 +33,6 @@ new Vue({
     songNow: {},
     nextSong: {},
     nextPlay: {},
-    image: {},
     npiTunes: {},
     nextitunes: {},
     histiTunes: [],
@@ -363,7 +362,6 @@ new Vue({
         this.nowPlaying = {};
         this.nextSong = {};
         this.nextPlay = {};
-        this.image = {};
       }
 
       _api.getSongs(station, async (err, np) => {
@@ -374,7 +372,6 @@ new Vue({
         this.songHist = np.song_history;
         this.nextSong = np.playing_next.song;
         this.nextPlay = np.playing_next;
-        this.image = np.now_playing.song;
         this.clearError("np");
 
         this.nowPlayingData(this.songNow);
