@@ -35,7 +35,7 @@ new Vue({
     nextPlay: {},
     npiTunes: {},
     nextitunes: {},
-    histiTunes: [],
+    // histiTunes: [],
     nowPlaying: {},
     favorites: [],
     errors: {},
@@ -210,7 +210,7 @@ new Vue({
       this.flushErrors();
       this.station = {};
       this.songHist = [];
-      this.histiTunes = [];
+      // this.histiTunes = [];
     },
 
     // try resuming stream problem if possible
@@ -359,7 +359,7 @@ new Vue({
       if (!station || !station.shortcode || !station.songsurl) return;
       if (!this.isCurrentChannel(station)) {
         this.songHist = [];
-        this.histiTunes = [];
+        // this.histiTunes = [];
         this.songNow = {};
         this.nowPlaying = {};
         this.nextSong = {};
@@ -378,7 +378,7 @@ new Vue({
 
         this.nowPlayingData(this.songNow);
         this.nextPlayingData(this.nextSong);
-        this.histPlayingData(this.songHist);
+        // this.histPlayingData(this.songHist);
       });
     },
 
@@ -439,12 +439,12 @@ new Vue({
       this.nextitunes = s;
     },
 
-    async histPlayingData(t) {
-      for (var i = 0; i < t.length; i++) {
-        const n = await this.getDataFrom(t[i].song, !1);
-        this.histiTunes.push(n);
-      }
-    },
+    // async histPlayingData(t) {
+    //   for (var i = 0; i < t.length; i++) {
+    //     const n = await this.getDataFrom(t[i].song, !1);
+    //     this.histiTunes.push(n);
+    //   }
+    // },
 
     // checks is a station is currently selected
     isCurrentChannel(station) {
