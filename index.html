@@ -432,6 +432,7 @@
 									<ul class="player-tracklist push-bottom" v-if="hasSongs">
 										<li
 											v-for="(sh, i) of songsList"
+                      :key="sh.played_at"
 											class="card fx flex-row flex-top flex-stretch"
 											:class="'fx-slide-left fx-delay-' + ( i + 4 )"
 										>
