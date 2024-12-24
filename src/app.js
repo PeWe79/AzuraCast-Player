@@ -39,6 +39,7 @@ new Vue({
     nowPlaying: {},
     favorites: [],
     errors: {},
+    cache: {},
     // timer stuff
     timeStart: 0,
     timeDisplay: "00:00:00",
@@ -358,8 +359,10 @@ new Vue({
       if (!this.isCurrentChannel(station)) {
         this.songHist = [];
         this.songNow = {};
-        this.nowPlaying = {},
-          this.image = {};
+        this.nowPlaying = {};
+        this.nextSong = {};
+        this.nextPlay = {};
+        this.image = {};
       }
 
       _api.getSongs(station, (err, np) => {
@@ -368,11 +371,14 @@ new Vue({
         this.songNow = np.now_playing.song;
         this.nowPlaying = np.now_playing;
         this.songHist = np.song_history;
+        this.nextSong = np.playing_next.song;
+        this.nextPlay = np.playing_next;
         this.image = np.now_playing.song;
         this.clearError("np");
 
         // get cover
         this.getCover(this.nowPlaying.song);
+        this.getNextCover(this.nextSong.text);
       });
     },
 
@@ -383,13 +389,16 @@ new Vue({
       const resp = await fetch(
         `https://itunes.apple.com/search?limit=1&term=${encodeURIComponent(track)}`
       );
-      if (resp.status === 403)
-        return {
+
+      if (resp.status === 403) {
+        const results = {
           title: t.title,
           artist: t.artist,
           album: t.album,
           art: coverArt,
         };
+        return results;
+      }
 
       const data = resp.ok ? await resp.json() : {};
       if (!data.results || data.results.length === 0)
@@ -409,33 +418,6 @@ new Vue({
       };
       this.npiTunes = reslt;
       return reslt;
-    },
-
-    // get next song
-    getNextSongs(station, cb) {
-      if (!station || !station.shortcode || !station.songsurl) return;
-      if (!this.isCurrentChannel(station)) {
-        this.nextSong = {};
-        this.nextPlay = {};
-      }
-      _api.getNextSongs(station, (err, reslt) => {
-        if (err) {
-          this.nextPlay.played_at = 0;
-          if (typeof cb === "function") cb(reslt);
-          // this.setError("reslt", err);
-          console.log(
-            "%c This station doesn't support next song",
-            "background: red; color: white"
-          );
-          return;
-        }
-        if (typeof cb === "function") cb(reslt);
-        this.nextSong = reslt.playing_next.song;
-        this.nextPlay = reslt.playing_next;
-        // get cover next song
-        const n = this.nextSong.text;
-        this.getNextCover(n);
-      });
     },
 
     // get cover next song from iTunes
@@ -503,7 +485,6 @@ new Vue({
       this.toggleSidebar(false);
       this.setRoute(station.route);
       this.getSongs(station);
-      this.getNextSongs(station);
       this.station = station;
       // attempt to play only after user insteraction, triggered from clicking a station on the list
       if (play) {
