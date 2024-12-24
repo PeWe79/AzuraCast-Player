@@ -413,8 +413,8 @@ new Vue({
       if (!data.results || data.results.length === 0)
         return {
           title,
-          artist: t.artist,
-          album: t.album,
+          artist,
+          album,
           art: defaultArt,
         };
 
