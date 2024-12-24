@@ -36,6 +36,7 @@ new Vue({
     image: {},
     npiTunes: {},
     nextitunes: {},
+    histiTunes: [],
     nowPlaying: {},
     favorites: [],
     errors: {},
@@ -378,6 +379,7 @@ new Vue({
 
         this.nowPlayingData(this.songNow);
         this.nextPlayingData(this.nextSong);
+        this.histPlayingData(this.songHist);
       });
     },
 
@@ -436,6 +438,13 @@ new Vue({
     async nextPlayingData(t) {
       const s = await this.getDataFrom(t);
       this.nextitunes = s;
+    },
+
+    async histPlayingData(t) {
+      for (var i = 0; i < t.length; i++) {
+        const n = await this.getDataFrom(t[i].song, !1);
+        this.histiTunes.push(n);
+      }
     },
 
     // checks is a station is currently selected

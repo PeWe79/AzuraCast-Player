@@ -431,42 +431,41 @@
 
 									<ul class="player-tracklist push-bottom" v-if="hasSongs">
 										<li
-											v-for="( sh, i ) of songsList"
-											:key="sh.played_at"
+											v-for="(sh, i) in histiTunes"
 											class="card fx flex-row flex-top flex-stretch"
 											:class="'fx-slide-left fx-delay-' + ( i + 4 )"
 										>
 											<div>
 												<img
 													class="history-cover"
-													:alt="sh.song.title"
-													:src="sh.song.art"
+													:alt="sh.title"
+													:src="sh.art"
 												/>
 											</div>
 											<div class="pad-left">
 												<div>
 													<span class="text-secondary"
-														>{{ sh.song.title | toText( 'N/A' ) }}</span
+														>{{ sh.title | toText( 'N/A' ) }}</span
 													>
 												</div>
 												<div>
 													<span class="text-faded">From:</span>&nbsp;
 													<span class="text-bright"
-														>{{ sh.song.album | toText( 'N/A' ) }}</span
+														>{{ sh.album | toText( 'N/A' ) }}</span
 													>
 												</div>
 												<div>
 													<span class="text-faded">By:</span>&nbsp;
 													<span class="text-default"
-														>{{ sh.song.artist | toText( 'N/A' ) }}</span
+														>{{ sh.artist | toText( 'N/A' ) }}</span
 													>
 												</div>
-												<div>
+												<!-- <div>
 													<span class="text-faded">Played: </span>&nbsp;
 													<span class="text-default">
 														{{ getPlayAt(sh.played_at) }}
 													</span>
-												</div>
+												</div> -->
 											</div>
 										</li>
 									</ul>
