@@ -342,19 +342,19 @@
 									>
 										<div>
 											<span class="text-secondary"
-												>{{ songNow.title | toText( 'N/A' ) }}</span
+												>{{ npiTunes.title || songNow.title | toText( 'N/A' ) }}</span
 											>
 										</div>
 										<div>
 											<span class="text-faded">From:</span>&nbsp;
 											<span class="text-bright"
-												>{{ songNow.album | toText( 'N/A' ) }}</span
+												>{{ npiTunes.album || songNow.album | toText( 'N/A' ) }}</span
 											>
 										</div>
 										<div>
 											<span class="text-faded">By:</span>&nbsp;
 											<span class="text-default"
-												>{{ songNow.artist | toText( 'N/A' ) }}</span
+												>{{ npiTunes.artist || songNow.artist | toText( 'N/A' ) }}</span
 											>
 										</div>
 									</div>
@@ -382,7 +382,7 @@
 												<img
 													class="history-cover"
 													:alt="nextSong.title"
-													:src="nextitunes.cover || nextSong.art"
+													:src="nextitunes.art || nextSong.art"
 												/>
 											</div>
 											<div class="pad-left">
@@ -400,7 +400,7 @@
 												<div>
 													<span class="text-faded">From:</span>&nbsp;
 													<span class="text-bright"
-														>{{ nextSong.album | toText( 'N/A' ) }}</span
+														>{{ nextitunes.album || nextSong.album | toText( 'N/A' ) }}</span
 													>
 												</div>
 												<div>

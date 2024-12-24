@@ -365,7 +365,7 @@ new Vue({
         this.image = {};
       }
 
-      _api.getSongs(station, (err, np) => {
+      _api.getSongs(station, async (err, np) => {
         if (err) return this.setError("np", err);
         if (typeof cb === "function") cb(np);
         this.songNow = np.now_playing.song;
@@ -376,26 +376,35 @@ new Vue({
         this.image = np.now_playing.song;
         this.clearError("np");
 
-        // get cover
-        this.getCover(this.nowPlaying.song);
-        this.getNextCover(this.nextSong.text);
+        this.nowPlayingData(this.songNow);
+        this.nextPlayingData(this.nextSong);
       });
     },
 
-    // get album cover
-    async getCover(t) {
-      const track = t.text;
-      const coverArt = t.art;
+    async getDataFrom({ artist, title, album, cover }) {
+      let dataFrom;
+      dataFrom = await this.getiTunes(artist, title, album, cover);
+
+      return dataFrom;
+    },
+
+    async getiTunes(artist, title, album, defaultArt) {
+      let track;
+      if (artist === title) {
+        track = `${title}`;
+      } else {
+        track = `${artist} - ${title}`;
+      }
       const resp = await fetch(
         `https://itunes.apple.com/search?limit=1&term=${encodeURIComponent(track)}`
       );
 
       if (resp.status === 403) {
         const results = {
-          title: t.title,
-          artist: t.artist,
-          album: t.album,
-          art: coverArt,
+          title,
+          artist,
+          album,
+          art: defaultArt,
         };
         return results;
       }
@@ -403,49 +412,30 @@ new Vue({
       const data = resp.ok ? await resp.json() : {};
       if (!data.results || data.results.length === 0)
         return {
-          title: t.title,
+          title,
           artist: t.artist,
           album: t.album,
-          art: coverArt,
+          art: defaultArt,
         };
 
       const itunes = data.results[0];
-      const reslt = {
-        title: itunes.trackName || t.title,
-        artist: itunes.artistName || t.artist,
-        album: itunes.collectionName || t.album,
-        art: itunes.artworkUrl100.replace("100x100", "512x512") || coverArt,
+      const results = {
+        title: itunes.trackName || title,
+        artist: itunes.artistName || artist,
+        album: itunes.collectionName || album,
+        art: itunes.artworkUrl100 ? itunes.artworkUrl100.replace("100x100", "512x512") : defaultArt,
       };
-      this.npiTunes = reslt;
-      return reslt;
+      return results;
     },
 
-    // get cover next song from iTunes
-    getNextCover(track) {
-      const jsonp = require('jsonp');
-      this.nextitunes = {};
-      const url = `https://itunes.apple.com/search?limit=1&term=${encodeURIComponent(
-        track
-      )}`;
+    async nowPlayingData(t) {
+      const s = await this.getDataFrom(t);
+      this.npiTunes = s;
+    },
 
-      jsonp(url, (err, response) => {
-        if (err) {
-          this.nextSong;
-          console.log(
-            "%c Cover Next song not found, Get default from server",
-            "background: red; color: white;",
-          );
-          // console.log(err.message);
-        } else {
-          if (response.results.length == 1) {
-            const cover = response.results[0].artworkUrl100.replace(
-              "100x100",
-              "512x512",
-            );
-            this.nextitunes = { cover };
-          }
-        }
-      });
+    async nextPlayingData(t) {
+      const s = await this.getDataFrom(t);
+      this.nextitunes = s;
     },
 
     // checks is a station is currently selected
