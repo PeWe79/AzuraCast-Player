@@ -95,12 +95,6 @@ new Vue({
       return list;
     },
 
-    // filter songs list
-    songsList() {
-      let list = this.songHist.slice();
-      return list;
-    },
-
     // sort-by label for buttons, etc
     sortLabel() {
       switch (this.sortParam) {
