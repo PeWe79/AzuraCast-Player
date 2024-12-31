@@ -1,14 +1,14 @@
 /**
  * Main app JS entry file.
  */
-import "./scss/app.scss";
-import "./js/filters";
-import "./js/favorite";
 import _api from "./js/api";
 import _audio from "./js/audio";
+import "./js/favorite";
+import "./js/filters";
 import _scene from "./js/scene";
-import _utils from "./js/utils";
 import _store from "./js/store";
+import _utils from "./js/utils";
+import "./scss/app.scss";
 
 // main vue app
 new Vue({
@@ -34,7 +34,7 @@ new Vue({
     nextPlay: {},
     npiTunes: {},
     nextitunes: {},
-    // histiTunes: [],
+    songHistoryCoverArt: {},
     nowPlaying: {},
     favorites: [],
     errors: {},
@@ -209,7 +209,6 @@ new Vue({
       this.flushErrors();
       this.station = {};
       this.songHist = [];
-      // this.histiTunes = [];
     },
 
     // try resuming stream problem if possible
@@ -358,7 +357,6 @@ new Vue({
       if (!station || !station.shortcode || !station.songsurl) return;
       if (!this.isCurrentChannel(station)) {
         this.songHist = [];
-        // this.histiTunes = [];
         this.songNow = {};
         this.nowPlaying = {};
         this.nextSong = {};
@@ -377,7 +375,7 @@ new Vue({
 
         this.nowPlayingData(this.songNow);
         this.nextPlayingData(this.nextSong);
-        // this.histPlayingData(this.songHist);
+        this.histPlayingData(this.songHist);
       });
     },
 
@@ -423,7 +421,9 @@ new Vue({
         title: itunes.trackName || title,
         artist: itunes.artistName || artist,
         album: itunes.collectionName || album,
-        art: itunes.artworkUrl100 ? itunes.artworkUrl100.replace("100x100", "512x512") : defaultArt,
+        art: itunes.artworkUrl100
+          ? itunes.artworkUrl100.replace("100x100", "512x512")
+          : defaultArt,
       };
       return results;
     },
@@ -438,12 +438,18 @@ new Vue({
       this.nextitunes = s;
     },
 
-    // async histPlayingData(t) {
-    //   for (var i = 0; i < t.length; i++) {
-    //     const n = await this.getDataFrom(t[i].song, !1);
-    //     this.histiTunes.push(n);
-    //   }
-    // },
+    async histPlayingData(t) {
+      const historyToFetch = t.slice(0, 5);
+      historyToFetch.forEach(async (item, index) => {
+        const data = item.song;
+        await this.getDataFrom(data).then((coverData) => {
+          if (!this.songHistoryCoverArt) {
+            this.songHistoryCoverArt = {};
+          }
+          this.songHistoryCoverArt[index] = coverData.art;
+        });
+      });
+    },
 
     // checks is a station is currently selected
     isCurrentChannel(station) {
