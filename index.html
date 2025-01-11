@@ -327,10 +327,10 @@
 										</div>
 										<div
 											class="fx fx-slide-left fx-delay-3"
-											:key="station.mounts[0].listeners.current "
+											:key="formatNumber(station.mounts[0].listeners.current) "
 										>
 											<i class="ico ico-headphones"></i>&nbsp; {{
-											station.mounts[0].listeners.current }}
+                      formatNumber(station.mounts[0].listeners.current) }}
 											listening
 										</div>
 									</div>
@@ -617,7 +617,7 @@
 										<div class="text-nowrap">
 											<span class="text-secondary"
 												><i class="ico ico-headphones"></i>&nbsp; {{
-												c.mounts[0].listeners.current }}
+                        formatNumber(c.mounts[0].listeners.current) }}
 												&nbsp;</span
 											>
 											<!-- <favBtn

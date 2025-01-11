@@ -146,6 +146,11 @@ const app = createApp({
 
   // custom methods
   methods: {
+    // format number
+    formatNumber(num) {
+      return new Intl.NumberFormat('en-US').format(num)
+    },
+
     // run maintenance tasks on a timer
     setupMaintenance() {
       this.itv = setInterval(() => {
