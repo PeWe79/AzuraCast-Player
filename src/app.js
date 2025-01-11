@@ -4,7 +4,6 @@
 import _api from "./js/api";
 import _audio from "./js/audio";
 import favBtn from "./js/favorite";
-import "./js/filters";
 import _scene from "./js/scene";
 import _store from "./js/store";
 import _utils from "./js/utils";
