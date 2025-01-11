@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "SPA audio player for the streaming stations provided by AzuraCast.",
 	"scripts": {
-		"dev": "webpack --mode=development",
+		"dev": "webpack --mode=development --progress",
 		"build": "webpack --mode=production --progress",
 		"sass-min": "sass ./src/scss:./public/css --style compressed",
 		"init": "live-server --open=."
