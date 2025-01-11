@@ -105,13 +105,10 @@ module.exports = {
   devServer: {
     host: serverHost,
     port: serverPort,
-    contentBase: basePath,
-    clientLogLevel: "info",
-    hot: false,
+    compress: true,
+    hot: true,
     liveReload: true,
-    inline: true,
-    quiet: false,
-    noInfo: false,
+    open: true,
     compress: false,
   },
 
@@ -120,7 +117,6 @@ module.exports = {
     maxEntrypointSize: 614400,
     maxAssetSize: 614400,
   },
-  mode: "development",
 };
 
 if (isProd) {
