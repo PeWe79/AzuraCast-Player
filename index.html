@@ -247,12 +247,12 @@
 													<span>{{ station.name }}</span>
 												</h3>
 												<div class="fx fx-fade-in fx-delay-3">
-													<fav-btn
+													<!-- <favBtn
 														:id="station.shortcode"
 														:active="station.favorite"
 														text="Favorite"
 														@change="toggleFavorite"
-													></fav-btn>
+													></favBtn> -->
 												</div>
 											</div>
 										</div>
@@ -262,7 +262,7 @@
 									<div class="push-bottom pad-bottom fx fx-slide-up fx-delay-3">
 										<div class="push-bottom">
 											<span class="text-secondary"
-												>Mixed by DJ {{ station.name | toText( 'N/A' ) }}.</span
+												>Mixed by DJ {{ station.name || "N/A" }}.</span
 											>
 											<br />
 											<span class="text-bright text-capitalize"
@@ -270,7 +270,7 @@
 											>
 											<span class="text-faded">Playlist:</span>&nbsp;
 											<span class="text-bright text-capitalize"
-												>{{ nowPlaying.playlist | toText( 'N/A' ) }}.</span
+												>{{ nowPlaying.playlist || "N/A" }}.</span
 											>
 											<br />
 											<span>{{ station.description }}</span>
@@ -330,7 +330,7 @@
 											:key="station.mounts[0].listeners.current "
 										>
 											<i class="ico ico-headphones"></i>&nbsp; {{
-											station.mounts[0].listeners.current | toCommas( 0 ) }}
+											station.mounts[0].listeners.current }}
 											listening
 										</div>
 									</div>
@@ -342,19 +342,19 @@
 									>
 										<div>
 											<span class="text-secondary"
-												>{{ npiTunes.title || songNow.title | toText( 'N/A' ) }}</span
+												>{{ npiTunes.title || songNow.title || "N/A" }}</span
 											>
 										</div>
 										<div>
 											<span class="text-faded">From:</span>&nbsp;
 											<span class="text-bright"
-												>{{ npiTunes.album || songNow.album | toText( 'N/A' ) }}</span
+												>{{ npiTunes.album || songNow.album || "N/A" }}</span
 											>
 										</div>
 										<div>
 											<span class="text-faded">By:</span>&nbsp;
 											<span class="text-default"
-												>{{ npiTunes.artist || songNow.artist | toText( 'N/A' ) }}</span
+												>{{ npiTunes.artist || songNow.artist || "N/A" }}</span
 											>
 										</div>
 									</div>
@@ -388,7 +388,7 @@
 											<div class="pad-left">
 												<div>
 													<span class="text-secondary"
-														>{{ nextSong.title | toText( 'N/A' ) }}</span
+														>{{ nextSong.title || "N/A" }}</span
 													>
 												</div>
 												<div>
@@ -400,13 +400,13 @@
 												<div>
 													<span class="text-faded">From:</span>&nbsp;
 													<span class="text-bright"
-														>{{ nextitunes.album || nextSong.album | toText( 'N/A' ) }}</span
+														>{{ nextitunes.album || nextSong.album || "N/A" }}</span
 													>
 												</div>
 												<div>
 													<span class="text-faded">By:</span>&nbsp;
 													<span class="text-default"
-														>{{ nextSong.artist | toText( 'N/A' ) }}</span
+														>{{ nextSong.artist || "N/A" }}</span
 													>
 												</div>
 											</div>
@@ -446,19 +446,19 @@
 											<div class="pad-left">
 												<div>
 													<span class="text-secondary"
-														>{{ historyItem.song.title | toText( 'N/A' ) }}</span
+														>{{ historyItem.song.title || "N/A" }}</span
 													>
 												</div>
 												<div>
 													<span class="text-faded">From:</span>&nbsp;
 													<span class="text-bright"
-														>{{ historyItem.song.album | toText( 'N/A' ) }}</span
+														>{{ historyItem.song.album || "N/A" }}</span
 													>
 												</div>
 												<div>
 													<span class="text-faded">By:</span>&nbsp;
 													<span class="text-default"
-														>{{ historyItem.song.artist | toText( 'N/A' ) }}</span
+														>{{ historyItem.song.artist || "N/A" }}</span
 													>
 												</div>
 												<div>
@@ -617,19 +617,19 @@
 										<div class="text-nowrap">
 											<span class="text-secondary"
 												><i class="ico ico-headphones"></i>&nbsp; {{
-												c.mounts[0].listeners.current | toCommas( 0 ) }}
+												c.mounts[0].listeners.current }}
 												&nbsp;</span
 											>
-											<fav-btn
+											<!-- <favBtn
 												:id="c.shortcode"
 												:active="c.favorite"
 												@change="toggleFavorite"
-											></fav-btn>
+											></favBtn> -->
 										</div>
 									</div>
 									<div class="text-small">
 										<span class="text-faded text-uppercase text-small"
-											>{{ c.genre | toText }}</span
+											>{{ c.genre }}</span
 										>
 										<br />
 										{{ c.description }}
@@ -701,10 +701,11 @@
 			src="//cdnjs.cloudflare.com/ajax/libs/three.js/96/three.min.js"
 			defer
 		></script>
-		<script
+		<!-- <script
 			src="//cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.min.js"
 			defer
-		></script>
-		<script src="/public/bundles/app.min.js" defer></script>
+		></script> -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="/public/bundles/app.min.js" defer></script>
 	</body>
 </html>

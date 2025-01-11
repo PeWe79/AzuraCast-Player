@@ -3,54 +3,62 @@
  */
 import _api from "./js/api";
 import _audio from "./js/audio";
-import "./js/favorite";
+import favBtn from "./js/favorite";
 import "./js/filters";
 import _scene from "./js/scene";
 import _store from "./js/store";
 import _utils from "./js/utils";
 import "./scss/app.scss";
 
+const { createApp } = Vue
+
 // main vue app
-new Vue({
-  el: "#app",
-  data: {
-    // toggles
-    init: false,
-    visible: true,
-    playing: false,
-    loading: false,
-    sidebar: false,
-    volume: 80,
-    // sidebar toggles
-    sbActive: false,
-    sbVisible: false,
-    // stations stuff
-    route: "/",
-    stations: [],
-    station: {},
-    songHist: [],
-    songNow: {},
-    nextSong: {},
-    nextPlay: {},
-    npiTunes: {},
-    nextitunes: {},
-    songHistoryCoverArt: {},
-    nowPlaying: {},
-    favorites: [],
-    errors: {},
-    cache: {},
-    // timer stuff
-    timeStart: 0,
-    timeDisplay: "00:00:00",
-    timeItv: null,
-    // sorting stuff
-    searchText: "",
-    sortParam: "listeners",
-    sortOrder: "desc",
-    // timer stuff
-    anf: null,
-    sto: null,
-    itv: null,
+const app = createApp({
+
+  components: {
+    favBtn,
+  },
+
+  data: () => {
+    return {
+      // toggles
+      init: false,
+      visible: true,
+      playing: false,
+      loading: false,
+      sidebar: false,
+      volume: 80,
+      // sidebar toggles
+      sbActive: false,
+      sbVisible: false,
+      // stations stuff
+      route: "/",
+      stations: [],
+      station: {},
+      songHist: [],
+      songNow: {},
+      nextSong: {},
+      nextPlay: {},
+      npiTunes: {},
+      nextitunes: {},
+      songHistoryCoverArt: {},
+      nowPlaying: {},
+      favorites: [],
+      errors: {},
+      cache: {},
+      // timer stuff
+      timeStart: 0,
+      timeDisplay: "00:00:00",
+      timeItv: null,
+      // sorting stuff
+      searchText: "",
+      sortParam: "listeners",
+      sortOrder: "desc",
+      // timer stuff
+      anf: null,
+      sto: null,
+      itv: null,
+    };
   },
 
   // watch methods
@@ -650,4 +658,5 @@ new Vue({
     this.closeAudio();
     this.clearTimers();
   },
-});
+})
+app.mount('#app')
