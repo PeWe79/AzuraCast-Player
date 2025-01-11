@@ -2,10 +2,7 @@
  * Vue component used to toggle channel favorite
  */
 
-const { defineComponent } = Vue
-
-export default defineComponent({
-  name: 'favBtn',
+export default {
 
   props: {
     id: { type: String, default: '', required: true },
@@ -20,4 +17,4 @@ export default defineComponent({
       </span>
       <span v-if="text">&nbsp; {{ text }}</span>
     </button>`,
-})
+};
