@@ -33,7 +33,8 @@ const app = createApp({
       route: '/',
       stations: [],
       station: {},
-      songHist: [],
+      songHistory: [],
+      songHistoryAlbum: [],
       songNow: {},
       nextSong: {},
       nextPlay: {},
@@ -125,9 +126,9 @@ const app = createApp({
       return this.station.shortcode ? true : false
     },
 
-    // check if there are tracks loaded
-    hasSongs() {
-      return this.songHist.length ? true : false
+    // check if there are historySong loaded
+    hasHistorySongs() {
+      return this.songHistory.length ? true : false
     },
 
     // check if statio support next song
@@ -211,7 +212,9 @@ const app = createApp({
       this.closeAudio()
       this.flushErrors()
       this.station = {}
-      this.songHist = []
+      this.songHistory = []
+      this.songHistoryAlbum = []
+      this.songHistoryCoverArt = []
     },
 
     // try resuming stream problem if possible
@@ -356,7 +359,6 @@ const app = createApp({
     getSongs(station, cb) {
       if (!station || !station.shortcode || !station.songsurl) return
       if (!this.isCurrentChannel(station)) {
-        this.songHist = []
         this.songNow = {}
         this.nowPlaying = {}
         this.nextSong = {}
@@ -368,14 +370,14 @@ const app = createApp({
         if (typeof cb === 'function') cb(np)
         this.songNow = np.now_playing.song
         this.nowPlaying = np.now_playing
-        this.songHist = np.song_history
         this.nextSong = np.playing_next.song
         this.nextPlay = np.playing_next
+        const historySong = np.song_history
         this.clearError('np')
 
         this.nowPlayingData(this.songNow)
         this.nextPlayingData(this.nextSong)
-        this.histPlayingData(this.songHist)
+        this.histPlayingData(historySong)
       })
     },
 
@@ -432,14 +434,16 @@ const app = createApp({
     },
 
     async histPlayingData(t) {
-      const historyToFetch = t.slice(0, 5)
-      historyToFetch.forEach(async (item, index) => {
+      this.songHistory = t.slice(0, 5)
+      this.songHistory.forEach(async (item, index) => {
         const data = item.song
         await this.getDataFrom(data).then((coverData) => {
           if (!this.songHistoryCoverArt) {
             this.songHistoryCoverArt = {}
+            this.songHistoryAlbum = {}
           }
           this.songHistoryCoverArt[index] = coverData.art
+          this.songHistoryAlbum[index] = coverData.album
         })
       })
     },

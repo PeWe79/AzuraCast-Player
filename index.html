@@ -379,13 +379,13 @@
                     </h5>
                   </div>
 
-                  <div class="card push-bottom fx fx-slide-left fx-delay-4" v-if="!hasSongs">
+                  <div class="card push-bottom fx fx-slide-left fx-delay-4" v-if="!hasHistorySongs">
                     There are no songs loaded yet for this station.
                   </div>
 
-                  <ul class="player-tracklist push-bottom" v-if="hasSongs">
+                  <ul class="player-tracklist push-bottom" v-if="hasHistorySongs">
                     <li
-                      v-for="(historyItem, index) in songHist.slice(0, 5)"
+                      v-for="(historyItem, index) in songHistory"
                       :key="index"
                       class="card fx flex-row flex-top flex-stretch"
                       :class="'fx-slide-left fx-delay-' + ( index + 5 )"
@@ -403,7 +403,7 @@
                         </div>
                         <div>
                           <span class="text-faded">From:</span>&nbsp;
-                          <span class="text-bright">{{ historyItem.song.album || "N/A" }}</span>
+                          <span class="text-bright">{{ songHistoryAlbum[index] || historyItem.song.album || "N/A" }}</span>
                         </div>
                         <div>
                           <span class="text-faded">By:</span>&nbsp;
