@@ -13,6 +13,10 @@ const { createApp } = Vue;
 
 // main vue app
 const app = createApp({
+	components: {
+		favBtn,
+	},
+
 	data: () => {
 		return {
 			// toggles
@@ -660,4 +664,5 @@ const app = createApp({
 		this.clearTimers();
 	},
 });
+
 app.mount('#app');

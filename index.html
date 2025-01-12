@@ -247,12 +247,12 @@
 													<span>{{ station.name }}</span>
 												</h3>
 												<div class="fx fx-fade-in fx-delay-3">
-													<!-- <favBtn
+													<fav-btn
 														:id="station.shortcode"
 														:active="station.favorite"
 														text="Favorite"
 														@change="toggleFavorite"
-													></favBtn> -->
+													></fav-btn>
 												</div>
 											</div>
 										</div>
@@ -620,11 +620,11 @@
                         formatNumber(c.mounts[0].listeners.current) }}
 												&nbsp;</span
 											>
-											<!-- <favBtn
+											<fav-btn
 												:id="c.shortcode"
 												:active="c.favorite"
 												@change="toggleFavorite"
-											></favBtn> -->
+											></fav-btn>
 										</div>
 									</div>
 									<div class="text-small">
