@@ -31,7 +31,6 @@ export default {
       this._freq = new Uint8Array(this._analyser.frequencyBinCount)
       this._audio.play()
     })
-
     ;['waiting', 'playing', 'ended', 'stalled', 'error'].forEach((event) => {
       this._audio.addEventListener(event, (e) => this.emit(event, e))
     })
