@@ -399,7 +399,7 @@ const app = createApp({
           title: t.title,
           artist: t.artist,
           album: t.album,
-          art: t.art,
+          artworkUrl: t.art,
         }
         return results
       }
@@ -410,7 +410,7 @@ const app = createApp({
           title: t.title,
           artist: t.artist,
           album: t.album,
-          art: t.art,
+          artworkUrl: t.art,
         }
 
       const itunes = data.results[0]
@@ -418,7 +418,7 @@ const app = createApp({
         title: itunes.trackName || t.title,
         artist: itunes.artistName || t.artist,
         album: itunes.collectionName || t.album,
-        art: itunes.artworkUrl100 ? itunes.artworkUrl100.replace('100x100', '512x512') : t.art,
+        artworkUrl: itunes.artworkUrl100 ? itunes.artworkUrl100.replace('100x100', '512x512') : t.art,
       }
       return results
     },
@@ -437,13 +437,13 @@ const app = createApp({
       this.songHistory = t.slice(0, 5)
       this.songHistory.forEach(async (item, index) => {
         const data = item.song
-        await this.getDataFrom(data).then((coverData) => {
+        await this.getDataFrom(data).then((item) => {
           if (!this.songHistoryCoverArt) {
             this.songHistoryCoverArt = {}
             this.songHistoryAlbum = {}
           }
-          this.songHistoryCoverArt[index] = coverData.art
-          this.songHistoryAlbum[index] = coverData.album
+          this.songHistoryCoverArt[index] = item.artworkUrl
+          this.songHistoryAlbum[index] = item.album
         })
       })
     },

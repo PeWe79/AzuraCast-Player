@@ -223,7 +223,7 @@
                       <div class="fx fx-drop-in fx-delay-1">
                         <img
                           class="album-cover"
-                          :src="npiTunes.art || songNow.art"
+                          :src="npiTunes.artworkUrl || songNow.art"
                           :alt="station.name"
                         />
                       </div>
@@ -345,7 +345,7 @@
                         <img
                           class="history-cover"
                           :alt="nextSong.title"
-                          :src="nextitunes.art || nextSong.art"
+                          :src="nextitunes.artworkUrl || nextSong.art"
                         />
                       </div>
                       <div class="pad-left">
