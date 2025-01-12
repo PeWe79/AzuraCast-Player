@@ -193,7 +193,7 @@
           <!-- player middle content area -->
           <main class="player-content flex-row">
             <!-- default greet message -->
-            <section class="player-greet" v-if="!hasChannel && !hasErrors">
+            <section class="player-greet" v-if="!hasStation && !hasErrors">
               <div class="fx fx-slide-left push-bottom">
                 <h1>Pick a Station</h1>
               </div>
@@ -211,7 +211,7 @@
             <!-- show selected channel info if possible -->
             <section
               class="player-channel flex-1"
-              v-if="hasChannel && !hasErrors"
+              v-if="hasStation && !hasErrors"
               :key="station.shortcode"
             >
               <div class="flex-autorow flex-top flex-stretch">
@@ -479,8 +479,8 @@
               </div>
               <div class="text-clip push-left">
                 <span>{{ timeDisplay }}</span>
-                <span class="text-faded" v-if="hasChannel">&nbsp;|&nbsp;</span>
-                <span class="fx fx-fade-in fx-delay-1" v-if="hasChannel" :key="station.shortcode"
+                <span class="text-faded" v-if="hasStation">&nbsp;|&nbsp;</span>
+                <span class="fx fx-fade-in fx-delay-1" v-if="hasStation" :key="station.shortcode"
                   >{{ station.name }}</span
                 >
               </div>

@@ -122,7 +122,7 @@ const app = createApp({
     },
 
     // check if a station is selected
-    hasChannel() {
+    hasStation() {
       return this.station.shortcode ? true : false
     },
 
