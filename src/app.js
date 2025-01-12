@@ -372,6 +372,7 @@ const app = createApp({
         this.nowPlaying = np.now_playing
         this.nextSong = np.playing_next.song
         this.nextPlay = np.playing_next
+        document.title = np.now_playing.song.text
         const historySong = np.song_history
         this.clearError('np')
 
