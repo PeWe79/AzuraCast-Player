@@ -379,30 +379,25 @@ const app = createApp({
       })
     },
 
-    async getDataFrom({ artist, title, album, cover }) {
+    async getDataFrom(n) {
       let dataFrom
-      dataFrom = await this.getiTunes(artist, title, album, cover)
+      dataFrom = await this.getiTunes(n)
 
       return dataFrom
     },
 
-    async getiTunes(artist, title, album, defaultArt) {
-      let track
-      if (artist === title) {
-        track = `${title}`
-      } else {
-        track = `${artist} - ${title}`
-      }
+    async getiTunes(t) {
+      const track = t.text
       const resp = await fetch(
         `https://itunes.apple.com/search?limit=1&term=${encodeURIComponent(track)}`,
       )
 
       if (resp.status === 403) {
         const results = {
-          title,
-          artist,
-          album,
-          art: defaultArt,
+          title: t.title,
+          artist: t.artist,
+          album: t.album,
+          art: t.art,
         }
         return results
       }
@@ -410,18 +405,18 @@ const app = createApp({
       const data = resp.ok ? await resp.json() : {}
       if (!data.results || data.results.length === 0)
         return {
-          title,
-          artist,
-          album,
-          art: defaultArt,
+          title: t.title,
+          artist: t.artist,
+          album: t.album,
+          art: t.art,
         }
 
       const itunes = data.results[0]
       const results = {
-        title: itunes.trackName || title,
-        artist: itunes.artistName || artist,
-        album: itunes.collectionName || album,
-        art: itunes.artworkUrl100 ? itunes.artworkUrl100.replace('100x100', '512x512') : defaultArt,
+        title: itunes.trackName || t.title,
+        artist: itunes.artistName || t.artist,
+        album: itunes.collectionName || t.album,
+        art: itunes.artworkUrl100 ? itunes.artworkUrl100.replace('100x100', '512x512') : t.art,
       }
       return results
     },
