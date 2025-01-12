@@ -6,7 +6,6 @@ const webpack = require("webpack");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-const WebpackObfuscator = require("webpack-obfuscator");
 const isProd = process.env.NODE_ENV === "production";
 
 // dev server and globals styles
@@ -55,28 +54,12 @@ module.exports = {
         exclude: /node_modules/,
         loader: "babel-loader",
       },
-      {
-        test: /\.js$/,
-        exclude: [
-          // path.resolve(__dirname, 'excluded_file_name.js')
-        ],
-        enforce: 'post',
-        use: {
-          loader: WebpackObfuscator.loader,
-          options: {
-            rotateStringArray: true
-          }
-        }
-      },
     ],
   },
 
   plugins: [
     new MiniCssExtractPlugin({
       filename: path.join(bundleDir, "[name].min.css"),
-    }),
-    new WebpackObfuscator({
-      rotateStringArray: true
     }),
   ],
   optimization: {
