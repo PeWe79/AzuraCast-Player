@@ -419,7 +419,9 @@ const app = createApp({
         title: itunes.trackName || t.title,
         artist: itunes.artistName || t.artist,
         album: itunes.collectionName || t.album,
-        artworkUrl: itunes.artworkUrl100 ? itunes.artworkUrl100.replace('100x100', '512x512') : t.art,
+        artworkUrl: itunes.artworkUrl100
+          ? itunes.artworkUrl100.replace('100x100', '512x512')
+          : t.art,
       }
       return results
     },

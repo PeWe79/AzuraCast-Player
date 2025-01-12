@@ -7,7 +7,7 @@
 		"build": "webpack --mode=production --progress",
 		"sass-min": "sass ./src/scss:./public/css --style compressed",
 		"init": "live-server --open=.",
-		"format": "prettier --write './src/**/*.{js,vue}' './index.html'"
+		"format": "prettier --write './**/**/*.{js,vue}' '!./public/**/*'"
 	},
 	"repository": {
 		"type": "git",
