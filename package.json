@@ -6,7 +6,8 @@
 		"dev": "webpack --mode=development --progress",
 		"build": "webpack --mode=production --progress",
 		"sass-min": "sass ./src/scss:./public/css --style compressed",
-		"init": "live-server --open=."
+		"init": "live-server --open=.",
+		"format": "prettier --write './src/**/*.{js,vue}'"
 	},
 	"repository": {
 		"type": "git",
@@ -29,6 +30,7 @@
 		"ignore-loader": "^0.1.2",
 		"mini-css-extract-plugin": "^2.9.2",
 		"postcss-loader": "^8.1.1",
+		"prettier": "^3.4.2",
 		"sass": "^1.82.0",
 		"sass-loader": "^16.0.4",
 		"style-loader": "^4.0.0",
