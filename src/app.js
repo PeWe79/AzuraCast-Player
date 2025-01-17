@@ -392,7 +392,7 @@ const app = createApp({
     async getiTunes(t) {
       const track = t.text
       const resp = await fetch(
-        `https://itunes.apple.com/search?limit=1&term=${encodeURIComponent(track)}`,
+        `https://itunes.apple.com/search?limit=1&media=music&term=${encodeURIComponent(track)}`,
       )
 
       if (resp.status === 403) {
