@@ -30,7 +30,7 @@ module.exports = {
     rules: [
       {
         test: /\.(jpe?g|png|gif|svg|map|css|eot|woff|woff2|ttf)$/,
-        loader: 'ignore-loader',
+        loader: 'url-loader',
       },
       {
         test: /\.scss$/i,
