@@ -1,4 +1,4 @@
-@use "sass:color";
+@use 'sass:color';
 @use 'variables';
 
 // common large bright text buttons
@@ -22,7 +22,10 @@
   text-decoration: none;
   padding: calc(variables.$padSpace / 2) variables.$padSpace;
   color: variables.$colorPrimaryText;
-  background-color: color.adjust(color.adjust(variables.$colorPrimary, $saturation: -10%), $lightness: -10%);
+  background-color: color.adjust(
+    color.adjust(variables.$colorPrimary, $saturation: -10%),
+    $lightness: -10%
+  );
   border-radius: 100px;
   line-height: 1.1em;
 
@@ -61,10 +64,10 @@
 @mixin sliderThumb {
   width: 1em;
   height: 1em;
-  margin: -.4em 0 0 0;
+  margin: -0.4em 0 0 0;
   border-radius: 50%;
   box-shadow: variables.$shadowPaper;
-  background-color: variables.$colorBright !important;;
+  background-color: variables.$colorBright !important;
   transition: background variables.$fxSpeed variables.$fxEase;
   color: transparent !important;
   border-color: transparent !important;
@@ -73,7 +76,8 @@
   &:hover {
     background-color: color.adjust(variables.$colorBright, $lightness: -20%);
   }
-  &:focus, &:active {
+  &:focus,
+  &:active {
     box-shadow: variables.$focusBox;
   }
 }
@@ -91,18 +95,37 @@
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    margin: 0 .5em;
+    margin: 0 0.5em;
     // track
-    &::-webkit-slider-runnable-track { @include sliderTrack; }
-    &::-moz-range-track { @include sliderTrack; }
-    &::-ms-track { @include sliderTrack; }
+    &::-webkit-slider-runnable-track {
+      @include sliderTrack;
+    }
+    &::-moz-range-track {
+      @include sliderTrack;
+    }
+    &::-ms-track {
+      @include sliderTrack;
+    }
     // thumb
-    &::-webkit-slider-thumb { -webkit-appearance: none; @include sliderThumb; }
-    &::-moz-range-thumb { @include sliderThumb; }
-    &::-ms-thumb { @include sliderThumb; }
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      @include sliderThumb;
+    }
+    &::-moz-range-thumb {
+      @include sliderThumb;
+    }
+    &::-ms-thumb {
+      @include sliderThumb;
+    }
     // focus
-    &:focus::-webkit-slider-thumb { box-shadow: variables.$focusBox; }
-    &:focus::-moz-range-thumb { box-shadow: variables.$focusBox; }
-    &:focus::-ms-thumb { box-shadow: variables.$focusBox; }
+    &:focus::-webkit-slider-thumb {
+      box-shadow: variables.$focusBox;
+    }
+    &:focus::-moz-range-thumb {
+      box-shadow: variables.$focusBox;
+    }
+    &:focus::-ms-thumb {
+      box-shadow: variables.$focusBox;
+    }
   }
 }

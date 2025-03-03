@@ -1,5 +1,5 @@
 // common
-@use "sass:color";
+@use 'sass:color';
 @use 'variables';
 @use 'reset';
 @use 'document';
@@ -11,6 +11,7 @@
 @use 'popover';
 @use 'type';
 @use 'icons';
+@use 'fonts';
 
 // app root
 .app-wrap {
@@ -47,7 +48,7 @@
     background-position: bottom right;
     background-repeat: no-repeat;
     background-size: cover;
-    opacity: .4;
+    opacity: 0.4;
     z-index: 1;
   }
   & > .player-canvas {
@@ -88,7 +89,9 @@
   .player-header {
     & > h2 {
       color: variables.$colorPrimary;
-      i { vertical-align: bottom; }
+      i {
+        vertical-align: bottom;
+      }
     }
   }
   .player-logo {
@@ -115,7 +118,9 @@
 // player greeting message
 .player-greet {
   flex: 1;
-  @media #{variables.$screenMedium} { flex: .5; }
+  @media #{variables.$screenMedium} {
+    flex: 0.5;
+  }
 }
 
 // player tracklist
@@ -192,9 +197,13 @@
         &:hover {
           background-color: rgba(black, 0);
         }
-        &:focus, &:active, &.active {
+        &:focus,
+        &:active,
+        &.active {
           background-color: color.adjust(variables.$colorDocumentDark, $lightness: -2%);
-          .player-stations-list-title { color: variables.$colorPrimary; }
+          .player-stations-list-title {
+            color: variables.$colorPrimary;
+          }
         }
       }
     }

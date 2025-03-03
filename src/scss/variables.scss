@@ -1,4 +1,4 @@
-@use "sass:color";
+@use 'sass:color';
 // spacing and padding
 $padSpace: 1em;
 $padSmall: calc($padSpace / 2);
@@ -9,7 +9,10 @@ $colorDocument: #8086a0;
 $colorDocumentDark: #1e1f30;
 $colorDocumentDarker: color.adjust($colorDocumentDark, $lightness: -10%);
 $colorDocumentLight: #a0a6b0;
-$colorDocumentText: color.adjust(color.adjust($colorDocumentDark, $lightness: 40%), $saturation: -5%);
+$colorDocumentText: color.adjust(
+  color.adjust($colorDocumentDark, $lightness: 40%),
+  $saturation: -5%
+);
 
 // common colors
 $colorPrimary: crimson;
@@ -42,8 +45,8 @@ $fontSpace: 1.4em;
 $fontWeight: 700;
 
 // focus effects
-$focusText: 0 0 12px rgba(darkorange, .5);
-$focusBox: 0 0 12px rgba(darkorange, .5);
+$focusText: 0 0 12px rgba(darkorange, 0.5);
+$focusBox: 0 0 12px rgba(darkorange, 0.5);
 
 // shadow styles
 $shadowContainer: 0 1px 30px rgba(black, 0.8);
@@ -52,10 +55,10 @@ $shadowPaper: 0 12px 15px rgba(0, 0, 0, 0.3);
 
 // transition props
 $fxSpeed: 400ms;
-$fxEase: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+$fxEase: cubic-bezier(0.215, 0.61, 0.355, 1);
 $fxSpeedOffset: calc(#{$fxSpeed} / 3);
 $fxSlideDist: 50px;
-$fxShrinkScale: .4;
+$fxShrinkScale: 0.4;
 $fxGrowScale: 1.4;
 $fxRotateAmount: 8deg;
 
@@ -65,9 +68,9 @@ $sizeMedium: 820px;
 $sizeLarge: 1200px;
 
 // screen breakpoints
-$screenSmall: "only screen and (min-width: #{$sizeSmall})";
-$screenMedium: "only screen and (min-width: #{$sizeMedium})";
-$screenLarge: "only screen and (min-width: #{$sizeLarge})";
+$screenSmall: 'only screen and (min-width: #{$sizeSmall})';
+$screenMedium: 'only screen and (min-width: #{$sizeMedium})';
+$screenLarge: 'only screen and (min-width: #{$sizeLarge})';
 
 // customized scrollbars
 @mixin customScrollbar {
@@ -86,4 +89,3 @@ $screenLarge: "only screen and (min-width: #{$sizeLarge})";
     border: 2px solid $scrollTrack;
   }
 }
-

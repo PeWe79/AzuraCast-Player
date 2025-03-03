@@ -1,8 +1,10 @@
-@use "sass:color";
+@use 'sass:color';
 @use 'variables';
 
 // page reset
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   margin: 0;
   padding: 0;
   border: 0;
@@ -19,26 +21,56 @@
 }
 
 // block types
-article, aside, details, figcaption, figure, footer, header, hgroup,
-menu, nav, section, main, summary, div, h1, h2, h3, h4, h5, h6, hr,
-p, ol, ul, form, img {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+main,
+summary,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+ol,
+ul,
+form,
+img {
   display: block;
 }
 
 // form elements
-input, textarea, select, optgroup, option, button {
+input,
+textarea,
+select,
+optgroup,
+option,
+button {
   font-family: inherit;
   font-size: inherit;
   font-weight: normal;
   line-height: inherit;
   color: inherit;
 }
-select, button {
+select,
+button {
   cursor: pointer;
 }
 
 // links
-a, .link {
+a,
+.link {
   color: variables.$colorSecondary;
   &:hover {
     color: color.adjust(variables.$colorSecondary, $lightness: 10%);

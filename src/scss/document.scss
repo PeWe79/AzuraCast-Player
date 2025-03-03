@@ -1,7 +1,8 @@
 @use 'variables';
 
 // document setup
-html, body {
+html,
+body {
   display: block;
   position: relative;
   max-width: 100vw;
@@ -19,10 +20,21 @@ body {
   color: variables.$colorDocumentText;
   background-size: cover;
   background-color: variables.$colorDocument;
-  background-image:
-    linear-gradient(217deg, rgba(variables.$colorPrimary, .8), rgba(variables.$colorPrimary, 0) 70.71%),
-    linear-gradient(127deg, rgba(variables.$colorDocument, 1), rgba(variables.$colorDocument, 0) 70.71%),
-    linear-gradient(336deg, rgba(variables.$colorSecondary, .8), rgba(variables.$colorSecondary, 0) 70.71%);
+  background-image: linear-gradient(
+      217deg,
+      rgba(variables.$colorPrimary, 0.8),
+      rgba(variables.$colorPrimary, 0) 70.71%
+    ),
+    linear-gradient(
+      127deg,
+      rgba(variables.$colorDocument, 1),
+      rgba(variables.$colorDocument, 0) 70.71%
+    ),
+    linear-gradient(
+      336deg,
+      rgba(variables.$colorSecondary, 0.8),
+      rgba(variables.$colorSecondary, 0) 70.71%
+    );
 
   @media #{variables.$screenSmall} {
     font-size: calc(#{variables.$fontSize} - 2px);
