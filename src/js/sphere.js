@@ -34,8 +34,7 @@ export default {
       shape.userData = { radius, cycle, pace, home }
       this.group.add(shape)
     }
-    this.touch =
-      'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0
+    this.touch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0
     this.group.position.set(40, 5, 0)
     this.group.rotation.x = Math.PI / 2 + 0.6
     scene.add(this.group)

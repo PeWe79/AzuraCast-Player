@@ -26,8 +26,7 @@ export default {
   getSongs(channel, callback) {
     const apiurl = channel.songsurl || ''
     const title = channel.name || '...'
-    const error =
-      'There was a problem loading the list of songs for channel ' + title + ' from AzuraCast.'
+    const error = 'There was a problem loading the list of songs for channel ' + title + ' from AzuraCast.'
 
     fetch(apiurl)
       .then((e) => e.json())
@@ -58,14 +57,7 @@ export default {
         c.updated = c.updated | 0
         c.favorite = false
         c.active = false
-        c.imgLogo =
-          config.apiBaseUrl +
-          '/static/uploads/' +
-          c.shortcode +
-          '/' +
-          'album_art.' +
-          randomNumber +
-          extension
+        c.imgLogo = config.apiBaseUrl + '/static/uploads/' + c.shortcode + '/' + 'album_art.' + randomNumber + extension
         output.push(c)
       }
     }

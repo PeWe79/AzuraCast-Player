@@ -391,9 +391,7 @@ const app = createApp({
 
     async getiTunes(t) {
       const track = t.text
-      const resp = await fetch(
-        `https://itunes.apple.com/search?limit=1&media=music&term=${encodeURIComponent(track)}`,
-      )
+      const resp = await fetch(`https://itunes.apple.com/search?limit=1&media=music&term=${encodeURIComponent(track)}`)
 
       if (resp.status === 403) {
         const results = {
@@ -419,9 +417,7 @@ const app = createApp({
         title: itunes.trackName || t.title,
         artist: itunes.artistName || t.artist,
         album: itunes.collectionName || t.album,
-        artworkUrl: itunes.artworkUrl100
-          ? itunes.artworkUrl100.replace('100x100', '512x512')
-          : t.art,
+        artworkUrl: itunes.artworkUrl100 ? itunes.artworkUrl100.replace('100x100', '512x512') : t.art,
       }
       return results
     },
