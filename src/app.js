@@ -557,7 +557,7 @@ const app = createApp({
       this.closeAudio()
       this.setError(
         'stream',
-        `The selected stream (${this.station.title}) could not load, or stopped loading due to network problems.`,
+        `The selected stream (${this.station.title}) could not load, or stopped loading due to network problems.`
       )
       this.playing = false
       this.loading = false
