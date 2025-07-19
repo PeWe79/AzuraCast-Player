@@ -372,13 +372,13 @@ const app = createApp({
         this.nowPlaying = np.now_playing
         this.nextSong = np.playing_next.song
         this.nextPlay = np.playing_next
-        document.title = np.now_playing.song.text
-        const historySong = np.song_history
+        this.songHistory = np.song_history
         this.clearError('np')
+        document.title = np.now_playing.song.text
 
         this.nowPlayingData(this.songNow)
         this.nextPlayingData(this.nextSong)
-        this.histPlayingData(historySong)
+        this.histPlayingData(this.songHistory)
       })
     },
 
@@ -433,8 +433,8 @@ const app = createApp({
     },
 
     async histPlayingData(t) {
-      this.songHistory = t.slice(0, 5)
-      this.songHistory.forEach(async (item, index) => {
+      const fetchSongHistory = t.slice(0, 5)
+      fetchSongHistory.forEach(async (item, index) => {
         const data = item.song
         await this.getDataFrom(data).then((item) => {
           if (!this.songHistoryCoverArt) {
