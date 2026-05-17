@@ -20,23 +20,23 @@
 		"url": "https://github.com/PeWe79/AzuraCast-Player-Main/issues"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.28.0",
-		"@babel/preset-env": "^7.28.0",
-		"autoprefixer": "^10.4.21",
-		"babel-loader": "^10.0.0",
+		"@babel/core": "^7.29.0",
+		"@babel/preset-env": "^7.29.5",
+		"autoprefixer": "^10.5.0",
+		"babel-loader": "^10.1.1",
 		"clean-css": "^5.3.3",
-		"css-loader": "^7.1.2",
-		"css-minimizer-webpack-plugin": "^7.0.2",
+		"css-loader": "^7.1.4",
+		"css-minimizer-webpack-plugin": "^7.0.4",
 		"mini-css-extract-plugin": "^2.9.2",
-		"postcss-loader": "^8.1.1",
-		"prettier": "^3.6.2",
-		"sass": "^1.89.2",
-		"sass-loader": "^16.0.5",
+		"postcss-loader": "^8.2.1",
+		"prettier": "^3.8.3",
+		"sass": "^1.99.0",
+		"sass-loader": "^16.0.8",
 		"style-loader": "^4.0.0",
-		"terser-webpack-plugin": "^5.3.14",
+		"terser-webpack-plugin": "^5.6.0",
 		"url-loader": "^4.1.1",
-		"webpack": "^5.100.2",
+		"webpack": "^5.106.2",
 		"webpack-cli": "^6.0.1",
-		"webpack-dev-server": "^5.2.2"
+		"webpack-dev-server": "^5.2.4"
 	}
 }
